@@ -46,12 +46,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary_storage',
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'django_summernote',
+    'cloudinary',
 ]
+
+
+#CLOUDINARY_STORAGE = {
+#    'CLOUDINARY_CLOUD_NAME': os.environ.get('CLOUD_NAME'),
+#    'CLOUDINARY_API_KEY': os.environ.get('API_KEY'),
+#    'CLOUDINARY_API_SECRET': os.environ.get('API_SECRET'),
+#}
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
@@ -81,7 +90,7 @@ ROOT_URLCONF = 'restaurants.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATES_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -111,6 +120,10 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.herokuapp.com"
+]
 
 
 # Password validation
@@ -151,6 +164,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 # Default primary key field type
