@@ -83,3 +83,19 @@ body {
   .account-heading {
     font-size: 2.5rem;
   }
+  
+  /*Profile styles*/
+  .profile-container {
+    display: flex; /* Make parent container a flexbox */
+    background-color: #fff;
+  }
+  
+  .profile-picture {
+    margin-right: 20px; /* Add margin between elements */
+  }
+  
+  .user-info {
+    flex: 1; /* Allow remaining space for user information */
+    align-items: flex-start;
+    float: right;
+  }
