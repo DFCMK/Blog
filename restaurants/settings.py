@@ -56,11 +56,11 @@ INSTALLED_APPS = [
 ]
 
 
-#CLOUDINARY_STORAGE = {
-#    'CLOUDINARY_CLOUD_NAME': os.environ.get('CLOUD_NAME'),
-#    'CLOUDINARY_API_KEY': os.environ.get('API_KEY'),
-#    'CLOUDINARY_API_SECRET': os.environ.get('API_SECRET'),
-#}
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_CLOUD_NAME': os.environ.get('CLOUDINARY_NAME'),
+    'CLOUDINARY_API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'CLOUDINARY_API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
+}
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
