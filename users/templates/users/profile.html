@@ -4,16 +4,23 @@
 {% block content %}
     <div class="profile-container">
         <div class="profile-picture">
-            {% if "placeholder" in user.profile_image.url %}
-                <img src="{% static 'images/nobody.jpg' %}" width="50%" alt="placeholder image">
+            {% if "placeholder" in profile.profile_image.url %}
+            <img src="{% static 'images/nobody.jpg' %}" width="100vw" alt="placeholder image">
             {% else %}
-                <img src="{{ profile.profile_image.url }}" alt="Profile Image">
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image">
             {% endif %}
-            </div>
+        </div>
         <div class="user-info">
             <h1>{{ user.username }} Profile</h1>
             <p>{{ user.email }}</p>
-            </div>
         </div>
+    </div>
+    {% if form %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Update Profile Image</button>
+    </form>
+    {% endif %}
 
 {% endblock content %}
