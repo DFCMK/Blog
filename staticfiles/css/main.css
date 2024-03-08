@@ -99,3 +99,8 @@ body {
     align-items: flex-start;
     float: right;
   }
+
+  .edit {
+    display: flex;
+    
+  }
