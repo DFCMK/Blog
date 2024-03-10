@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from .models import Profile
-
+from django.http import HttpResponseRedirect
 
 
 
@@ -26,7 +26,7 @@ def profile(request):
         profile = Profile.objects.get(user=request.user)
     except Profile.DoesNotExist:
         profile = Profile.objects.create(user=request.user)
-
+    
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
@@ -42,3 +42,30 @@ def profile(request):
     context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form}
         
     return render(request, 'users/profile.html', context)
+
+
+#@login_required
+#def delete_profile(request):
+#    profile = request.user.profile
+#
+#    if profile.user == request.user:
+#        profile.delete()
+#        messages.add_message(request, messages.SUCCESS, f'{request.user.username} deleted!')
+#
+#    else:
+#        messages.add_message(request, messages.ERROR, 'You can only delete your own Profile!')
+#    
+#    return HttpResponseRedirect(reverse('login'))
+
+
+@login_required
+def delete_profile(request):
+    try:
+        user = request.user
+        user.profile.delete()
+        user.delete()           
+        messages.success(request, "Your profile has been deleted successfully.")
+    except User.DoesNotExist:
+        messages.error(request, "The user does not exist.")
+    return redirect('blog-home')
+
