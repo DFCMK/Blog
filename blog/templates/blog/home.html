@@ -1,7 +1,17 @@
 {% extends "blog/base.html" %}
+{% load static %}
 {% block content %}
 {% for post in posts %}
 <article class="media content-section">
+    {% if post.author.profile.profile_image %}
+        {% if "placeholder" in post.author.profile.profile_image.url %}
+            <img src="{% static 'images/nobody.jpg' %}" width="100vw" alt="Placeholder Image">
+        {% else %}
+            <img src="{{ post.author.profile.profile_image.url }}" class="mr-3" alt="Profile Image">
+        {% endif %}
+    {% else %}
+        <img src="{% static 'images/nobody.jpg' %}" class="mr-3" alt="Default Profile Image">
+    {% endif %}
     <div class="media-body">
         <div class="article-metadata">
             <a class="mr-2" href="#">{{ post.author }}</a>
