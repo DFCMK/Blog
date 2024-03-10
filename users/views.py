@@ -44,20 +44,8 @@ def profile(request):
     return render(request, 'users/profile.html', context)
 
 
-#@login_required
-#def delete_profile(request):
-#    profile = request.user.profile
-#
-#    if profile.user == request.user:
-#        profile.delete()
-#        messages.add_message(request, messages.SUCCESS, f'{request.user.username} deleted!')
-#
-#    else:
-#        messages.add_message(request, messages.ERROR, 'You can only delete your own Profile!')
-#    
-#    return HttpResponseRedirect(reverse('login'))
 
-
+# Stack Overflow: https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
 @login_required
 def delete_profile(request):
     try:
