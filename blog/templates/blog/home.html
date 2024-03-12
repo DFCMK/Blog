@@ -5,9 +5,9 @@
 <article class="media content-section">
     {% if post.author.profile.profile_image %}
         {% if "placeholder" in post.author.profile.profile_image.url %}
-            <img src="{% static 'images/nobody.jpg' %}" width="100vw" alt="Placeholder Image">
+            <img class="rounded-circle" src="{% static 'images/nobody.jpg' %}" width="100vw" alt="Placeholder Image">
         {% else %}
-            <img src="{{ post.author.profile.profile_image.url }}" class="mr-3" alt="Profile Image">
+            <img src="{{ post.author.profile.profile_image.url }}" width="100vw" class="mr-3" alt="Profile Image">
         {% endif %}
     {% else %}
         <img src="{% static 'images/nobody.jpg' %}" class="mr-3" alt="Default Profile Image">
@@ -17,8 +17,8 @@
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
         </div>
-        <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
+        <h2><a class="article-title" href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+        <p class="article-content">{{ post.content|safe }}</p>
     </div>
 </article>
 {% endfor %}
