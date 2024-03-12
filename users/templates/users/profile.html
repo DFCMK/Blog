@@ -5,9 +5,9 @@
 <div class="profile-container">
     <div class="profile-picture">
         {% if "placeholder" in profile.profile_image.url %}
-        <img src="{% static 'images/nobody.jpg' %}" width="100vw" alt="placeholder image">
+        <img class="rounded-circle" src="{% static 'images/nobody.jpg' %}" width="100vw" alt="placeholder image">
         {% else %}
-        <img src="{{ profile.profile_image.url }}" alt="Profile Image">
+        <img src="{{ profile.profile_image.url }}" width="100vw" alt="Profile Image">
         {% endif %}
     </div>
     <div class="user-info">
