@@ -1,26 +1,55 @@
 {% extends "blog/base.html" %}
 {% load static %}
-{% block content %}
 
-{% for post in posts %}
-<article class="media content-section">
-    <div class="media-body">
-        <div class="image-container">
+{% block content %}
+<div class="container-fluid"> 
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-md-4">
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="image-container">
             {% if "placeholder" in post.featured_image.url %}
-            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}"
-              alt="placeholder image" width="100vw">
+            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
             {% else %}
-            <img class="card-img-top" src=" {{ post.featured_image.url }}"
-              alt="{{ post.title }}">
+            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%;">
             {% endif %}
-        </div>
-        <div class="article-metadata">
+          </div>
+          <div class="article-metadata">
             <a class="mr-2" href="#">{{ post.author }}</a>
             <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content|safe }}</p>
         </div>
-        <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content|safe }}</p>
+      </article>
     </div>
-</article>
-{% endfor %}
+    {% endfor %}
+  </div>
+  
+  <div class="row">
+    {% if forloop.counter > 3 %}
+    <div class="col-md-4">
+      <article class="media content-section">
+        <div class="media-body">
+          <div class="image-container">
+            {% if "placeholder" in post.featured_image.url %}
+            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
+            {% else %}
+            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%;">
+            {% endif %}
+          </div>
+          <div class="article-metadata">
+            <a class="mr-2" href="#">{{ post.author }}</a>
+            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+          <p class="article-content">{{ post.content|safe }}</p>
+        </div>
+      </article>
+    </div>
+    {% endif %}
+  </div>
+  
+</div>
 {% endblock %}
