@@ -30,6 +30,7 @@ body {
   }
   
   .content-section {
+    width: fit-content;
     background: #ffffff;
     padding: 10px 20px;
     border: 1px solid #dddddd;
@@ -100,10 +101,10 @@ body {
     float: right;
   }
 
-  .background {
+  /*#bg {
     height: 100vh;
     width: 100%;
-    background-image: url('static/images/jonathan-borba-uB7q7aipU2o-unsplash.jpg') center center/cover;
+    background-image: url("{% static 'images/jonathan-borba-uB7q7aipU2o-unsplash.jpg' %}") no-repeat center center/cover;
     background-color: rgba(0, 1, 5, 1);
     position: relative;
     top: 0;
@@ -111,4 +112,80 @@ body {
     right: 0;
     bottom: 0;
     margin-bottom: -30px;
-  }
+  }*/
+
+  /*CSS rules from walk threw related to post_detail.html*/
+
+/*.container {
+  display: flex;
+  width: 50vw;
+  height: 50vh;
+}
+
+.scale {
+  height: auto;
+}
+
+.masthead {
+  margin-top: 10px;
+  position: relative;
+}
+
+.masthead-text {
+  flex: 1;
+  background-color: #445261;
+  color: white;
+  position: relative;
+}
+
+.masthead-image {
+  position: relative;
+
+}
+
+
+.masthead-image:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 90%;
+    height: 100%;
+    width: 150%;
+    background: #445261;
+    -webkit-transform: skew(15deg);
+    -moz-transform: skew(15deg);
+    transform: skew(15deg);
+    z-index: 100;
+}*/
+
+.image-container img {
+  display: block;
+  width: 25vw;
+  height: auto;
+}
+
+.content-section {
+  flex: 1
+}
+
+.post-link {
+    text-decoration: none;
+    color: #445261;
+}
+
+.post-link:hover,
+.page-link {
+    color: #E84610;
+}
+
+.post-title {
+    margin-top: 10%;
+    margin-left: 5%;
+}
+
+.post-subtitle {
+    margin-left: 5%;
+    color: lightgray;
+}
+
+/* End of walk threw css rules */
