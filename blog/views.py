@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
+from .forms import CreateNewPostForm
 from .models import Post
 
-
+#Tutorial based
 def home(request):
     context = { 'posts': Post.objects.all() }
     return render(request, 'blog/home.html', context)
@@ -13,19 +14,20 @@ class PostListView(ListView):
     template_name = 'blog/home.html'
     context_object_name = 'posts'
     ordering = ['-date_posted']
+    paginate_by = 6
 
 
+# Based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
 def post_detail(request, slug):
     """
     Function-based view to display a specific post based on its slug and primary key.
     """
 
     try:
-        # Attempt to retrieve the post object based on slug and pk
         post = get_object_or_404(Post, slug=slug)
+       # post.generate_excerpt()
     except Post.DoesNotExist:
-        # Handle the case where the post does not exist
-        return render(request, '404.html', status=404)  # Render a 404 page
+        return render(request, '404.html', status=404)
 
     context = {
         'post': post,
@@ -77,6 +79,17 @@ def post_detail(request, slug):
 #        },
 #    )
 
+
+# Based on users/views.py profile
+def create_new_post(request):
+    if request.method == 'POST':
+        form = CreateNewPostForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    else:
+        form = CreateNewPostForm()
+    return render(request, 'blog/create.html', {'form': form})
 
 
 def about(request):
