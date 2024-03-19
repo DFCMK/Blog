@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show form when "New Post" button is clicked
     document.getElementById('new-post-btn').addEventListener('click', function() {
         document.getElementById('form-container').style.display = 'block';
-        document.getElementsByClassName('card-body').style.display = 'none'; // hide New Post container when form is opened
+        document.getElementById('new-post-container').style.display = 'none'; // hide New Post container when form is opened
         document.getElementById('page-title').style.color = 'white'; // THIS HAVE TO BE ADJUSTED TO CHANGE ALL HEADING COLORS WHEN FORM TRIGGERED!!!
     });
 
