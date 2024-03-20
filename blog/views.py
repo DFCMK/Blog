@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
 from .forms import CreateNewPostForm
+from django.contrib import messages
 from .models import Post
 
 #Tutorial based
@@ -81,15 +83,36 @@ def post_detail(request, slug):
 
 
 # Based on users/views.py profile
+#def create_new_post(request):
+#    if request.method == 'POST':
+#        form = CreateNewPostForm(request.POST, request.FILES)
+#        if form.is_valid():
+#            post = form.save(commit=False)
+#            post.author = request.user
+#            post.save()
+#            return redirect('blog-home')
+#    else:
+#        form = CreateNewPostForm()
+#    return render(request, 'blog/create.html', {'form': form})
+
+
+
+# Based on users/profile view
+@login_required
 def create_new_post(request):
-    if request.method == 'POST':
-        form = CreateNewPostForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/')
-    else:
-        form = CreateNewPostForm()
-    return render(request, 'blog/create.html', {'form': form})
+        if request.method == 'POST':
+            form = CreateNewPostForm(request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = request.user
+                post.save()
+                messages.success(request, 'Your post was successfully submitted!')
+                return redirect('blog-home')
+            else:
+                messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+        else:
+            form = CreateNewPostForm()
+        return render(request, 'blog/create.html', {'form': form})
 
 
 def about(request):
