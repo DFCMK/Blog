@@ -14,7 +14,7 @@
                 <p class="post-subtitle">{{ post.author }} | {{ post.date_posted }}</p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
-                <img src="{% static 'images/default.jpg' %}" class="scale" alt="placeholder">
+                <img src="{% static 'images/masthead-image.jpg' %}" class="scale" alt="placeholder">
             </div>
         </div>
     </div>
@@ -27,11 +27,24 @@
                 <!-- The post content goes inside the card-text. -->
                 <!-- Use the | safe filter inside the template tags -->
                 <p class="card-text">
-                    {{ post.content | safe }}
+                    {{ post.content|safe }}
                 </p>
             </div>
         </div>
     </div>
+    
+
+    <!--Update Blog Post-->
+    {% if user.is_authenticated and user == post.author %}
+    <button class="btn btn-primary" id="edit-button">Edit</button>
+    <div id="edit-form" style="display: none;">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ post_update_form|crispy }}
+            <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+    </div>
+{% endif %}
 
     <!-- Displaying count of comments -->
     <div class="row">
