@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Create New Post
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     // Show form when "New Post" button is clicked
     document.getElementById('new-post-btn').addEventListener('click', function() {
         document.getElementById('form-container').style.display = 'block';
@@ -58,10 +58,50 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Change the color of the page title to white when the window is loaded
-    changeTitleColor();
+    window.addEventListener('load', changePageTitleColor);
 
     // Change the color of the page title to white
-    function changeTitleColor() {
+    function changePageTitleColor() {
         document.getElementById('page-title').style.color = 'white';// THIS ISN'T OPTIMAL NETHER, ADJUST IT TO CHANGE ALL HEADING COLORS WITHIN THE FORM!!!!
+        document.getElementById('id_title').style.color = 'white';
+        document.getElementById('id_content').style.color = 'white';
+        document.getElementById('id_excerpt').style.color = 'white';
     }
+});*/
+
+// Create New Post
+document.addEventListener('DOMContentLoaded', function() {
+    // Show form
+    document.getElementById('new-post-btn').addEventListener('click', function() {
+        document.getElementById('form-container').style.display = 'block';
+        document.getElementById('new-post-container').style.display = 'none'; 
+        changeLabelColor('white', 'bold'); 
+    });
+
+    // Change the color of label titles
+    function changeLabelColor(color, fontWeight) {
+        const labels = document.querySelectorAll('label[for]');
+        labels.forEach(label => {
+            const inputId = label.getAttribute('for');
+            const input = document.getElementById(inputId);
+            if (input) {
+                label.style.color = color;
+                label.style.fontWeight = fontWeight;
+            }
+        });
+    }
+});
+
+
+
+// Handel Slug Field in CreateNewPostForm
+document.addEventListener('DOMContentLoaded', function() {
+    const titleInput = document.getElementById('id_title');
+    const slugInput = document.getElementById('id_slug');
+
+    titleInput.addEventListener('input', function() {
+        const title = titleInput.value;
+        const slug = title.toLowerCase().replace(/\s+/g, '-').slice(0, 50);
+        slugInput.value = slug;
+    });
 });
