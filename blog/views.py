@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from .forms import CreateNewPostForm
+from .forms import CreateNewPostForm #FeaturedImageForm
 from django.contrib import messages
 from .models import Post
 
@@ -98,24 +98,46 @@ def post_detail(request, slug):
 
 
 # Based on users/profile view
+#@login_required
+#def create_new_post(request):
+#        if request.method == 'POST':
+#            post_form = CreateNewPostForm(request.POST, instance=request.user)
+#            #image_form = FeaturedImageForm(request.POST, request.FILES)
+#            if post_form.is_valid(): #and image_form.is_valid():
+#                #post = post_form.save(commit=False)
+#                author = request.user
+#                post_form.save()
+#                #image_form.save()
+#                messages.success(request, 'Your post was successfully submitted!')
+#                return redirect('blog-home')
+#            else:
+#                messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+#        else:
+#            post_form = CreateNewPostForm(instance=request.user)
+#            #image_form = FeaturedImageForm(instance=Post)
+#
+#        context = {'post_form': post_form}
+#        return render(request, 'blog/create.html', context)
+
+
+# Based users/views.py profile
 @login_required
 def create_new_post(request):
-        if request.method == 'POST':
-            form = CreateNewPostForm(request.POST)
-            if form.is_valid():
-                post = form.save(commit=False)
-                post.author = request.user
-                post.save()
-                messages.success(request, 'Your post was successfully submitted!')
-                return redirect('blog-home')
-            else:
-                messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+    if request.method == 'POST':
+        post_form = CreateNewPostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=True)
+            messages.success(request, 'Your post was successfully submitted!')
+            return redirect('blog-home')
         else:
-            form = CreateNewPostForm()
-        return render(request, 'blog/create.html', {'form': form})
+            messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+    else:
+        post_form = CreateNewPostForm()
+    
+    context = {'post_form': post_form}
+    return render(request, 'blog/create.html', context)
+
 
 
 def about(request):
         return render(request, 'blog/about.html', {'title': 'About'})
-
-
