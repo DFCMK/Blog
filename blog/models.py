@@ -11,7 +11,9 @@ STATUS = ((0, "Draft"), (1, "Published"))
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    featured_image = CloudinaryField('post_image', default='placeholder')
+    featured_image = CloudinaryField('post_image', default='placeholder', transformation=[
+  {'width': 200, 'height': 150, 'crop': "fill", 'effect': "sharpen:200"},
+  ])
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -23,7 +25,11 @@ class Post(models.Model):
         return self.title
 
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #    if not self.slug:
+    #        self.slug = slugify(self.title)
+        #self.generate_excerpt()
+    #    super().save(*args, **kwargs)
+
+    #def generate_excerpt(self):
+        #self.excerpt = Truncator(self.content).chars(200)
