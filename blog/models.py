@@ -25,11 +25,7 @@ class Post(models.Model):
         return self.title
 
 
-    #def save(self, *args, **kwargs):
-    #    if not self.slug:
-    #        self.slug = slugify(self.title)
-        #self.generate_excerpt()
-    #    super().save(*args, **kwargs)
-
-    #def generate_excerpt(self):
-        #self.excerpt = Truncator(self.content).chars(200)
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
