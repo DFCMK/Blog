@@ -105,3 +105,23 @@ document.addEventListener('DOMContentLoaded', function() {
         slugInput.value = slug;
     });
 });
+
+
+// Update Blog Post
+document.addEventListener('DOMContentLoaded', function() {
+    const editButton = document.getElementById('edit-button');
+    const editForm = document.getElementById('edit-form');
+    const cancelButton = document.getElementById('cancel-button');
+
+    if (editButton && editForm && cancelButton) {
+        editButton.addEventListener('click', function() {
+            editForm.style.display = 'block';
+            editButton.style.display = 'none';
+        });
+
+        cancelButton.addEventListener('click', function() {
+            editForm.style.display = 'none';
+            editButton.style.display = 'block';
+        });
+    }
+});
