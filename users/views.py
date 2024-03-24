@@ -6,7 +6,7 @@ from .models import Profile
 from django.http import HttpResponseRedirect
 
 
-
+#tutorial based
 def register(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
@@ -19,7 +19,7 @@ def register(request):
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
 
-
+# tutorial based
 @login_required
 def profile(request):
     try:
@@ -45,7 +45,7 @@ def profile(request):
 
 
 
-# Stack Overflow: https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
+# Based on Stack Overflow: https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
 @login_required
 def delete_profile(request):
     try:
@@ -56,4 +56,3 @@ def delete_profile(request):
     except User.DoesNotExist:
         messages.error(request, "The user does not exist.")
     return redirect('blog-home')
-
