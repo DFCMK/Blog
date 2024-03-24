@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
-from .forms import CreateNewPostForm #FeaturedImageForm
+from .forms import CreateNewPostForm, PostUpdateForm
 from django.contrib import messages
 from .models import Post
 
@@ -138,6 +138,28 @@ def create_new_post(request):
     return render(request, 'blog/create.html', context)
 
 
+# Refactorated create_new_post view
+@login_required
+def update_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    if request.user != post.author:
+        messages.error(request, 'You are not authorized to edit this post.')
+        return redirect('post-detail', slug=slug)
+
+    if request.method == 'POST':
+        post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
+        if post_form.is_valid():
+            post_form.save()
+            messages.success(request, 'Post updated successfully.')
+            return redirect('post_detail', slug=slug)
+        else:
+            messages.error(request, 'There was an error updating your post. Please check the form and try again.')
+    else:
+        post_form = PostUpdateForm(instance=post)
+    
+    context = {'post_form': post_form, 'slug':slug}
+    return render(request, 'blog/update_post.html', context)
 
 def about(request):
         return render(request, 'blog/about.html', {'title': 'About'})
