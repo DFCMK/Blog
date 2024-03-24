@@ -12,7 +12,7 @@
             {% if "placeholder" in post.featured_image.url %}
             <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
             {% else %}
-            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%;">
+            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="Featured Image" style="width: 100%;">
             {% endif %}
           </div>
           <div class="article-metadata">
@@ -33,7 +33,7 @@
       <article class="media content-section">
         <div class="media-body">
           <div class="image-container">
-            {% if "placeholder" in post.featured_image.url %}
+            {% if post.featured_image == "placeholder" %}
             <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
             {% else %}
             <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%;">
@@ -62,5 +62,4 @@
       </ul>
   </nav>
   {% endif %}
-</div>
 {% endblock %}
