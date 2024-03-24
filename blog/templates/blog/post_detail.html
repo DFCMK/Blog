@@ -40,16 +40,22 @@
 
     <!--Update Blog Post-->
     {% if user.is_authenticated and user == post.author %}
-    <button class="btn btn-primary" id="edit-button">Edit</button>
-    <a href="{% url 'new_post' post.slug %}"></a>
-    <div id="edit-form" style="display: none;">
+    <form method="GET" action="{% url 'update_post' post.slug %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+{% endif %}
+    <!--<button class="btn btn-primary" id="edit-button">Edit</button>
+    <a href="{% url 'update_post' post.slug %}"></a>
+    <div id="edit-form-container" style="display: none;">
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ post_update_form|crispy }}
+            {{ post_form|crispy }}
             <button class="btn btn-primary" type="submit">Update</button>
+            <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
         </form>
-    </div>
-{% endif %}
+    </div>-->
+
 
     <!-- Displaying count of comments -->
     <div class="row">
