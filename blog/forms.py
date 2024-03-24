@@ -16,3 +16,8 @@ class CreateNewPostForm(forms.ModelForm):
                 instance.save()
         return instance
 
+
+class PostUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image']
