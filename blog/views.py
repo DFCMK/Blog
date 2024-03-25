@@ -138,7 +138,7 @@ def create_new_post(request):
     return render(request, 'blog/create.html', context)
 
 
-# Refactorated create_new_post view
+# Based on create_new_post view
 @login_required
 def update_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -160,6 +160,26 @@ def update_post(request, slug):
     
     context = {'post_form': post_form, 'slug':slug}
     return render(request, 'blog/update_post.html', context)
+
+
+# Based on update_post view
+@login_required
+def delete_post(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    if request.user != post.author:
+        messages.error(request, 'You are not authorized to delete this post!')
+    else:
+        post.delete()
+        messages.success(request, 'Post deleted successfully!')
+
+    context = {'post':post, 'slug':slug}
+    return render(request, 'blog/post_detail.html', context)
+
+
+
+
+
 
 def about(request):
         return render(request, 'blog/about.html', {'title': 'About'})
