@@ -53,16 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // Update Blog Post
-
-    /*if (editButton) {
-        editButton.addEventListener('click', function() {
-            // Get the post slug
-            const postSlug = '{{ post.slug }}';
-            // Redirect to the update_post page with the post slug
-            window.location.href = `/update_post/`;
-        });
-    }*/
-
     if (editButton && editFormContainer && cancelButton) {
         editButton.addEventListener('click', function() {
             editFormContainer.style.display = 'block';
@@ -85,4 +75,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#deletePostModal .modal-footer .btn-secondary').addEventListener('click', function() {
         document.getElementById('deletePostModal').style.display = 'none';
     });
+
 });
