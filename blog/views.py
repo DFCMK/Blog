@@ -159,7 +159,7 @@ def update_post(request, slug):
         post_form = PostUpdateForm(instance=post)
     
     context = {'post_form': post_form, 'slug':slug}
-    return render(request, 'blog/update_post.html', context)
+    return redirect('blog-home')
 
 
 # Based on update_post view
@@ -173,8 +173,7 @@ def delete_post(request, slug):
         post.delete()
         messages.success(request, 'Post deleted successfully!')
 
-    context = {'post':post, 'slug':slug}
-    return render(request, 'blog/post_detail.html', context)
+    return redirect('blog-home')
 
 
 
