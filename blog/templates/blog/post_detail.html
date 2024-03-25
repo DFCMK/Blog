@@ -1,4 +1,4 @@
-{% extends 'blog/base.html' %} 
+{% extends 'blog/base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
@@ -14,11 +14,11 @@
                 <p class="post-subtitle">{{ post.author }} | {{ post.date_posted }}</p>
             </div>
             <div class="d-none d-md-block col-md-6 masthead-image">
-            {% if "placeholder" in post.featured_image.url %}
-            <img src="{% static 'images/masthead-image.jpg' %}" class="scale" alt="placeholder">
-            {% else %}
-            <img src="{{ post.featured_image.url }}" class="scale" alt="Featured Image">
-            {% endif %}
+                {% if "placeholder" in post.featured_image.url %}
+                <img src="{% static 'images/masthead-image.jpg' %}" class="scale" alt="placeholder">
+                {% else %}
+                <img src="{{ post.featured_image.url }}" class="scale" alt="Featured Image">
+                {% endif %}
             </div>
         </div>
     </div>
@@ -36,26 +36,44 @@
             </div>
         </div>
     </div>
-    
+
 
     <!--Update Blog Post-->
     {% if user.is_authenticated and user == post.author %}
     <form method="GET" action="{% url 'update_post' post.slug %}">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary">Edit</button>
+        <!-- Button trigger modal-->
+        <button type="button" class="btn btn-danger" id="delete-post-button" data-toggle="modal"
+            data-target="#deletePostModal">Delete</button>
     </form>
-{% endif %}
-    <!--<button class="btn btn-primary" id="edit-button">Edit</button>
-    <a href="{% url 'update_post' post.slug %}"></a>
-    <div id="edit-form-container" style="display: none;">
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ post_form|crispy }}
-            <button class="btn btn-primary" type="submit">Update</button>
-            <button type="button" class="btn btn-danger" id="cancel-button">Cancel</button>
-        </form>
-    </div>-->
+    {% endif %}
 
+    <div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePostModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deletePostModalLabel">Delete {{ user.post }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the Post {{ post.title }}?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'delete_post' slug=post.slug %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Displaying count of comments -->
     <div class="row">
@@ -116,27 +134,27 @@
         </div>
     </div>
 
-<!-- Delete confirmation modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to delete your comment? This action cannot be undone.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+    <!-- Delete confirmation modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Delete comment?</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete your comment? This action cannot be undone.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <a id="deleteConfirm" href="#" class="btn btn-danger">Delete</a>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{% endblock content %}
+    {% endblock content %}
 
-{% block extras %}
-<script src="{% static 'js/comments.js' %}"></script>
-{% endblock %}
+    {% block extras %}
+    <script src="{% static 'js/comments.js' %}"></script>
+    {% endblock %}
