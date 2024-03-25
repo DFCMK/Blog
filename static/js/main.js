@@ -1,4 +1,4 @@
-/*document.addEventListener('DOMContentLoaded', function() {*/
+document.addEventListener('DOMContentLoaded', function() {
     const formContainer = document.getElementById('form-container');
     const postDetailTitles = document.getElementsByClassName('post-title');
     const newPostBtn = document.getElementById('new-post-btn');
@@ -74,4 +74,15 @@
             editButton.style.display = 'block';
         });
     }
-/*});*/
+
+    // Trigger Deletion button of Post Modal
+    // Show modal when delete button is clicked
+    document.getElementById('delete-post-button').addEventListener('click', function() {
+        document.getElementById('deletePostModal').style.display = 'block';
+    });
+
+    // Hide modal when cancel button is clicked
+    document.querySelector('#deletePostModal .modal-footer .btn-secondary').addEventListener('click', function() {
+        document.getElementById('deletePostModal').style.display = 'none';
+    });
+});
