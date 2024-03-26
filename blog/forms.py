@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Comment
 
 
 class CreateNewPostForm(forms.ModelForm):
@@ -21,3 +21,10 @@ class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'slug', 'content', 'excerpt', 'featured_image']
+
+
+# Based on Djangocentral: https://djangocentral.com/creating-comments-system-with-django/
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('body',)
