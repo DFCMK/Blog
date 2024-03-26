@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
-
+# Based on CI walk threw
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
@@ -29,3 +29,27 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
+
+
+# Based on Post model
+class Comment(models.Model):
+    post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
+    body = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    approved = models.TextField()
+    approved = models.BooleanField(default=False)
+    date_posted = models.DateTimeField(auto_now_add=True)
+
+    #def approve(self):
+    #    self.approved = True
+    #    self.save()
+
+    #def __str__(self):
+    #    return self.body
+
+    def __str__(self):
+        return f"Comment {self.body} by {self.author}"
+
+    class Meta:
+        ordering = ["-date_posted"]
