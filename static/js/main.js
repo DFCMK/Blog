@@ -75,5 +75,4 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#deletePostModal .modal-footer .btn-secondary').addEventListener('click', function() {
         document.getElementById('deletePostModal').style.display = 'none';
     });
-
 });
