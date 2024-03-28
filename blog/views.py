@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden
 from django.urls import reverse
 from django.views.generic import ListView
 from .forms import CreateNewPostForm, PostUpdateForm, CommentForm
 from django.contrib import messages
-from .models import Post
+from .models import Post, Comment
 
 #Tutorial based
 def home(request):
@@ -68,7 +69,7 @@ class PostListView(ListView):
     #return render(request, 'blog/post_detail.html', context)
 
 
-# CI Walkthrew view
+# Based on CI Walkthrew view
 def post_detail(request, slug):
     """
     Display an individual :model:`blog.Post`.
@@ -167,9 +168,43 @@ def delete_post(request, slug):
 
     return redirect('blog-home')
 
+# Based on CI walk threw
+@login_required
+def edit_comment(request, comment_id, slug):
+    post = get_object_or_404(Post, slug=slug)
+    #comment_form = CommentForm(data=request.POST, instance=comment)
+    comments = get_object_or_404(Comment, pk=comment_id)
+    if request.method == "POST":
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.author = request.user
+            comment.post = post
+            comment.approved = False
+            comment.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Comment Updated!')
+    else:
+        messages.add_message(request, messages.ERROR, 'Error updating comment')
+
+    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
+# Based on CI walk threw
+def delete_comment(request, slug, comment_id):
+    if request.method == 'POST':
+        post = get_object_or_404(Post, slug=slug)
+        comment = get_object_or_404(Comment, pk=comment_id)
+        if request.user == comment.author:
+            comment.delete()
+            messages.success(request, 'Comment deleted successfully!')
+        else:
+            messages.error(request, 'You can only delete your own comments!')
+    else: 
+        messages.error(request, 'Invalid request method!')
 
+    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
 def about(request):
