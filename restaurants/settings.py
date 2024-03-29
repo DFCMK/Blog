@@ -21,20 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
 # Retrieve the DATABASE_URL environment variable
-DATABASE_URL = os.environ.get("DATABASE_URL")
+ DATABASE_URL = os.environ.get("DATABASE_URL")
 
-
-# Parse the DATABASE_URL to get the database configuration
-if DATABASE_URL:
-    DATABASES = {'default': dj_database_url.parse(DATABASE_URL)}
-else:
-    # Provide a default database configuration if DATABASE_URL is not set
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
