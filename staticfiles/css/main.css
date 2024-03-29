@@ -114,6 +114,7 @@ body {
     right: 0;
     bottom: 0;
     margin-bottom: -30px;
+    overflow: scroll;
   }
 
   /*CSS rules from walk threw related to post_detail.html*/
@@ -149,6 +150,23 @@ body {
 .card {
     border: none;
     background-color: transparent;
+}
+
+.comment-display,
+.comment-creation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.comment-display {
+  max-height: 500px;
+  overflow-y: auto; /* Add vertical scroll if content exceeds max height */
+}
+
+.comment-container {
+  max-height: 500px;
+  overflow-y: auto;
 }
 
 .card-body {
@@ -214,8 +232,6 @@ body {
     transform: skew(15deg);
     z-index: 100;
 }
-
-
 
 .post-link {
     text-decoration: none;
@@ -290,4 +306,12 @@ body {
 
 .create-post {
   color: white;
+}
+
+
+@media (min-width: 768px) {
+  .row {
+      display: flex;
+      flex-wrap: wrap;
+  }
 }
