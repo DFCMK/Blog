@@ -23,6 +23,13 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Retrieve the DATABASE_URL environment variable
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
+# Set a fallback database configuration if DATABASE_URL is not set
+if not DATABASES['default']:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
