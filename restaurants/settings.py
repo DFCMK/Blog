@@ -20,20 +20,6 @@ if os.path.isfile('env.py'):
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
-# Retrieve the DATABASE_URL environment variable
-DATABASE_URL = os.environ.get("DATABASE_URL")
-
-# Initialize DATABASES if it's not already initialized
-if 'default' not in DATABASES:
-    DATABASES = {}
-
-# Set a fallback database configuration if DATABASE_URL is not set
-if not DATABASES['default']:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -132,10 +118,25 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 #    }
 #}
 
+# Initialize DATABASES
+DATABASES = {}
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+# Retrieve the DATABASE_URL environment variable
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+# Set a fallback database configuration if DATABASE_URL is not set
+if not DATABASE_URL:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+else:
+    DATABASES['default'] = dj_database_url.parse(DATABASE_URL)
+
+
+#DATABASES = {
+#    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#}
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.herokuapp.com"
