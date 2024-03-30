@@ -23,6 +23,10 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 # Retrieve the DATABASE_URL environment variable
 DATABASE_URL = os.environ.get("DATABASE_URL")
 
+# Initialize DATABASES if it's not already initialized
+if 'default' not in DATABASES:
+    DATABASES = {}
+
 # Set a fallback database configuration if DATABASE_URL is not set
 if not DATABASES['default']:
     DATABASES['default'] = {
