@@ -122,7 +122,7 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 DATABASES = {}
 
 # Retrieve the DATABASE_URL environment variable
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("SECRET_KEY")
 
 # Set a fallback database configuration if DATABASE_URL is not set
 if not DATABASE_URL:
