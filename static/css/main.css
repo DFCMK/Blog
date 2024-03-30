@@ -104,7 +104,6 @@ body {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    /*background: url("{% static 'images/gary-scott-AILX_GZjrzw-unsplash.jpg' %}");*/
     background-color: rgba(0, 1, 5, 1);
     position: relative;
     top: 0;
