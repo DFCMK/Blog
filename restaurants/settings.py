@@ -38,7 +38,7 @@ ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
 INSTALLED_APPS = [
     'blog.apps.BlogConfig',
-    #'users.apps.UsersConfig',
+    'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap4',
     'django.contrib.admin',
