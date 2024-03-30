@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from users import views as user_views
-#from blog import views as blog_views
 
 urlpatterns = [
     path("accounts/", include("allauth.urls")),
@@ -26,7 +25,6 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
     path('profile/', user_views.profile, name='profile'),
     path('delete/', user_views.delete_profile, name='delete'),
-    #path('update/<slug:slug>/', blog_views.update_post, name='update_post'),
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
