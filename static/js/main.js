@@ -11,11 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const editFormContainer = document.getElementById('edit-form-container');
     const cancelButton = document.getElementById('cancel-button');
 
-    // Edit Comment Button
-    /*const editButtons = document.getElementsByClassName("edit-comment");
-    const commentText = document.getElementById("id_body");
-    const commentForm = document.getElementById("commentForm");
-    const submitButton = document.getElementById("submitButton");*/
 
     function changeTitleColor() {
 
@@ -101,20 +96,4 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#delete-comment-form').style.display = 'block';
         });
     });
-
-    // Edit Comment / Toggle Edit button
-   /* for (let button of editButtons) {
-        button.addEventListener("click", (e) => {
-            // Get the comment ID and content
-            let commentId = e.target.getAttribute("comment_id");
-            let commentContent = document.getElementById(`comment${commentId}`).innerText;
-            
-            // Update the form fields and button text
-            commentText.value = commentContent;
-            submitButton.innerText = "Update";
-            
-            // Update the form action to include comment ID
-            commentForm.setAttribute("action", `edit_comment/${commentId}`);
-        });
-    }*/
 });
