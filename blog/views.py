@@ -152,8 +152,7 @@ def update_post(request, slug):
         post_form = PostUpdateForm(instance=post)
     
     context = {'post_form': post_form, 'slug':slug}
-    return redirect('blog-home')
-
+    return render(request, 'blog/update_post.html', context)
 
 # Based on update_post view
 @login_required
