@@ -143,9 +143,11 @@ def update_post(request, slug):
     if request.method == 'POST':
         post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
-            post_form.save()
+            post = post_form.save()
+            post.update_slug()  # Update slug after saving the form
+            post_form.save()  # Save the updated slug
             messages.success(request, 'Post updated successfully.')
-            return redirect('post_detail', slug=slug)
+            return redirect('post_detail', slug=post.slug) 
         else:
             messages.error(request, 'There was an error updating your post. Please check the form and try again.')
     else:
