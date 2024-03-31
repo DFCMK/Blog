@@ -21,14 +21,29 @@ class Post(models.Model):
     excerpt = models.TextField(blank=True)
 
 
-    def __str__(self):
-        return self.title
-
+    #def __str__(self):
+    #    return self.title
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
+        if not self.slug or self.title_changed():
+            self.slug = self.generate_slug()
         super().save(*args, **kwargs)
+
+    def title_changed(self):
+        if self.pk:
+            old_post = Post.objects.get(pk=self.pk)
+            return self.title != old_post.title
+        return False
+
+    def generate_slug(self):
+        return slugify(self.title)
+
+    def update_slug(self):
+        """
+        Updates the slug based on the current title.
+        """
+        self.slug = self.generate_slug()
+        self.save(update_fields=['slug'])
 
 
 # Based on Post model
