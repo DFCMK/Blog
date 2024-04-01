@@ -119,7 +119,9 @@ def create_new_post(request):
     if request.method == 'POST':
         post_form = CreateNewPostForm(request.POST, request.FILES)
         if post_form.is_valid():
-            post = post_form.save(commit=True)
+            post = post_form.save(commit=False)
+            post.author = request.user
+            post.save()
             messages.success(request, 'Your post was successfully submitted!')
             return redirect('blog-home')
         else:
