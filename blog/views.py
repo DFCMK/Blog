@@ -24,51 +24,6 @@ class PostListView(ListView):
 
 # Based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/ to create slugs
 # Based on djangocentral: https://djangocentral.com/creating-comments-system-with-django/ for implementing comments
-# Based on CI walk threw
-#def post_detail(request, slug):
-
-
-    #try:
-    #    queryset = Post.objects.filter(status=1)
-    #    post = get_object_or_404(Post, slug=slug)
-    #    comments = post.comments.all().order_by('-date_posted')
-    #    comments_count = post.comments.filter(approved=True).count()
-    #    comment_form = CommentForm()
-    #except Post.DoesNotExist:
-    #    return render(request, '404.html', status=404)
-    #post = get_object_or404(Post, slug=slug)
-    #comment_form = CommentForm()
-    # Handle comment form submission
-    #if request.method == 'POST':
-    #    comment_form = CommentForm(data=request.POST)
-    #    if comment_form.is_valid():
-    #        # Create Comment object but don't save to database yet
-    #        comment = comment_form.save(commit=False)
-    #        # Assign Logged in user as comment author
-    #        comment.author = request.user
-    #        # Assign the current post to the comment
-    #        comment.post = post
-    #        # Save the comment to the database
-    #        comment.save()
-    #        messages.add_message(request, messages.SUCCESS, 'Comment submitted and awaiting approval')
-    #        # Refresh the page to display the new comment
-    #        return HttpResponseRedirect(reverse('post_detail', args=[slug]))
-
-    # If it's not a POST request or the form is invalid, render the page as usual
-    #else:
-    #    comment_form = CommentForm()
-
-    #context = {
-    #    'post': post,
-    #    'slug': slug,
-    #    'comment_form': comment_form,
-    #}
-
-    #comments = post.comments.filter(approved=True)
-
-    #return render(request, 'blog/post_detail.html', context)
-
-
 # Based on CI Walkthrew view
 def post_detail(request, slug):
     """
