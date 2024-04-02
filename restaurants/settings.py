@@ -55,9 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_summernote',
     'cloudinary',
-    'vote',
 ]
-
 
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_CLOUD_NAME': os.environ.get('CLOUDINARY_NAME'),
