@@ -20,6 +20,7 @@ django-cloudinary-storage==0.3.0
 django-crispy-forms==2.1
 django-fontawesome==1.0
 django-summernote==0.8.20.0
+django-vote==2.4.0
 Flask==3.0.1
 Flask-SQLAlchemy==2.5.1
 greenlet==3.0.3
