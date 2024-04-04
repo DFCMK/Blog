@@ -2,31 +2,52 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid"> 
+<div class="container-fluid">
   <div class="row">
     {% for post in posts %}
     <div class="col-md-4">
-      <article class="media content-section">
-        <div class="media-body">
-          <div class="image-container">
-            {% if "placeholder" in post.featured_image.url %}
-            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
-            {% else %}
-            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="Featured Image" style="width: 100%;">
+      <div class="post-container" style="position: relative;">
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="image-container">
+              {% if "placeholder" in post.featured_image.url %}
+              <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image"
+                style="width: 100%;">
+              {% else %}
+              <img class="card-img-top" src="{{ post.featured_image.url }}" alt="Featured Image" style="width: 100%;">
+              {% endif %}
+            </div>
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ post.author }}</a>
+              <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+            <p class="article-content">{{ post.excerpt|safe }}</p>
+          </div>
+        </article>
+        <!--Likes-->
+        <form class="like-form" action="{% url 'likes' post.slug %}" method="POST" style="position: absolute; bottom: 0; right:0;">
+          {% csrf_token %}
+          <button type="submit" , name="post_id" , value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
+        </form>
+      </div>
+      <!--Up and Downvotes for Posts
+      <div class="card-body p-2">
+        <a href="{% url 'post_detail' post.slug %}">
+          <div class="d-flex justify-content-between card">
+            {% if user.is_authenticated %}
+            <button class="btn btn-primary vote-up-btn" data-post-id="{{ post.id }}">Upvote ({{
+              post.total_votes|add:post.upvotes|add:post.downvotes|default:0 }})</button>
+            <button class="btn btn-danger vote-down-btn" data-post-id="{{ post.id }}">Downvote ({{
+              post.total_votes|add:post.upvotes|add:post.downvotes|default:0 }})</button>
             {% endif %}
           </div>
-          <div class="article-metadata">
-            <a class="mr-2" href="#">{{ post.author }}</a>
-            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-          </div>
-          <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
-          <p class="article-content">{{ post.excerpt|safe }}</p>
-        </div>
-      </article>
+      </div>
+      <hr>-->
     </div>
     {% endfor %}
   </div>
-  
+
   <div class="row">
     {% if forloop.counter > 3 %}
     <div class="col-md-4">
@@ -34,7 +55,8 @@
         <div class="media-body">
           <div class="image-container">
             {% if post.featured_image == "placeholder" %}
-            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
+            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image"
+              style="width: 100%;">
             {% else %}
             <img class="card-img-top" src="{{ post.featured_image.url }}" alt="{{ post.title }}" style="width: 100%;">
             {% endif %}
@@ -52,14 +74,14 @@
   </div>
   {% if is_paginated %}
   <nav aria-label="Page navigation">
-      <ul class="pagination justify-content-center">
-          {% if page_obj.has_previous %}
-          <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
-          {% endif %}
-          {% if page_obj.has_next %}
-          <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
-          {% endif %}
-      </ul>
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+      {% endif %}
+      {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+      {% endif %}
+    </ul>
   </nav>
   {% endif %}
-{% endblock %}
+  {% endblock %}

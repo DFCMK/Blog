@@ -76,6 +76,12 @@
         </div>
     </div>
 
+    <!--Likes-->
+    <form class="like-form" action="{% url 'likes' post.slug %}" method="POST" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-sm">Like</button>
+    </form>
+
     <!-- Displaying count of comments -->
     <div class="row">
         <div class="col-12">
@@ -87,85 +93,85 @@
             <hr>
         </div>
     </div>
-    
- <!-- Displaying Comments -->
-<div class="row">
-    <div class="col-md-8 card mb-4 mt-3">
-        <h3 class="comments-heading">Comments:</h3>
-        <div class="card-body comment-display">
-            <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
-            {% for comment in comments %}
-            <div
-                class="p-2 comments{% if not comment.approved and comment.author == user %} faded{% elif not comment.approved %} d-none{% endif %}">
-                <p class="font-weight-bold">
-                    {{ comment.author }}
-                    <span class="font-weight-normal">
-                        {{ comment.date_posted }}
-                    </span> wrote:
-                </p>
-                <div id="comment{{ comment.id }}">
-                    {{ comment.body | linebreaks }}
+
+    <!-- Displaying Comments -->
+    <div class="row">
+        <div class="col-md-8 card mb-4 mt-3">
+            <h3 class="comments-heading">Comments:</h3>
+            <div class="card-body comment-display">
+                <!-- We want a for loop inside the empty control tags to iterate through each comment in comments -->
+                {% for comment in comments %}
+                <div
+                    class="p-2 comments{% if not comment.approved and comment.author == user %} faded{% elif not comment.approved %} d-none{% endif %}">
+                    <p class="font-weight-bold">
+                        {{ comment.author }}
+                        <span class="font-weight-normal">
+                            {{ comment.date_posted }}
+                        </span> wrote:
+                    </p>
+                    <div id="comment{{ comment.id }}">
+                        {{ comment.body | linebreaks }}
+                    </div>
+                    {% if not comment.approved and comment.author == user %}
+                    <p class="approval">This comment is awaiting approval</p>
+                    {% endif %}
+                    {% if user.is_authenticated and comment.author == user %}
+                    <button class="btn btn-danger delete-comment-button" comment_id="{{ comment.id }}">Delete</button>
+                    <button class="btn btn-primary" comment_id="{{ comment.id }}">Edit</button>
+                    {% endif %}
                 </div>
-                {% if not comment.approved and comment.author == user %}
-                <p class="approval">This comment is awaiting approval</p>
-                {% endif %}
-                {% if user.is_authenticated and comment.author == user %}
-                <button class="btn btn-danger delete-comment-button" comment_id="{{ comment.id }}">Delete</button>
-                <button class="btn btn-primary" comment_id="{{ comment.id }}">Edit</button>
-                {% endif %}
+                <!-- Our for loop ends here -->
+                {% endfor %}
             </div>
-            <!-- Our for loop ends here -->
-            {% endfor %}
         </div>
-    </div>
-    <!-- Creating New Comments -->
-    <div class="col-md-4 card mb-4 mt-3">
-        <div class="card-body comment-container">
-            {% if user.is_authenticated %}
-            <h3>Leave a comment:</h3>
-            <p>Posting as: {{ user.username }}</p>
-            <form id="commentForm" method="post" style="margin-top: 1.3em;">
-                {{ comment_form | crispy }}
-                {% csrf_token %}
-                <button id="submitButton" type="submit" class="btn btn-success">Submit</button>
-            </form>
-            {% else %}
-            <p>Log in to leave a comment</p>
-            {% endif %}
-        </div>
-    </div>
-</div>
-
-<!--Delete Comments Modal-->
-<div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteCommentModalLabel">Delete Comment</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete the Comment <span id="commentIdToDelete"></span>?</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <!-- Creating New Comments -->
+        <div class="col-md-4 card mb-4 mt-3">
+            <div class="card-body comment-container">
                 {% if user.is_authenticated %}
-                <form id="deleteCommentForm" method="post">
-                       {% csrf_token %}
-                    <button type="submit" class="btn btn-danger delete-confirm">Delete</button>
+                <h3>Leave a comment:</h3>
+                <p>Posting as: {{ user.username }}</p>
+                <form id="commentForm" method="post" style="margin-top: 1.3em;">
+                    {{ comment_form | crispy }}
+                    {% csrf_token %}
+                    <button id="submitButton" type="submit" class="btn btn-success">Submit</button>
                 </form>
+                {% else %}
+                <p>Log in to leave a comment</p>
                 {% endif %}
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    const postSlug = "{{ post.slug }}"
-</script>
-<script src="{% static 'js/comments.js' %}"></script>
+    <!--Delete Comments Modal-->
+    <div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteCommentModalLabel">Delete Comment</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete the Comment <span id="commentIdToDelete"></span>?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    {% if user.is_authenticated %}
+                    <form id="deleteCommentForm" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger delete-confirm">Delete</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
-{% endblock content %}
+    <script>
+        const postSlug = "{{ post.slug }}"
+    </script>
+    <script src="{% static 'js/comments.js' %}"></script>
+
+    {% endblock content %}
