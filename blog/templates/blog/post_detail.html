@@ -77,7 +77,7 @@
     </div>
 
     <!--Likes-->
-    <form class="like-form" action="{% url 'like_post' post.slug %}" method="POST" style="display: inline;">
+    <form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="display: inline;">
         {% csrf_token %}
         <button type="submit" class="btn btn-primary btn-sm">Like</button>
     </form>
