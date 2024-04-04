@@ -5,6 +5,16 @@ from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 
 
+#from django.core.validators import RegexValidator
+
+
+#validate_title = RegexValidator(
+#    regex=r'^[a-zA-Z0-9 _-]*$',  # Include symbols you want to allow in the regex pattern
+#    message='Title can only contain letters, numbers, spaces, underscores, dashes, and symbols.',
+#    code='invalid_title'
+#)
+
+
 STATUS = ((0, "Draft"), (1, "Published"))
 
 # Based on CI walk threw
@@ -19,7 +29,11 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
-
+    likes = models.ManyToManyField(User, related_name='blog_post')
+    #votes = models.PositiveIntegerField(default=0)
+    #upvotes = models.PositiveIntegerField(default=0)
+    #downvotes = models.PositiveIntegerField(default=0)
+    #total_votes = models.IntegerField(default=0)
 
     #def __str__(self):
     #    return self.title
@@ -45,6 +59,21 @@ class Post(models.Model):
         self.slug = self.generate_slug()
         self.save(update_fields=['slug'])
 
+
+#def vote_up(request, post_id):
+#    post = Post.objects.get(id=post_id)
+#    post.vote_up_or_down(True)
+#    return JsonResponse({'success': True})
+
+#def vote_down(request, post_id):
+#    post = Post.objects.get(id=post_id)
+#    post.vote_up_or_down(False)
+#    return JsonResponse({'success': True})
+
+#def total_votes(request, post_id):
+#    post = Post.objects.get(id=post_id)
+#    votes_total = post.total_votes()
+#    return JsonResponse({'total_votes': votes_total})
 
 # Based on Post model
 class Comment(models.Model):
