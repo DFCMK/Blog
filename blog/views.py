@@ -202,14 +202,10 @@ def delete_comment(request, slug, comment_id):
 #    post.total_votes(True)
 #    return JsonResponse(int=votes_total)
 
-def likes(request, slug):
-    post = get_object_or_404(Post, slug=slug)
-
-    if request.user in post.likes.all():
-        post.likes.remove(request.user)
-    else:
-        post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+def likes(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return redirect('blog-home')
 
 
 def about(request):
