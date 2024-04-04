@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="position: absolute; bottom: 0; right:0;">
+    {% csrf_token %}
+    <button type="submit" , name="post_id" , value="{{ post.id }}" class="btn btn-primary btn-sm">Like</button>
+  </form>
+  {% endblock content %}
