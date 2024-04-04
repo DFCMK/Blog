@@ -1,12 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.urls import reverse
 from django.views.generic import ListView
 from .forms import CreateNewPostForm, PostUpdateForm, CommentForm
 from django.contrib import messages
 from .models import Post, Comment
+
+from django.http import JsonResponse
 
 #Tutorial based
 def home(request):
@@ -162,6 +164,51 @@ def delete_comment(request, slug, comment_id):
     else: 
         messages.error(request, 'Invalid request method!')
 
+    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
+
+#def vote(request, slug):
+#    if request.method == 'GET':
+#        return HttpResponseBadRequest("Voting requires POST request")
+#
+#    if request.method == 'POST':
+#        post = get_object_or_404(Post, slug=slug)
+#        vote_type = request.POST.get('vote_type')
+#
+#        if vote_type == 'upvote':
+#            post.upvotes += 1
+#        elif vote_type == 'downvote':
+#            post.downvotes += 1
+#        else:
+#            return JsonResponse({'success': False, 'error': 'Invalid vote type.'})
+#
+#        # Directly save the model to update database counts
+#        post.save()
+#        return JsonResponse({'success': True})
+
+
+#def vote_up(request, slug):
+#    post = Post.objects.get(Post, slug)
+#    post.vote_up_or_down(True)
+#    return JsonResponse({'success': True})
+
+#def vote_down(request, slug):
+#    post = Post.objects.get(Post, slug)
+#    post.vote_up_or_down(False)
+#    return JsonResponse({'success': True})
+
+#def total_votes(request, post_id):
+#    post = Post.object.get(id=post_id)
+#    post.total_votes(True)
+#    return JsonResponse(int=votes_total)
+
+def likes(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+
+    if request.user in post.likes.all():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
