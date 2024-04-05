@@ -27,12 +27,14 @@
         </article>
         
     <!--Likes-->
-    <form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="position: absolute; bottom: 0; right:0;">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-primary btn-sm"><i class="fa-regular fa-heart"></i></button>
-      <!--Display Total Likes-->
-      <span class="total-likes-count">{{ total_likes_count }}</span>
-  </form>
+    <div class="like-section">
+      <form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="position: absolute; bottom: 0; right:0;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-light btn-bg {% if request.user in post.likes.all %}liked{% endif %}">
+              <i class="fa fa-heart{% if request.user in post.likes.all %} text-danger{% endif %}"></i>
+          </button>
+      </form>
+      </div>
       </div>
 
       <!--Up and Downvotes for Posts
