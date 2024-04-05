@@ -24,9 +24,10 @@ class PostListView(ListView):
     paginate_by = 6
 
 
-# Based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/ to create slugs
-# Based on djangocentral: https://djangocentral.com/creating-comments-system-with-django/ for implementing comments
-# Based on CI Walkthrew view
+# Create Slugs based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
+# Implementing comments based on djangocentral: https://djangocentral.com/creating-comments-system-with-django/ for implementing comments
+# Total Likes based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
+# Based on CI Django Walkthrew post_detail view:
 def post_detail(request, slug):
     """
     Display an individual :model:`blog.Post`.
@@ -44,6 +45,7 @@ def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.all().order_by("-date_posted")
     comment_count = post.comments.filter(approved=True).count()
+    total_likes_count = post.total_likes()
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -65,6 +67,7 @@ def post_detail(request, slug):
             "post": post,
             "comments": comments,
             "comment_count": comment_count,
+            "total_likes_count": total_likes_count,
             "comment_form": comment_form
         },
     )
@@ -203,7 +206,9 @@ def delete_comment(request, slug, comment_id):
 #    return JsonResponse(int=votes_total)
 
 def likes(request, pk):
-    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    #post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    #post_id = request.POST.get('post_id')
+    post = get_object_or_404(Post, pk=pk)
     post.likes.add(request.user)
     return redirect('blog-home')
 
