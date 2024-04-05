@@ -5,6 +5,7 @@ from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from .models import Profile
 from blog.models import Post
 from django.http import HttpResponseRedirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 #tutorial based
@@ -21,6 +22,8 @@ def register(request):
     return render(request, 'users/register.html', {'form': form})
 
 # tutorial based
+# Displaying user_posts based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
+# Pagination based on: https://docs.djangoproject.com/en/5.0/ref/paginator/#django.core.paginator.Paginator
 @login_required
 def profile(request):
     try:
@@ -29,6 +32,19 @@ def profile(request):
         profile = Profile.objects.create(user=request.user)
 
     user_posts = Post.objects.filter(author=request.user)
+    paginate_by = 6
+
+    paginator = Paginator(user_posts, paginate_by)
+    page_number = request.GET.get('page')
+
+    try:
+        user_posts = paginator.page(page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        user_posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        user_posts = paginator.page(paginator.num_pages)
     
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
