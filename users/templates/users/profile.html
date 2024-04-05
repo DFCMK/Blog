@@ -97,6 +97,18 @@
         {% endfor %}
     </div>
 </div>
+{% if user_posts.has_other_pages %}
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        {% if user_posts.has_previous %}
+        <li><a href="?page={{ user_posts.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+        {% endif %}
+        {% if user_posts.has_next %}
+        <li><a href="?page={{ user_posts.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
 
 
 <script>
