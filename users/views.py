@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegisterForm, ProfileUpdateForm, UserUpdateForm
 from .models import Profile
+from blog.models import Post
 from django.http import HttpResponseRedirect
 
 
@@ -26,6 +27,8 @@ def profile(request):
         profile = Profile.objects.get(user=request.user)
     except Profile.DoesNotExist:
         profile = Profile.objects.create(user=request.user)
+
+    user_posts = Post.objects.filter(author=request.user)
     
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -39,7 +42,7 @@ def profile(request):
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
         
-    context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form}
+    context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form, 'user_posts':user_posts}
         
     return render(request, 'users/profile.html', context)
 
