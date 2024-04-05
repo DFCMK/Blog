@@ -59,6 +59,9 @@ class Post(models.Model):
         self.slug = self.generate_slug()
         self.save(update_fields=['slug'])
 
+    def total_likes(self):
+        return self.likes.count()
+
 
 #def vote_up(request, post_id):
 #    post = Post.objects.get(id=post_id)
