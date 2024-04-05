@@ -79,7 +79,9 @@
     <!--Likes-->
     <form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="display: inline;">
         {% csrf_token %}
-        <button type="submit" class="btn btn-primary btn-sm">Like</button>
+        <button type="submit" class="btn btn-primary btn-sm"><i class="fa-regular fa-heart"></i></button>
+        <!--Display Total Likes-->
+        <span class="total-likes-count">{{ total_likes_count }}</span>
     </form>
 
     <!-- Displaying count of comments -->
