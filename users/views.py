@@ -31,6 +31,7 @@ def profile(request):
     except Profile.DoesNotExist:
         profile = Profile.objects.create(user=request.user)
 
+    # Users own published Posts
     user_posts = Post.objects.filter(author=request.user)
     paginate_by = 6
 
@@ -45,6 +46,22 @@ def profile(request):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
         user_posts = paginator.page(paginator.num_pages)
+
+    # Users Favorite Posts
+    liked_posts = Post.objects.filter(likes=request.user)
+    liked_paginate_by = 6
+
+    liked_paginator = Paginator(liked_posts, liked_paginate_by)
+    liked_page_number = request.GET.get('liked_page')
+
+    try:
+        liked_posts = liked_paginator.page(liked_page_number)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        liked_posts = liked_paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        liked_posts = liked_paginator.page(liked_paginator.num_pages)
     
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
@@ -58,7 +75,7 @@ def profile(request):
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
         
-    context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form, 'user_posts':user_posts}
+    context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form, 'user_posts':user_posts, 'liked_posts':liked_posts}
         
     return render(request, 'users/profile.html', context)
 
