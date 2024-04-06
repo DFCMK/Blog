@@ -59,9 +59,10 @@
         </div>
     </div>
 </div>
-  
+
+<!--Users own Posts-->
 <div class="user-posts">
-    <h2>Your Published Posts</h2>
+    <h2 class="text-white"><strong><u>Your Published Posts</u></strong></h2>
     <div class="row">
         {% for post in user_posts %}
         <div class="col-md-4">
@@ -109,7 +110,57 @@
     </ul>
 </nav>
 {% endif %}
-
+<hr class="border-top">
+<!-- Users Liked Posts -->
+<div class="liked-posts">
+    <h2 class="text-white"><strong><u>Your Favourite Posts</u></strong></h2>
+    <div class="row">
+        {% for post in liked_posts %}
+        <div class="col-md-4">
+            <div class="post-container" style="position: relative;">
+                <article class="media content-section">
+                    <div class="media-body">
+                        <div class="image-container">
+                            {% if "placeholder" in post.featured_image.url %}
+                            <img class="card-img-top" src="{% static 'images/masthead-image.jpg' %}" alt="placeholder image" style="width: 100%;">
+                            {% else %}
+                            <img class="card-img-top" src="{{ post.featured_image.url }}" alt="Featured Image" style="width: 100%;">
+                            {% endif %}
+                        </div>
+                        <div class="article-metadata">
+                            <a class="mr-2" href="#">{{ post.author }}</a>
+                            <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+                        </div>
+                        <h2><a class="article-title" href="{% url 'post_detail' post.slug %}">{{ post.title }}</a></h2>
+                        <p class="article-content">{{ post.excerpt|safe }}</p>
+                    </div>
+                </article>
+                <!-- Likes -->
+                <div class="like-section">
+                    <form class="like-form" action="{% url 'like_post' post.pk %}" method="POST" style="position: absolute; bottom: 0; right:0;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-light btn-bg {% if request.user in post.likes.all %}liked{% endif %}">
+                            <i class="fa fa-heart{% if request.user in post.likes.all %} text-danger{% endif %}"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% if liked_posts.has_other_pages %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            {% if liked_posts.has_previous %}
+            <li><a href="?liked_page={{ liked_posts.previous_page_number }}" class="page-link">&laquo; PREV</a></li>
+            {% endif %}
+            {% if liked_posts.has_next %}
+            <li><a href="?liked_page={{ liked_posts.next_page_number }}" class="page-link">NEXT &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
 
 <script>
         document.getElementById('edit-button').addEventListener('click', function() {
