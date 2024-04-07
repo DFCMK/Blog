@@ -74,7 +74,7 @@ if os.environ.get('ENVIRONMENT') == 'production':
 else:
     JAZZMIN_SETTINGS = {
         "topmenu_links": [
-        {"name": "Home",  "url": "https://django-restaurant-blog-d6ddec41b70e.herokuapp.com", "permissions": ["auth.view_user"]},
+        {"name": "Back To Website",  "url": "https://django-restaurant-blog-d6ddec41b70e.herokuapp.com", "permissions": ["auth.view_user"]},
     ],
     }
 
