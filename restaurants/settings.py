@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'users.apps.UsersConfig',
     'crispy_forms',
     'crispy_bootstrap4',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_summernote',
     'cloudinary',
+    #'vote',
 ]
 
 CLOUDINARY_STORAGE = {
@@ -62,6 +64,20 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'CLOUDINARY_API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
+
+if os.environ.get('ENVIRONMENT') == 'production':
+    JAZZMIN_SETTINGS = {
+        "topmenu_links": [
+        {"name": "Back To Website",  "url": "/", "permissions": ["auth.view_user"]},
+    ],
+    }
+else:
+    JAZZMIN_SETTINGS = {
+            "topmenu_links": [
+        {"name": "Home",  "url": "https://django-restaurant-blog.herokuapp.com", "permissions": ["auth.view_user"]},
+    ],
+    }
+
 
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
@@ -174,7 +190,7 @@ STATIC_URL = '/static/'
 if 'DEVELOPMENT' in os.environ:
     STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 # Whitenoise storage:https://whitenoise.readthedocs.io/en/stable/django.html 
