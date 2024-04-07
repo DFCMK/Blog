@@ -19,13 +19,13 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 # Based on Tutorial: https://www.youtube.com/watch?v=fNMTKxO8HsI&list=PLOLrQ9Pn6cazhaxNDhcOIPYXt2zZhAXKO&index=6
-class BlogAdminArea(admin.AdminSite):
-    site_header = 'Blog Admin Area'
-    admin_login_template = 'admin/admin_login.html'
-
-blog_admin_site = BlogAdminArea(name="BlogAdmin")
+#class BlogAdminArea(admin.AdminSite):
+#    site_header = 'Blog Admin Area'
+#    admin_login_template = 'admin/admin_login.html'
+#
+#blog_admin_site = BlogAdminArea(name="BlogAdmin")
 
 
 # admin.site.register(Post)
 admin.site.register(Comment, CommentAdmin)
-blog_admin_site.register(Comment, CommentAdmin)
+#blog_admin_site.register(Comment, CommentAdmin)
