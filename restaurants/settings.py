@@ -29,7 +29,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
@@ -73,7 +73,7 @@ if os.environ.get('ENVIRONMENT') == 'production':
     }
 else:
     JAZZMIN_SETTINGS = {
-            "topmenu_links": [
+        "topmenu_links": [
         {"name": "Home",  "url": "https://django-restaurant-blog.herokuapp.com", "permissions": ["auth.view_user"]},
     ],
     }
