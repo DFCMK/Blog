@@ -100,3 +100,18 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ["-date_posted"]
+
+
+# Based on Tutorial: https://www.youtube.com/watch?v=fNMTKxO8HsI&list=PLOLrQ9Pn6cazhaxNDhcOIPYXt2zZhAXKO&index=6
+class BlogAdminPage(models.Model):
+        user = models.OneToOneField(User, on_delete=models.CASCADE)
+        profile_image = CloudinaryField('image', default='placeholder', transformation=[
+        {'gravity': "face", 'height': 200, 'width': 200, 'crop': "thumb"},
+        {'radius': "max"},
+        {'fetch_format': "auto"}
+    ])
+        user_comments = models.ManyToManyField(Comment, related_name='commented_by_users')
+        user_posts = models.ManyToManyField(Post, related_name='posted_by')
+
+        def __str__(self):
+            return f'{self.user.username} Profile'
