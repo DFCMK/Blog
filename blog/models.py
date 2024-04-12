@@ -16,7 +16,8 @@ from cloudinary.models import CloudinaryField
 
 
 STATUS = ((0, "Draft"), (1, "Published"))
-
+# likes Based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
+# Down and Up vote (thumbs up/ thumbs down) based on: https://www.youtube.com/watch?v=onZ69P9wS2o
 # Based on CI walk threw
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
@@ -30,6 +31,9 @@ class Post(models.Model):
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
     likes = models.ManyToManyField(User, related_name='blog_post')
+    thumbsup = models.IntegerField(default=0)
+    thumbsdown = models.IntegerField(default=0)
+    thumbs = models.ManyToManyField(User, related_name='thumbs', default=None, blank=True)
     #votes = models.PositiveIntegerField(default=0)
     #upvotes = models.PositiveIntegerField(default=0)
     #downvotes = models.PositiveIntegerField(default=0)
@@ -63,7 +67,7 @@ class Post(models.Model):
         return self.likes.count()
 
 
-#def vote_up(request, post_id):
+#def vote(request, post_id):
 #    post = Post.objects.get(id=post_id)
 #    post.vote_up_or_down(True)
 #    return JsonResponse({'success': True})
@@ -77,6 +81,14 @@ class Post(models.Model):
 #    post = Post.objects.get(id=post_id)
 #    votes_total = post.total_votes()
 #    return JsonResponse({'total_votes': votes_total})
+
+
+# Based on: https://www.youtube.com/watch?v=onZ69P9wS2o
+class Vote(models.Model):
+    post = models.ForeignKey(Post, related_name='postid', on_delete=models.CASCADE, default=None, blank=True) 
+    user = models.ForeignKey(User, related_name='userid', on_delete=models.CASCADE, default=None, blank=True)
+    vote = models.BooleanField(default=True)
+
 
 # Based on Post model
 class Comment(models.Model):
