@@ -6,9 +6,10 @@ from django.urls import reverse
 from django.views.generic import ListView
 from .forms import CreateNewPostForm, PostUpdateForm, CommentForm
 from django.contrib import messages
-from .models import Post, Comment
+from .models import Post, Comment, Vote
 
 from django.http import JsonResponse
+from django.db.models import F
 
 #Tutorial based
 def home(request):
@@ -170,47 +171,61 @@ def delete_comment(request, slug, comment_id):
     return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
-#def vote(request, slug):
-#    if request.method == 'GET':
-#        return HttpResponseBadRequest("Voting requires POST request")
-#
-#    if request.method == 'POST':
-#        post = get_object_or_404(Post, slug=slug)
-#        vote_type = request.POST.get('vote_type')
-#
-#        if vote_type == 'upvote':
-#            post.upvotes += 1
-#        elif vote_type == 'downvote':
-#            post.downvotes += 1
-#        else:
-#            return JsonResponse({'success': False, 'error': 'Invalid vote type.'})
-#
-#        # Directly save the model to update database counts
-#        post.save()
-#        return JsonResponse({'success': True})
-
-
-#def vote_up(request, slug):
-#    post = Post.objects.get(Post, slug)
-#    post.vote_up_or_down(True)
-#    return JsonResponse({'success': True})
-
-#def vote_down(request, slug):
-#    post = Post.objects.get(Post, slug)
-#    post.vote_up_or_down(False)
-#    return JsonResponse({'success': True})
-
-#def total_votes(request, post_id):
-#    post = Post.object.get(id=post_id)
-#    post.total_votes(True)
-#    return JsonResponse(int=votes_total)
-
+# Based on tutorial: https://www.youtube.com/watch?v=PXqRPqDjDgc
 def likes(request, pk):
-    #post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    #post_id = request.POST.get('post_id')
     post = get_object_or_404(Post, pk=pk)
     post.likes.add(request.user)
     return redirect('blog-home')
+
+# Based on tutorial: https://www.youtube.com/watch?v=onZ69P9wS2o
+def thumbs(request, pk):
+    if request.method == 'POST':
+        if request.POST.get('action') == 'thumbs':
+            id = pk
+            button = request.POST.get('button')
+            update = get_object_or_404(Post, pk=id)
+
+            # Check if user already voted
+            user_vote = Vote.objects.filter(post_id=id, user_id=request.user.id).first()
+
+            if not user_vote:  
+                # User hasn't voted before
+                if button == 'thumbsup':
+                    update.thumbsup = F('thumbsup') + 1
+                    new_vote = Vote(post_id=id, user_id=request.user.id, vote=True)
+                    new_vote.save()
+                else:
+                    update.thumbsdown = F('thumbsdown') + 1
+                    new_vote = Vote(post_id=id, user_id=request.user.id, vote=False)
+                    new_vote.save()
+            else:  # User has already voted
+                if button == 'thumbsup' and user_vote.vote:
+                    # Upvoted and clicks upvote again --> remove vote
+                    update.thumbsup = F('thumbsup') - 1
+                    user_vote.delete()
+                elif button == 'thumbsdown' and not user_vote.vote:
+                    # Downvoted and clicks downvote again --> remove vote
+                    update.thumbsdown = F('thumbsdown') - 1
+                    user_vote.delete()
+                else:
+                    # User voted with a different value before --> change vote
+                    user_vote.vote = not user_vote.vote  # Flip the vote value
+                    user_vote.save(update_fields=['vote'])
+                    if user_vote.vote:
+                        update.thumbsup = F('thumbsup') + 1
+                        update.thumbsdown = F('thumbsdown') - 1
+                    else:
+                        update.thumbsup = F('thumbsup') - 1
+                        update.thumbsdown = F('thumbsdown') + 1
+
+            update.save()
+            update.refresh_from_db()
+            up = update.thumbsup
+            down = update.thumbsdown
+            return JsonResponse({'up': up, 'down': down})
+
+    return JsonResponse({'error': 'Invalid request'})
+
 
 
 def about(request):
