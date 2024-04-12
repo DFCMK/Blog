@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostListView, post_detail, create_new_post, update_post, delete_post, edit_comment, delete_comment, about, likes #vote, vote_up, vote_down, total_votes
+from .views import PostListView, post_detail, create_new_post, update_post, delete_post, edit_comment, delete_comment, about, likes, thumbs #vote, vote_up, vote_down, total_votes
 from . import views
 
 
@@ -13,6 +13,7 @@ urlpatterns = [
     path('<slug:slug>/edit_comment/<int:comment_id>', views.edit_comment, name='edit_comment'), # CI Walk threw 
     path('<slug:slug>/delete_comment/<int:comment_id>', views.delete_comment, name='delete_comment'), # CI Walk threw
     path('<int:pk>/likes/', views.likes, name='like_post'),
+    path('<int:pk>/thumbs/', views.thumbs, name='thumbs'),
     #path('vote/', views.vote, name='vote'),
     #path('vote_up/<int:post_id>/', views.vote_up, name='vote_up'),
     #path('vote_down/<int:post_id>/', views.vote_down, name='vote_down'),
