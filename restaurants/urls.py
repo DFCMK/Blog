@@ -31,6 +31,7 @@ urlpatterns = [
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+#    path('thumbs/', user_views.thumbs, name='thumbs'), # I might have to add this to blog or pull likes from blog into this, for consistensy!!!!
     #path('admin_login/', auth_views.LoginView.as_view(template_name='admin/admin_login.html'), name='admin_login'),
     path('', include('blog.urls'))
 ]
