@@ -309,9 +309,20 @@ body {
 .create-post {
   color: white;
 }
- .about {
+
+.about {
   color: #fff;
- }
+}
+
+.profile-post-container {
+  max-height: 1122px;
+  overflow-y: auto;
+}
+
+.post-detail {
+  max-height: 1200px;
+  overflow-y: auto;
+}
 
 @media (min-width: 768px) {
   .row {
