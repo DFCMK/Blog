@@ -4,6 +4,7 @@
 
 {% block content %}
 <!--Walk threw template-->
+<div class="post-detail">
 <div class="masthead">
     <div class="container">
         <div class="row g-0">
@@ -78,7 +79,7 @@
 
     
     <!--Based on: https://www.youtube.com/watch?v=onZ69P9wS2o-->
-    <div class="thumb-container">
+    <div class="thumb-container" data-id="{{ post.pk }}"><!--Added data-id, delete if not working-->
         <!--Thumb up-->
         <span id="thumbs" data-value="{{post.id}}"></span>
         <div class="pr-2">
@@ -179,6 +180,7 @@
             </div>
         </div>
     </div>
+</div>
 
     <!--Delete Comments Modal-->
     <div class="modal fade" id="deleteCommentModal" tabindex="-1" aria-labelledby="deleteCommentModalLabel"
@@ -208,48 +210,14 @@
     </div>
     {% endblock content %}
     
+
     {% block extras %}
     <script>
         const postSlug = "{{ post.slug }}";
     </script>
-
-    <!--Up and Downvote for Posts with AJAX
-    Based on: https://www.youtube.com/watch?v=onZ69P9wS2o-->
-    <script>
-        let thumbsUrl = "{% url 'thumbs' post.pk %}";
-
-        $(document).ready(function () {
-      $(document).on('click', '.thumbaction', function (e) {
-          e.preventDefault();
-          console.log("Thumb button clicked");
-          var postid = $(this).closest('.thumb-container').find('#thumbs').data('value'); 
-          var button = $(this).attr("value");
-          $.ajax({
-              type: 'POST',
-              url: thumbsUrl, 
-              data: {
-                  postid: postid,
-                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                  action: 'thumbs',
-                  button: button,
-              },
-              success: function (json) {
-                  if (json.length < 1 || json == undefined) {
-                  }
-                  $("#up").text(json['up']); 
-                  $("#down").text(json['down']);
-                  $("svg").removeClass("thumb-active");
-                  if (json['remove'] == 'none') {
-                      $("#" + button).removeClass("thumb-active");
-                  } else {
-                      $("#" + button).addClass("thumb-active");
-                  }
-              },
-              error: function (xhr, errmsg, err) {
-              }
-          });
-      });
-  });
-    </script>
     <script src="{% static 'js/comments.js' %}"></script>
+    <script>
+        thumbsUrl = "{% url 'thumbs' post.pk %}";
+    </script>
+    <script src="{% static 'js/ajax.js' %}"></script>
     {% endblock %}
