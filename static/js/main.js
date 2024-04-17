@@ -25,10 +25,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     // PROFILE //
-    //Profile Delete Button hide when Profile form is opened:
-    document.getElementById('edit-button').addEventListener('click', function() {
-        document.getElementById('delete-button').style.display = 'none';
-    })
+    // Profile Delete Button hide when Profile form is opened:
+    if (editButton) {
+        editButton.addEventListener('click', function() {
+            const deleteButton = document.getElementById('delete-button');
+            if (deleteButton) {
+                deleteButton.style.display = 'none';
+            }
+        });
+    }
 
 
     // Create New Post
