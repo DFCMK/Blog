@@ -16,7 +16,7 @@
 {% endif %}
 </head>
 <!--Background image based on: https://stackoverflow.com/questions/16014910/how-to-apply-background-image-for-an-templates-in-django-->
-<body id="bg" style="background-image: url({% static 'images/rest-bg-medium.jpg' %});">
+<body class="dark-bg">
     <!--Tutorial video3 min. 33-->
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
@@ -79,7 +79,7 @@
         </div>
     </main>
 
-    <footer class="footer fixed-bottom dark-bg mt-auto">
+    <footer class="footer bg-steel fixed-bottom mt-auto">
         <p class="m-0 text-center text-white">
             {% block copyright %}
             Made by Denes Kalnoky
@@ -92,6 +92,7 @@
             <a href="https://youtube.com" target="_blank" rel="noopener" aria-label="Visit our Youtube channel (opens in a new tab)"><i class="fab fa-youtube text-white"></i></a>
         </p>
     </footer>
+
 
 <!--Font Awesome-->
 <script src="https://kit.fontawesome.com/1390569447.js" crossorigin="anonymous"></script>
