@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const editButton = document.getElementById('edit-button');
     const editFormContainer = document.getElementById('edit-form-container');
     const cancelButton = document.getElementById('cancel-button');
+    const deleteProfileButton = document.getElementById('delete-button');
 
 
     function changeTitleColor() {
@@ -21,6 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     window.addEventListener('load', changeTitleColor);
+
+
+    // PROFILE //
+    //Profile Delete Button hide when Profile form is opened:
+    document.getElementById('edit-button').addEventListener('click', function() {
+        document.getElementById('delete-button').style.display = 'none';
+    })
 
 
     // Create New Post
@@ -64,6 +72,8 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelButton.addEventListener('click', function() {
             editFormContainer.style.display = 'none';
             editButton.style.display = 'block';
+        
+            window.location.href = "/post_detail/<post_id>";  
         });
     }
 
@@ -96,4 +106,39 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#delete-comment-form').style.display = 'block';
         });
     });
-});
+
+    // Up and Downvote for Posts with AJAX
+    // Based on: https://www.youtube.com/watch?v=onZ69P9wS2o
+    /*$(document).ready(function () {
+      $(document).on('click', '.thumbaction', function (e) {
+          e.preventDefault();
+          console.log("Thumb button clicked");
+          var postid = $(this).closest('.thumb-container').find('#thumbs').data('value'); 
+          var button = $(this).attr("value");
+          $.ajax({
+              type: 'POST',
+              url: thumbsUrl, 
+              data: {
+                  postid: postid,
+                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                  action: 'thumbs',
+                  button: button,
+              },
+              success: function (json) {
+                  if (json.length < 1 || json == undefined) {
+                  }
+                  $("#up").text(json['up']); 
+                  $("#down").text(json['down']);
+                  $("svg").removeClass("thumb-active");
+                  if (json['remove'] == 'none') {
+                      $("#" + button).removeClass("thumb-active");
+                  } else {
+                      $("#" + button).addClass("thumb-active");
+                  }
+              },
+              error: function (xhr, errmsg, err) {
+              }
+          });
+      });
+  });*/
+ });
