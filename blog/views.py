@@ -25,6 +25,7 @@ class PostListView(ListView):
     paginate_by = 6
 
 
+
 # Create Slugs based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
 # Implementing comments based on djangocentral: https://djangocentral.com/creating-comments-system-with-django/ for implementing comments
 # Total Likes based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
@@ -47,6 +48,7 @@ def post_detail(request, slug):
     comments = post.comments.all().order_by("-date_posted")
     comment_count = post.comments.filter(approved=True).count()
     total_likes_count = post.total_likes()
+
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
@@ -58,7 +60,20 @@ def post_detail(request, slug):
                 request, messages.SUCCESS,
                 'Comment submitted and awaiting approval'
             )
-    
+        else:
+            return render(
+                request,
+                "blog/post_detail.html",
+                {
+                    "post": post,
+                    "comments": comments,
+                    "comment_count": comment_count,
+                    "total_likes_count": total_likes_count,
+                    "comment_form": comment_form
+                },
+            )
+
+    # If it's not a POST request or the form is valid, create a new unbound form
     comment_form = CommentForm()
 
     return render(
