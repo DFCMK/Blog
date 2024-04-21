@@ -96,7 +96,6 @@ class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
     body = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
-    approved = models.TextField()
     approved = models.BooleanField(default=False)
     date_posted = models.DateTimeField(auto_now_add=True)
 
