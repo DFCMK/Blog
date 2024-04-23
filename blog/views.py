@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.http import HttpResponseForbidden, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponseBadRequest
+#from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.urls import reverse
 from django.views.generic import ListView
 from .forms import CreateNewPostForm, PostUpdateForm, CommentForm
@@ -122,8 +122,8 @@ def update_post(request, slug):
         post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
             post = post_form.save()
-            post.update_slug()  # Update slug after saving the form
-            post_form.save()  # Save the updated slug
+            post.update_slug()  
+            post_form.save()
             messages.success(request, 'Post updated successfully.')
             return redirect('post_detail', slug=post.slug) 
         else:
@@ -245,56 +245,6 @@ def thumbs(request, pk):
             return JsonResponse({'up': up, 'down': down})
 
     return JsonResponse({'error': 'Invalid request'})
-
-
-# Slug Approach
-#def thumbs(request, slug):
-#    if request.method == 'POST':
-#        if request.POST.get('action') == 'thumbs':
-#            post = get_object_or_404(Post, slug=slug)
-#            button = request.POST.get('button')
-#            update = get_object_or_404(Post, slug=slug)
-#
-#            # Check if user already voted
-#            user_vote = Vote.objects.filter(post_id=update.id, user_id=request.user.id).first()
-#
-#            if not user_vote:  
-#                # User hasn't voted before
-#                if button == 'thumbsup':
-#                    update.thumbsup = F('thumbsup') + 1
-#                    new_vote = Vote(post_id=update.id, user_id=request.user.id, vote=True)
-#                    new_vote.save()
-#                else:
-#                    update.thumbsdown = F('thumbsdown') + 1
-#                    new_vote = Vote(post_id=update.id, user_id=request.user.id, vote=False)
-#                    new_vote.save()
-#            else:  # User has already voted
-#                if button == 'thumbsup' and user_vote.vote:
-#                    # Upvoted and clicks upvote again --> remove vote
-#                    update.thumbsup = F('thumbsup') - 1
-#                    user_vote.delete()
-#                elif button == 'thumbsdown' and not user_vote.vote:
-#                    # Downvoted and clicks downvote again --> remove vote
-#                    update.thumbsdown = F('thumbsdown') - 1
-#                    user_vote.delete()
-#                else:
-#                    # User voted with a different value before --> change vote
-#                    user_vote.vote = not user_vote.vote  # Flip the vote value
-#                    user_vote.save(update_fields=['vote'])
-#                    if user_vote.vote:
-#                        update.thumbsup = F('thumbsup') + 1
-#                        update.thumbsdown = F('thumbsdown') - 1
-#                    else:
-#                        update.thumbsup = F('thumbsup') - 1
-#                        update.thumbsdown = F('thumbsdown') + 1
-#
-#            update.save()
-#            update.refresh_from_db()
-#            up = update.thumbsup
-#            down = update.thumbsdown
-#            return JsonResponse({'up': up, 'down': down})
-#
-#    return JsonResponse({'error': 'Invalid request'})
 
 
 
