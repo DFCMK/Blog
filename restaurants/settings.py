@@ -67,17 +67,17 @@ CLOUDINARY_STORAGE = {
 }
 
 # Based on Jazzmin Documentation: https://django-jazzmin.readthedocs.io/configuration/
-JAZZMIN_SETTINGS = {
-    "topmenu_links": [
-        {"name": "Back To Website",  "url": "/", "permissions": ["auth.view_user"], "visible_on":["all"]},
-        ],
-    }
-else:
-    JAZZMIN_SETTINGS = {
-        "topmenu_links": [
-        {"name": "Back To Website",  "url": "https://django-restaurant-blog-d6ddec41b70e.herokuapp.com", "permissions": ["auth.view_user"], "visible_on":["all"]},
-    ],
-    }
+#JAZZMIN_SETTINGS = {
+#    "topmenu_links": [
+#        {"name": "Back To Website",  "url": "/", "permissions": ["auth.view_user"], "visible_on":["all"]},
+#        ],
+#    }
+#else:
+#    JAZZMIN_SETTINGS = {
+#        "topmenu_links": [
+#        {"name": "Back To Website",  "url": "https://django-restaurant-blog-d6ddec41b70e.herokuapp.com", "permissions": ["auth.view_user"], "visible_on":["all"]},
+#    ],
+#    }
 
 
 #JAZZMIN_SETTINGS = {
@@ -238,8 +238,8 @@ else:
         }
 
 # Added for Testing
-#if 'test' in sys.argv:
-#    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
+if 'test' in sys.argv:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.sqlite3'
 
 # Cloudinary storage set up 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
