@@ -388,6 +388,7 @@ The sites incorporates flash messages and confirmation messages when an action h
 ![Post Published Success](readme/assets/images/post-published.png)
 ![Post Updated Success](readme/assets/images/post-updated.png)
 ![Post Deleted Success](readme/assets/images/post-deleted.png)
+</details><br/>
 
 ### Features Left to Implement
 
