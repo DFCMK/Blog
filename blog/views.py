@@ -110,6 +110,30 @@ def create_new_post(request):
 
 
 # Based on create_new_post view
+#@login_required
+#def update_post(request, slug):
+#    post = get_object_or_404(Post, slug=slug)
+
+#    if request.user != post.author:
+#        messages.error(request, 'You are not authorized to edit this post.')
+#        return redirect('post-detail', slug=slug)
+#
+#    if request.method == 'POST':
+#        post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
+#        if post_form.is_valid():
+#            post = post_form.save()
+#            post.update_slug()  
+#            post_form.save()
+#            messages.success(request, 'Post updated successfully.')
+#            return redirect('post_detail', slug=post.slug) 
+#        else:
+#            messages.error(request, 'There was an error updating your post. Please check the form and try again.')
+#    else:
+#        post_form = PostUpdateForm(instance=post)
+#    
+#    context = {'post_form': post_form, 'slug':slug}
+#    return render(request, 'blog/update_post.html', context)
+
 @login_required
 def update_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -121,18 +145,19 @@ def update_post(request, slug):
     if request.method == 'POST':
         post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
-            post = post_form.save()
-            post.update_slug()  
-            post_form.save()
+            post = post_form.save(commit=False)
+            post.update_slug()
+            post.save()
             messages.success(request, 'Post updated successfully.')
-            return redirect('post_detail', slug=post.slug) 
+            return redirect('post_detail', slug=post.slug)
         else:
             messages.error(request, 'There was an error updating your post. Please check the form and try again.')
     else:
         post_form = PostUpdateForm(instance=post)
     
-    context = {'post_form': post_form, 'slug':slug}
+    context = {'post_form': post_form, 'slug': slug}
     return render(request, 'blog/update_post.html', context)
+
 
 # Based on update_post view
 @login_required
@@ -148,26 +173,46 @@ def delete_post(request, slug):
     return redirect('blog-home')
 
 # Based on CI walk threw
+#@login_required
+#def edit_comment(request, comment_id, slug):
+#    post = get_object_or_404(Post, slug=slug)
+#    #comment_form = CommentForm(data=request.POST, instance=comment)
+#    comments = get_object_or_404(Comment, pk=comment_id)
+#    if request.method == "POST":
+#        comment_form = CommentForm(data=request.POST)
+#        if comment_form.is_valid():
+#            comment = comment_form.save(commit=False)
+#            comment.author = request.user
+#            comment.post = post
+#            comment.approved = False
+#            comment.save()
+#            messages.add_message(
+#                request, messages.SUCCESS,
+#                'Comment Updated!')
+#    else:
+#        messages.add_message(request, messages.ERROR, 'Error updating comment')
+#
+#    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
 @login_required
 def edit_comment(request, comment_id, slug):
     post = get_object_or_404(Post, slug=slug)
-    #comment_form = CommentForm(data=request.POST, instance=comment)
     comments = get_object_or_404(Comment, pk=comment_id)
     if request.method == "POST":
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
+        comment_form = CommentForm(data=request.POST, instance=comments)
+        if not comment_form.is_valid():
+            context = {'comment_form': comment_form, 'post': post, 'comments': [comments]}
+            return render(request, 'blog/post_detail.html', context)  # Render with errors
+        else:
+            if comments.author != request.user:  # Check author before saving
+                return HttpResponseForbidden('You are not authorized to edit this comment.')
             comment = comment_form.save(commit=False)
             comment.author = request.user
             comment.post = post
             comment.approved = False
             comment.save()
-            messages.add_message(
-                request, messages.SUCCESS,
-                'Comment Updated!')
-    else:
-        messages.add_message(request, messages.ERROR, 'Error updating comment')
-
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+            messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
+            return HttpResponseRedirect(reverse('post_detail', args=[slug]))  # Redirect on success
 
 
 # Based on CI walk threw
