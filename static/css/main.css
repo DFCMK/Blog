@@ -325,9 +325,37 @@ body {
   overflow-y: auto;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width:768px) {
+  .container-new-post {
+    max-height: 75vh;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (width:1024px) {
+  .container-new-post {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+@media screen and (width:1280px) {
+  .container-new-post {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+
+
+/*@media screen and (width:810px) {
+  .container-new-post {
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}*/
+/*@media (min-width: 768px) {
   .row {
       display: flex;
       flex-wrap: wrap;
   }
-}
+}*/
