@@ -225,6 +225,7 @@ def delete_comment(request, slug, comment_id):
             messages.success(request, 'Comment deleted successfully!')
         else:
             messages.error(request, 'You can only delete your own comments!')
+            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('delete_comment', args=[post.slug, comment.id]))
     else: 
         messages.error(request, 'Invalid request method!')
 
@@ -232,65 +233,69 @@ def delete_comment(request, slug, comment_id):
 
 
 # Based on tutorial: https://www.youtube.com/watch?v=PXqRPqDjDgc
+@login_required
 def likes(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    if request.user in post.likes.all():
-        post.likes.remove(request.user)
-    else:
-        post.likes.add(request.user)
-
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            if request.user in post.likes.all():
+                post.likes.remove(request.user)
+            else:
+                post.likes.add(request.user)
+        else:
+            messages.error(request, 'You need to log in to like posts.')
+    
     return redirect('blog-home')
 
 # Based on tutorial: https://www.youtube.com/watch?v=onZ69P9wS2o
 def thumbs(request, pk):
-    if request.method == 'POST':
-        if request.POST.get('action') == 'thumbs':
-            id = pk
-            button = request.POST.get('button')
-            update = get_object_or_404(Post, pk=id)
+    print("Received request:", request.POST)
+    if request.method == 'POST' and request.POST.get('action') == 'thumbs':
+        id = pk
+        button = request.POST.get('button')
+        update = get_object_or_404(Post, pk=id)
 
-            # Check if user already voted
-            user_vote = Vote.objects.filter(post_id=id, user_id=request.user.id).first()
+        # Check if user already voted
+        user_vote = Vote.objects.filter(post_id=id, user_id=request.user.id).first()
 
-            if not user_vote:  
-                # User hasn't voted before
-                if button == 'thumbsup':
+        if not user_vote:  
+            # User hasn't voted before
+            if button == 'thumbsup':
+                update.thumbsup = F('thumbsup') + 1
+                new_vote = Vote(post_id=id, user_id=request.user.id, vote=True)
+                new_vote.save()
+            else:
+                update.thumbsdown = F('thumbsdown') + 1
+                new_vote = Vote(post_id=id, user_id=request.user.id, vote=False)
+                new_vote.save()
+        else:  # User has already voted
+            if button == 'thumbsup' and user_vote.vote:
+                # Upvoted and clicks upvote again --> remove vote
+                update.thumbsup = F('thumbsup') - 1
+                user_vote.delete()
+            elif button == 'thumbsdown' and not user_vote.vote:
+                # Downvoted and clicks downvote again --> remove vote
+                update.thumbsdown = F('thumbsdown') - 1
+                user_vote.delete()
+            else:
+                # User voted with a different value before --> change vote
+                user_vote.vote = not user_vote.vote  # Flip the vote value
+                user_vote.save(update_fields=['vote'])
+                if user_vote.vote:
                     update.thumbsup = F('thumbsup') + 1
-                    new_vote = Vote(post_id=id, user_id=request.user.id, vote=True)
-                    new_vote.save()
-                else:
-                    update.thumbsdown = F('thumbsdown') + 1
-                    new_vote = Vote(post_id=id, user_id=request.user.id, vote=False)
-                    new_vote.save()
-            else:  # User has already voted
-                if button == 'thumbsup' and user_vote.vote:
-                    # Upvoted and clicks upvote again --> remove vote
-                    update.thumbsup = F('thumbsup') - 1
-                    user_vote.delete()
-                elif button == 'thumbsdown' and not user_vote.vote:
-                    # Downvoted and clicks downvote again --> remove vote
                     update.thumbsdown = F('thumbsdown') - 1
-                    user_vote.delete()
                 else:
-                    # User voted with a different value before --> change vote
-                    user_vote.vote = not user_vote.vote  # Flip the vote value
-                    user_vote.save(update_fields=['vote'])
-                    if user_vote.vote:
-                        update.thumbsup = F('thumbsup') + 1
-                        update.thumbsdown = F('thumbsdown') - 1
-                    else:
-                        update.thumbsup = F('thumbsup') - 1
-                        update.thumbsdown = F('thumbsdown') + 1
+                    update.thumbsup = F('thumbsup') - 1
+                    update.thumbsdown = F('thumbsdown') + 1
 
-            update.save()
-            update.refresh_from_db()
-            up = update.thumbsup
-            down = update.thumbsdown
-            return JsonResponse({'up': up, 'down': down})
+        update.save()
+        update.refresh_from_db()
+        up = update.thumbsup
+        down = update.thumbsdown
+        return JsonResponse({'up': up, 'down': down})
 
     return JsonResponse({'error': 'Invalid request'})
-
 
 
 def about(request):
