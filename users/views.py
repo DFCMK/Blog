@@ -34,7 +34,7 @@ def profile(request):
         profile = Profile.objects.create(user=request.user)
 
     # Users own published Posts
-    user_posts = Post.objects.filter(author=request.user)
+    user_posts = Post.objects.filter(author=request.user).order_by('-date_posted')
     paginate_by = 6
 
     paginator = Paginator(user_posts, paginate_by)
@@ -50,7 +50,7 @@ def profile(request):
         user_posts = paginator.page(paginator.num_pages)
 
     # Users Favorite Posts
-    liked_posts = Post.objects.filter(likes=request.user)
+    liked_posts = Post.objects.filter(likes=request.user).order_by('-date_posted')
     liked_paginate_by = 6
 
     liked_paginator = Paginator(liked_posts, liked_paginate_by)
