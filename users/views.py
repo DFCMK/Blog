@@ -15,8 +15,10 @@ def register(request):
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
-            messages.success(request, f'Your account has been created! You are now able to log in')
+            messages.success(request, f'Your account has been created! You are now able to log in.')
             return redirect('login')
+        else:
+            messages.error(request, 'There was an error in the registration form. Please correct it.')
     else:
         form = UserRegisterForm()
     return render(request, 'users/register.html', {'form': form})
@@ -78,7 +80,6 @@ def profile(request):
     context = {'profile': profile, 'user_form': user_form, 'profile_form': profile_form, 'user_posts':user_posts, 'liked_posts':liked_posts}
         
     return render(request, 'users/profile.html', context)
-
 
 
 # Based on Stack Overflow: https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
