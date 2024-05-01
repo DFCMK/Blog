@@ -295,7 +295,8 @@ def thumbs(request, pk):
         down = update.thumbsdown
         return JsonResponse({'up': up, 'down': down})
 
-    return JsonResponse({'error': 'Invalid request'})
+    #return JsonResponse({'error': 'Invalid request'})
+    return redirect('login')
 
 
 def about(request):
