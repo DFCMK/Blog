@@ -16,9 +16,7 @@
         <p>{{ user.email }}</p>
     </div>
 </div>
-<!--<div>
-        <a class="btn btn-primary" href="{% url 'profile' %}">Edit</a>
-    </div>-->
+
 {% if profile_form and user_form and user.is_authenticated %}
     <button class="btn btn-primary" id="edit-button">Edit</button>
     <div id="edit-form" style="display: none;">
@@ -26,6 +24,11 @@
             {% csrf_token %}
             {{ profile_form|crispy }}
             {{ user_form|crispy }}
+            {% if user_form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ user_form.errors.username }}
+                </div>
+            {% endif %}
             <button class="btn btn-success" type="submit">Save</button>
         </form>
     </div>
