@@ -6,7 +6,7 @@ from .models import Post, Comment
 class CreateNewPostForm(forms.ModelForm):
     class Meta: 
         model = Post
-        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image']
+        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image', 'status']
 
     def save(self, commit=True):
         instance = super(CreateNewPostForm, self).save(commit=False)
@@ -21,7 +21,7 @@ class CreateNewPostForm(forms.ModelForm):
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image']
+        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image', 'status']
 
     def save(self, commit=True):
         instance = super().save(commit=False)
