@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -73,6 +74,13 @@ def profile(request):
             profile_form.save()
             messages.success(request, f"Your profile has been updated!")
             return redirect('profile')
+            # Handle form validation errors
+            for field, errors in user_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
+            for field, errors in profile_form.errors.items():
+                for error in errors:
+                    messages.error(request, f"Error in {field}: {error}")
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
