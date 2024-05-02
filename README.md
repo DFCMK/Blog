@@ -49,6 +49,7 @@ This fictional site was created for Portfolio Project #4 (Full-Stack Toolkit) - 
 
 * [**Testing**](<#testing>)
     * [Testing User Stories](<#testing-user-stories>)
+    * [Testing User Stories](<#testing-admin-stories>)
     * [Code Validation](<#code-validation>)
     * [Additional Testing](<#additional-testing>)
     * [Known Bugs](<#known-bugs>)
@@ -100,11 +101,9 @@ Below the user stories for the project are listed to clarify why particular feat
 | As a Site User | I can comment on a review to join the conversation | &check; |
 | As a Site User | I can edit my comment to change its content if needed | &check; |
 | As a Site User | I can remove my review to have full control over my reviews | &check; |
-| As a Site User | I can choose to see my own reviews for easy access | &check; |
 | As a Site User | I can create a new review to contribute new content | &check; |
 | As a Site User | I can log out from the site to ensure the security of my information | &check; |
-| As a Site User | I can create draft reviews to finish writing them later | &check; |
-| As a Site User | I can receive visual feedback when interacting with the content | &check; |here
+| As a Site User | I can receive visual feedback when interacting with the content | &check; |
 
 ### Site Admin
 
@@ -112,11 +111,10 @@ Below the user stories for the project are listed to clarify why particular feat
 |:-------:|:--------|:--------|
 | As a Site Admin | I can log out from the site so that I can feel safe that nobody can access my information | &check; |
 | As a Site Admin | I can create, read, update and delete reviews so that I can manage my review content | &check; |
-| As a Site Admin | I can approve reviews so that I can secure high quality of the content | &check; |
 | As a Site Admin | I can approve and disapprove comments so that I can secure a safe environment for the Site Users | &check; |
-| As a Site Admin | I can create draft reviews so that I can finish writing the content later | &check; |
-| As a Site Admin | I can access an admin area so that I can get a general understanding of logged in users, number of likes and number of posts | &check; |
+| As a Site Admin | I can access an admin area so that I can manage the site's permissions and content | &check; |
 | As a Site Admin | I can get visual feedback when interacting with the content so that I can be sure how I have interacted with the page | &check; |
+| As a Site Admin | I want to use Jazzmin instead of Django's default Admin page to have a more user-friendly and visually appealing interface | &check; |
 
 [Back to top](<#table-of-content>)
 
@@ -426,3 +424,761 @@ The sites incorporates flash messages and confirmation messages when an action h
 * [CSS Validation](https://jigsaw.w3.org/css-validator/) - Used to validate CSS code
 * [PEP8 Validation](http://pep8online.com/) - At the time for deploying this project the PEP8 Online Validaton service was offline, therefore not used.
 * [JSHint Validation](https://jshint.com/) - Used to validate JavaScript code
+
+## Libraries
+
+[Back to top](<#table-of-content>)
+
+The libraries used in this project are located in the requirements.txt file and have been documented below
+
+* [asgiref](https://pypi.org/project/asgiref/) - ASGI is a standard for Python asynchronous web apps and servers to communicate with each other, and positioned as an asynchronous successor to WSGI.
+* [cloudinary](https://pypi.org/project/cloudinary/) - The Cloudinary Python SDK allows you to quickly and easily integrate your application with Cloudinary. Effortlessly optimize, transform, upload and manage your cloud's assets.
+* [dj3-cloudinary-storage](https://pypi.org/project/dj3-cloudinary-storage/) - Django Cloudinary Storage is a Django package that facilitates integration with Cloudinary by implementing Django Storage API.
+* [Django](https://pypi.org/project/Django/) - Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design.
+* [django-allauth](https://pypi.org/project/django-allauth/) - Integrated set of Django applications addressing authentication, registration, account management as well as 3rd party (social) account authentication.
+* [django-crispy-forms](https://pypi.org/project/django-crispy-forms/) - Used to integrate Django DRY forms in the project.
+* [gunicorn](https://pypi.org/project/gunicorn/) - Gunicorn ‘Green Unicorn’ is a Python WSGI HTTP Server for UNIX. It’s a pre-fork worker model ported from Ruby’s Unicorn project. The Gunicorn server is broadly compatible with various web frameworks, simply implemented, light on server resource usage, and fairly speedy.
+* [oauthlib](https://pypi.org/project/oauthlib/) - OAuthLib is a framework which implements the logic of OAuth1 or OAuth2 without assuming a specific HTTP request object or web framework.
+* [psycopg2-binary](https://pypi.org/project/psycopg2-binary/) - psycopg2-binary is a Python library providing a binary distribution of psycopg2, the most popular PostgreSQL database adapter for Python. It simplifies the installation process by bundling all necessary binaries, making it easier to install and use with your Python projects.
+* [PyJWT](https://pypi.org/project/PyJWT/) - A Python implementation of RFC 7519.
+* [python3-openid](https://pypi.org/project/python3-openid/) - OpenID support for modern servers and consumers.
+* [requests-oauhlib](https://pypi.org/project/requests-oauthlib/) - P    rovides first-class OAuth library support for Requests.
+* [sqlparse](https://pypi.org/project/sqlparse/) - sqlparse is a non-validating SQL parser for Python. It provides support for parsing, splitting and formatting SQL statements.
+* [bleach](https://pypi.org/project/bleach/) - Bleach is an allowed-list-based HTML sanitizing library that escapes or strips markup and attributes.
+* [blinker](https://pypi.org/project/blinker/) - Blinker provides a fast dispatching system that allows any number of interested parties to subscribe to events, or "signals".
+* [certifi](https://pypi.org/project/certifi/) - Certifi provides Mozilla’s carefully curated collection of Root Certificates for validating the trustworthiness of SSL certificates while verifying the identity of TLS hosts. It has been extracted from the Requests project.
+* [cffi](https://pypi.org/project/cffi/) - Foreign Function Interface for Python calling C code.
+* [charset-normalizer](https://pypi.org/project/charset-normalizer/) - A library that helps you read text from an unknown charset encoding.
+* [click-8.1.7](https://pypi.org/project/click/) - Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary.
+* [crispy-bootstrap4](https://pypi.org/project/crispy-bootstrap4/) - Bootstrap4 template pack for django-crispy-forms. This template pack was included with the core django-crispy-forms package until version 2.0
+* [charset-normalizer](https://pypi.org/project/charset-normalizer/) - A library that helps you read text from an unknown charset encoding.
+* [cryptography](https://pypi.org/project/cryptography/) - Cryptography is a package which provides cryptographic recipes and primitives to Python developers.
+* [Cython](https://pypi.org/project/Cython/) - The Cython language makes writing C extensions for the Python language as easy as Python itself. Cython is a source code translator based on Pyrex, but supports more cutting edge functionality and optimizations.
+* [defusedxml](https://pypi.org/project/defusedxml/) - Is a Python library that provides protection against various XML-related vulnerabilities.
+* [dj-database-url](https://pypi.org/project/dj-database-url/) - This simple Django utility allows you to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
+* [django-fontawesome](https://pypi.org/project/django-fontawesome/) - django-fontawesome is a Django app that provides a couple of Fontawesome/Django related utilities.
+* [django-jazzmin](https://pypi.org/project/django-jazzmin/) - Jazzmin is a Django package that offers a modern, customizable, and responsive alternative to Django's default admin interface.
+* [django-summernote](https://pypi.org/project/django-summernote/) - Django-summernote is a Django application that integrates Summernote, a popular WYSIWYG editor, into Django admin forms, providing a rich text editing experience for content creation.
+* [django-vote](https://pypi.org/project/django-vote/) - django-vote is a simple Django app to conduct vote for django model.
+* [greenlet](https://pypi.org/project/greenlet/) - Greenlets are lightweight coroutines for in-process concurrent programming.
+* [idna](https://pypi.org/project/greenlet/) - idna is a Python library used for handling Internationalized Domain Names in Applications (IDNA). It provides support for converting domain names containing non-ASCII characters into a format that can be handled by the Domain Name System (DNS) and other Internet 
+* [itsdangerous](https://pypi.org/project/itsdangerous/) - Various helpers to pass data to untrusted environments and to get it back safe and sound. Data is cryptographically signed to ensure that a token has not been tampered with
+* [Jinja2](https://pypi.org/project/Jinja2/) - Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document
+* [Mako](https://pypi.org/project/Mako/) - Mako is a template library written in Python. It provides a familiar, non-XML syntax which compiles into Python modules for maximum performance. 
+* [Markdown](https://pypi.org/project/Markdown/) - This is a Python implementation of John Gruber's Markdown. It is almost completely compliant with the reference implementation
+* [MarkupSafe](https://pypi.org/project/MarkupSafe/) - MarkupSafe implements a text object that escapes characters so it is safe to use in HTML and XML.
+* [meson](https://pypi.org/project/meson/) - Meson is a cross-platform build system designed to be both as fast and as user friendly as possible. It supports many languages and compilers, including GCC, Clang, PGI, Intel, and Visual Studio. 
+* [pycparser](https://pypi.org/project/pycparser/) - pycparser is a complete parser of the C language, written in pure Python using the PLY parsing library. It parses C code into an AST and can serve as a front-end for C compilers or analysis tools.
+* [Pygments](https://pypi.org/project/Pygments/) - Pygments is a syntax highlighting package written in Python. It is a generic syntax highlighter suitable for use in code hosting, forums, wikis or other applications that need to prettify source code
+* [pysqlite3-binary-0.5.2.post3](https://pypi.org/project/pysqlite3-binary/) - The package pysqlite3-binary is an SQLite database adapter for Python, optimized for performance and compatibility, particularly in environments where using the standard sqlite3 module is not feasible or efficient.
+* [PyYAML](https://pypi.org/project/PyYAML/) - YAML is a data serialization format designed for human readability and interaction with scripting languages. PyYAML is a YAML parser and emitter for Python.
+* [requests](https://pypi.org/project/requests/) - Requests is a simple, yet elegant, HTTP library.
+* [requests-oauthlib](https://pypi.org/project/requests-oauthlib/) - requests-oauthlib is a Python library that provides OAuth client support for requests, allowing seamless integration of OAuth authentication mechanisms into Python applications using the popular requests library.
+* [six](https://pypi.org/project/six/) - Six is a Python 2 and 3 compatibility library. It provides utility functions for smoothing over the differences between the Python versions with the goal of writing Python code that is compatible on both Python versions.
+* [SQLAlchemy](https://pypi.org/project/SQLAlchemy/) - SQLAlchemy is the Python SQL toolkit and Object Relational Mapper that gives application developers the full power and flexibility of SQL.
+* [sqlparse](https://pypi.org/project/sqlparse/) - sqlparse is a non-validating SQL parser for Python. It provides support for parsing, splitting and formatting SQL statements.
+* [typing_extensions](https://pypi.org/project/typing-extensions/) - is a Python module that provides additional functionality related to type hinting, particularly for Python versions prior to 3.7, enabling developers to write more expressive and accurate type annotations in their codebases.
+* [urllib3](https://pypi.org/project/urllib3/) - Is a powerful HTTP client library for Python, providing features such as connection pooling, request retries, and support for various HTTP protocols, making it a robust tool for interacting with web servers programmatically.
+* [webencodings==0.5.1](https://pypi.org/project/webencodings/) - Is a Python package that provides utilities for working with web-related text encodings, such as converting between character encodings commonly used on the web, like HTML entities, to Unicode and vice versa.
+* [Werkzeug](https://pypi.org/project/Werkzeug/) - Werkzeug is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
+* [whitenoise==5.3.0](https://pypi.org/project/whitenoise/) - With a couple of lines of config WhiteNoise allows your web app to serve its own static files, making it a self-contained unit that can be deployed anywhere without relying on nginx, Amazon S3 or any other external service. (Especially useful on Heroku, OpenShift and other PaaS providers.)
+
+
+# Testing
+
+## Testing User Stories
+
+* As a Site User | I can view a list of the Restaurant reviews so that I can select one to read
+    * At the Home page (which is the landing page), there are 6 Posts listed per site, 3 on the top and 3 below that. The Posts are aligned horizontally, 3 for each row in two rows.
+
+* As a Site User | I can click on a specific review so that I can read it in detail
+   * The user can click on any review listed on the homepage, which will redirect them to the post detail page, rendering the post content in detail for the user to read.
+
+* As a Site User | I can like and unlike a review so that it is possible for me to interact with the review
+    * When the user is logged in, they can upvote or downvote a specific post by clicking on the thumb Up or Down icons. Additionally, they can click on the Heart Icon to save the review to their favorites, which will be stored in their profile.
+    This functionality is also available to the user on the Home page within the review Container.
+
+* As a Site User | I can view the number of likes on each review so that I can see how popular a specific review is
+    * On the review detail page the user can see how many likes the specific review has.
+
+* As a Site User | I can contact Review Alliance in an easy way so that I can interact with them if I have a need for it
+    * In the footer, there are social media links that the user can click on to get more insights about the Restaurant Review Blog and can follow them. If the user's desire is to get in contact with the Restaurant Review Team, they can find a phone number and email address on the About page, along with a brief description about the motivation and purpose of the site.
+
+* As a Site User | I can navigate easy on the site through paginated list of posts so that I feel comfortable using the site
+    * On the review pages the pagination is activated when there are more than 6 reviews on a page.
+
+* As a Site User | I can view comments on a specific review so that I can read the conversations between different users on the site
+    * When the user clicks on a specific review, it redirects the user to the post detail page where the review will be rendered in detail. This page displays the entire review, thumbs up/down icons, and a heart icon for favoriting the review. Additionally, there is a comment section where published and approved comments are displayed. Comments are shown within the comment-display container on the left, and users can create new comments using the comment-creation container on the right. This allows users to become active participants in the community and engage in discussions about the specific post they are viewing.
+
+* As a Site User | I can sign up an account so that I can like and comment on reviews, create a profile page, create own reviews and edit / remove my reviews
+    * To sign up, users can click on the "Login/Register" link in the navigation bar. This allows them to either log in or sign up for a new account. Once signed up, users can interact with the page as described in the user story.
+
+* As a Site User | I can create a profile page so that other reviewers can read about who I am
+    * If a user is registered and logged in there is a 'Profile'-page in the navigation menu where the user can visit his profile. After a successfull Registration an account will be created automatically for the user. The User can then upload a own profile image and change his user name and email. If Users aren't uploading own profile Images the Application is providing a default image as Profile image. 
+
+* As a Site User | I can comment on a review so that I can be involved in the conversation
+    * Upon successful registration and login, users can access their profile page from the navigation menu. Here, they can upload their own profile image and customize their username and email. If users don't upload their own profile images, the application provides a default image as the profile picture.
+
+* As a Site User | I can edit my comment so that I can change the content if needed
+    * Users can edit their own comments by locating the *edit* button below their comments. Upon clicking the edit button, the comment transitions into the right comment-creation container, and the submit button changes to "update". This allows users to easily update their content with a clear overview.
+
+* As a Site User | I can remove my comment so that I have full control of my comments
+    * Users can delete their own comments by locating the *delete* button below their comment. Upon clicking the *delete* button, a modal will open up and ask the user if they are sure they want to delete their comment.
+
+* As a Site User | I can remove my review so that I have full control of my reviews
+    * Users can delete their own reviews by locating the *delete* button below their reviews. Upon clicking the *delete* button, a modal will open up and ask the user if they are sure they want to delete their review.
+
+* As a Site User | I can want to see my own reviews and the reviews marked as favorites so that I can find them easily
+    * The user's own reviews, whether published or saved as drafts, will appear below their own reviews. Additionally, there is a section where the favorites will appear on their profile page, listed in a similar way as on the homepage.
+
+* As a Site User | I can create a new review so that I can share my experiences with the *Restaurant Review* community.
+    * When a user is logged in, they can create a new review by clicking on the 'New Post' link in the navigation bar.
+
+* As a Site User | I can log out from the site so that I can feel safe that nobody can access my information
+    * When the user is logged in it is possible to choose the 'Log Out'-option in the navigation menu.
+
+* As a Site User | I can create draft reviews so that I can finish writing the content later
+    * When a logged in user creates a review they have the possibility to set the status on the review either on published or draft.
+
+* As a Site User | I can get visual feedback when interacting with the content so that I can make sure about my actions
+    * When the user signs in, signs out, creates, updates, or deletes reviews and comments, they will receive confirmation messages to provide visual feedback.
+
+[Back to top](<#table-of-content>)
+
+
+## Testing Admin Stories
+
+* As a Site Admin | I can log out from the site so that I can feel safe that nobody can access my information<here>
+   * When the admin is logged in it is possible to choose the 'Log Out'-option in the navigation menu.
+
+* As a Site Admin | I can create, read, update and delete reviews so that I can manage my review content
+    * When the user is logged in as an administrator / superuser a new item show up in the navigation menu called *Admin Area*. In this area the user can read, update and delete reviews. Creation of reviews can be made the same way as any logged in user. Updating reviews can only be made if the administrator has written the original review.
+
+* As a Site Admin | I can approve reviews so that I can secure high quality of the content
+    * When the user is logged in as an administrator / superuser a new item show up in the navigation menu called 'Admin Area'. In this area the user can approve / unapprove / publish / unpublish reviews.
+
+* As a Site Admin | I can approve and disapprove comments so that I can secure a safe environment for the Site Users
+    * When the user is logged in as an administrator / superuser a new item show up in the navigation menu called 'Admin Area'. In this area the admin can approve / unapprove comments.
+
+* As a Site Admin | I can create draft reviews so that I can finish writing the content later
+    * When a user is logged in as an administrator they have the possibility to create a review they and set the status to published or draft.
+
+* As a Site Admin | I can access an admin area so that I can get a general overview about my users and theire content
+    * In the admin area, there is a summary section at the top displaying general information about the site, such as the number of users and the number of reviews/comments that require approval.
+
+* As a Site Admin | I can get visual feedback when interacting with the content so that I can make sure about my actions
+    * When administrators signs in, signs out, creates, updates, or deletes reviews and comments, they will receive confirmation messages to provide visual feedback.
+
+* As a Site Admin | I want to use Jazzmin instead of Django's default Admin page to have a more user-friendly and visually appealing interface
+
+<!--
+## Code Validation
+The code on the 'Review | Alliance' site has been tested through W3C Markup Validation Service, W3C CSS Validation Service and JSHint. Errors were at first found on the site in the W3C Markup Validation Service but could quite easily be fixed (see bugs section). One error appeared as well in the W3C CSS Validation but that was connected to Font Awesome and not to the site code itself (see bugs section).
+
+### Markup Validation
+After fixing the inital errors that W3C Markup Validation Service reported, no errors were returned.
+
+<details><summary><b>HTML Validation Result</b></summary>
+
+![HTML Result Home Page](readme/assets/images/html_validation_no_error.png)
+</details><br/>
+
+[Back to top](<#table-of-content>)
+
+### CSS Validaton
+When validating my own code the W3C CSS Validator reports no errors.
+
+<details><summary><b>CSS Validation Result</b></summary>
+
+![CSS Result](readme/assets/images/css_validation_no_error.png)
+</details><br/>
+
+[Back to top](<#table-of-content>)
+
+### PEP Validation
+At the time of this project the website [pep8online](http://pep8online.com/) is currently offline. Usually I'm using that site to validate my Python code. Due to the site being offline I have followed Code Institutes workaround to add the PEP8 validator 'pycodestyle' to the Gitpod Workspace. I have tested the following Python files:
+
+* admin.py - No errors or warnings reported
+* forms.py - No errors or warnings reported
+* models.py - No errors or warnings reported
+* test_forms.py - No errors or warnings reported
+* urls.py - No errors or warnings reported
+* views.py - No errors or warnings reported
+
+[Back to top](<#table-of-content>)
+
+### JavaScript Validation
+The JSHint validator results can be seen below:
+
+No errors were returned when passing through JSHint (script.js) but the test reported one undefined variable connected to Bootstrap which is no problem.
+
+<details><summary><b>JSHint Validation Result</b></summary>
+
+![JSHint Validation](readme/assets/images/js_hint_validation.png)
+</details><br/>
+
+[Back to top](<#table-of-content>)
+
+## Additional Testing
+
+### Manual Testing
+
+In addition to tests stated above I have performed a series of manual tests. Below the list of tests that has been conducted can be found.
+
+| Status | **Main Website - User Logged Out**
+|:-------:|:--------|
+| &check; | Typing in a incorrect URL on the page loads the 404 error page
+| &check; | Pasting page that needs authentication loads a forbidden page
+| &check; | Clicking the nav logo loads the home page
+| &check; | Clicking the Home button on the nav bar loads the home page and lists all reviews
+| &check; | Clicking the All button on the nav bar lists all reviews
+| &check; | Clicking the Albums button on the nav bar lists all album reviews
+| &check; | Clicking the Concert button on the nav bar lists all concert reviews
+| &check; | Clicking the Log In / Sign Up loads the sign up page
+| &check; | 6 Reviews are rendered for the user on all / albums / concert page before pagination kicks in
+| &check; | Clicking the Read More button on the a review card loads the review detail page
+| &check; | In the details view the user cannot create a comment
+| &check; | Clicking the Instagram link in the footer area opens Instagram in a new window
+| &check; | Clicking the YouTube link in the footer area opens YouTube in a new window
+| &check; | Clicking the LinkedInlink in the footer area opens LinkedIN in a new window
+| &check; | Clicking the Twitter link in the footer area opens Twitter in a new window
+
+| Status | **Main Website - User Logged In**
+|:-------:|:--------|
+| &check; | Typing in a incorrect URL on the page loads the 404 error page
+| &check; | Pasting page that needs authentication loads a forbidden page
+| &check; | Clicking the nav logo loads the home page
+| &check; | Clicking the Home button on the nav bar loads the home page and lists all reviews
+| &check; | Clicking the All button on the nav bar lists all reviews
+| &check; | Clicking the Albums button on the nav bar lists all album reviews
+| &check; | Clicking the Concert button on the nav bar lists all concert reviews
+| &check; | 6 Reviews are rendered for the user on all / albums / concert page before pagination kicks in
+| &check; | Clicking the Read More button on the a review card loads the review detail page
+| &check; | In the detail view the logged in user can comment a review
+| &check; | When user submits a comment a message with approval information is being showed on the page
+| &check; | In the detail view the logged in user can update/delete the comments written by themselves
+| &check; | Clicking the update button loads the update comment page
+| &check; | Clicking the delete button loads the delete comment page
+| &check; | In the detail view the logged in user can like/unlike reviews
+| &check; | In the detail view the logged in user can update/delete the reviews written by themselves
+| &check; | Clicking the update button in the detail view loads the update review page
+| &check; | Clicking the delete button in the detail view loads the delete review page
+| &check; | Clicking the My Reviews button in the logged in user menu lists the logged in users reviews
+| &check; | Clicking the update button in the My Reviews view loads the update review page
+| &check; | Clicking the delete button in the My Reviews view loads the delete review page
+| &check; | In the My Reviews view the information about the review status is correct
+| &check; | In the logged in user menu the Admin Area is not visible
+| &check; | Clicking the Show Profile Page button in the logged in user menu loads the My Profile page
+| &check; | Clicking the Instagram link in the footer area opens Instagram in a new window
+| &check; | Clicking the YouTube link in the footer area opens YouTube in a new window
+| &check; | Clicking the LinkedInlink in the footer area opens LinkedIN in a new window
+| &check; | Clicking the Twitter link in the footer area opens Twitter in a new window
+
+| Status | **Main Website - Admin Logged In**
+|:-------:|:--------|
+| &check; | Clicking the Admin Area button in the logged in user menu loads the Admin Area Page
+| &check; | In the review section. Clicking the approve / unapprove / publish / unpublish toggles the approve and status signs
+| &check; | The view button is only visible if a review is published
+| &check; | In the comment section. Clicking the approve / unapprove toggles the approve and status signs
+| &cross; | When clicking delete / add genre the appropiate page loads and shows success page after submit
+| &check; | Total Users shows correct number of total users
+| &check; | Total Reviews shows the correct number of total reviews
+| &check; | Total Comments shows the correct number of total comments
+| &check; | Reviews that need approval shows the correct numer of reviews that need approval
+| &check; | Comments that need approval shows the correct numer of comments that need approval
+
+ Status | **Create A Review - User Logged In**
+|:-------:|:--------|
+| &check; | Title field is required
+| &check; | Title field does not accept empty field
+| &check; | Title field does not accept just spaces
+| &check; | Artist field is required
+| &check; | Artist field does not accept empty field
+| &check; | Artist field does not accept just spaces
+| &check; | Featured Image is not required
+| &check; | Fragment field is required
+| &check; | Fragment field does not accept empty field
+| &check; | Body field is required
+| &check; | Body field does not accept empty field
+| &check; | Category field defaults to Uncategorized
+| &check; | Fragment field is required
+| &check; | Fragment field does not accept empty field
+| &check; | Record Label is not required
+| &check; | Venue is not required
+| &check; | Genre field defaults to Uncategorized
+| &check; | Rating field defaults to 3
+| &check; | Status field defaults to Draft
+| &check; | Posting as shows name of logged in user
+| &check; | Review Success Page is displayed when the user submits the review and the form validation is ok.
+
+Status | **Create A New User - User Logged Out**
+|:-------:|:--------|
+| &check; | Username field is required
+| &check; | Username field does not accept empty field
+| &check; | Email field does not accept just spaces
+| &check; | Email field is optional
+| &check; | Password field does not accept empty field
+| &check; | Success flash message is displayed when the user submits the create a new user form
+| &check; | Default biography is visible in about page (with i.e default featured image)
+
+Status | **Create A Profile Page - User Logged In**
+|:-------:|:--------|
+| &check; | Default featured image is visible the first time a user opens the 'my profile' page
+| &check; | First Name field is required
+| &check; | First Name field does not accept empty field
+| &check; | First Name field does not accept just spaces
+| &check; | Last Name field is required
+| &check; | Last Name field does not accept empty field
+| &check; | Last Name field does not accept just spaces
+| &check; | Update profile success Page is displayed when the user submits the profile form
+
+### Automated Testing
+Some automated testing has been done during this project. Due to prioritization of other tasks I only could provide 34% coverage. See screenshot below. Automated tests can be run by typing the command - *python3 manage.py test*
+
+<details><summary><b>Automated Testing</b></summary>
+
+![Automated Testing](readme/assets/images/test_coverage_report.png)
+</details><br/>
+
+### Responsiveness Test
+The responsive design tests were carried out manually with [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) and [Responsive Design Checker](https://www.responsivedesignchecker.com/).
+
+| Desktop    | Display <1280px       | Display >1280px    |
+|------------|-----------------------|--------------------|
+| Render     | pass                  | pass               |
+| Images     | pass                  | pass               |
+| Links      | pass                  | pass               |
+
+| Tablet     | Samsung Galaxy Tab 10 | Amazon Kindle Fire | iPad Mini | iPad Pro |
+|------------|-----------------------|--------------------|-----------|----------|
+| Render     | pass                  | pass               | pass      | pass     |
+| Images     | pass                  | pass               | pass      | pass     |
+| Links      | pass                  | pass               | pass      | pass     |
+
+| Phone      | Galaxy S5/S6/S7       | iPhone 6/7/8       | iPhone 12pro         |
+|------------|-----------------------|--------------------|----------------------|
+| Render     | pass                  | pass               | pass      | pass     |
+| Images     | pass                  | pass               | pass      | pass     |
+| Links      | pass                  | pass               | pass      | pass     |
+
+[Back to top](<#table-of-content>)
+
+### Browser Compatibility
+* Google Chrome Version (106.0.5249.119)
+* Mozilla Firefox (version 105.0.3)
+* Min (version 1.26.0)
+* Apple Safari (version 16.0)
+* Microsoft Edge (version 106.0.1370.47)
+
+[Back to top](<#table-of-content>)
+
+### Lighthouse
+Google Lighthouse in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. I tested the *index page*, *review details page*, *the admin area* and *the about page*. The testing showed the following:
+
+* Index Page - Performance: 75, Accessibility: 100, Best Practises: 100, SEO: 92
+* Review Details Page - Performance: 81, Accessibility: 98, Best Practises: 100, SEO: 92
+* Admin Area - Performance: 85, Accessibility: 97, Best Practises: 100, SEO: 100
+* About page - Performance: 73, Accessibility: 98, Best Practises: 100, SEO: 100
+
+In general this is OK results. The performance is affected in a negative way by external scripts (connected to i.e. Bootstrap) and the lower result on SEO on the Index page and Admin Area Page is i.e. connected to the 'read more' links that is not a 100% optimal description from a SEO point of view. The lower accessibility result on the review details page is connected to the heading elements not being in sequentially-descending order, but this is an active design choice and not a big issue (but I thought it would be proper to highlight it here so that it's clear I'm aware of it).
+
+<details><summary><b>Lighthouse Index Result</b></summary>
+
+![Lighthouse Index Result](readme/assets/images/lighthouse_index.png)
+</details><br/>
+
+<details><summary><b>Lighthouse Review Details Page Result</b></summary>
+
+![Lighthouse Review Details Page](readme/assets/images/lighthouse_review_details_page.png)
+</details><br/>
+
+<details><summary><b>Lighthouse Admin Area Result</b></summary>
+
+
+![Lighthouse Admin Area Result](readme/assets/images/lighthouse_admin_area.png)
+</details><br/>
+
+<details><summary><b>Lighthouse About Page Result</b></summary>
+
+![Lighthouse About Page Result](readme/assets/images/lighthouse_about.png)
+</details><br/>
+
+
+### WAVE
+[WAVE](https://wave.webaim.org/) was used to check accessibility. 0 errors were found.
+
+<details><summary><b>WAVE Result</b></summary>
+
+![WAVE Result](readme/assets/images/wave_result.png)
+</details><br/>
+
+### a11y Color Contrast Accessibility Validator
+[a11y](https://color.a11y.com/Contrast/) was used to check the color contrast accessibility. 0 errors were found.
+
+<details><summary><b>a11y Result</b></summary>
+
+![a11y Result](readme/assets/images/a11y_contrast_test.png)
+</details><br/>
+
+[Back to top](<#table-of-content>)
+
+### Peer Review
+Additional testing of the application was conducted by people outside of the software development field. Some smaller spelling and grammar errors were found and corrected. No issues connected to design or handling of the site.
+
+## Known bugs
+No known bugs besides those in the fixed / unfixed bugs section.
+
+### Fixed Bugs
+**2022-10-10**
+* Bug: When updating a review or comment the approved variable did not get updated to 'False'. This is is now handled and fixed.
+
+**2022-10-11**
+* Bug: When updating a review the slug did not change. I chose to fix this bug so that the slug updates when a review is updated but one 'school' within this area says that a slug never should be changed (due to problems with urls / linking in the future). This functionality is an easy fix to remove if necessary but I chose to keep it for now.
+
+**2022-10-14**
+* Bug: When the Markup Validation was done there was initially quite a lot of errors. The debugging process was very straight forward and the errors could easily be fixed.
+
+<details><summary><b>HTML Validation</b></summary>
+
+![HTML Validation](readme/assets/images/html_validation_error.png)
+</details><br />
+
+**2022-10-17**
+* Bug: The CSS Validation reported an error that is connected to Font Awesome. When I validate my own CSS code there are no errors at all. So this might be a Font Awesome bug that is out of my control. But I thought it would be proper to highlight the error here in the bugs section.
+
+<details><summary><b>CSS Validation</b></summary>
+
+![CSS Validation](readme/assets/images/css_validaton_error.png)
+</details><br />
+
+### Unfixed Bugs
+
+**2022-10-14**
+* Bug: Summernote is not working 100% properly. I have debugged and sweeped the Internet for solutions. The issue is that when a user creates a review it's not possible to overide the choices the user makes when writing the review (i.e. font-size and font). I tried to handle this by setting rules of what tools to show in the Summernote editor without success. One workaround could of course be to remove the Summernote functionality but I did not want to do that in this project at least. This bug is still unfixed and I haven't found a solution to it yet.
+
+**2022-10-15**
+* Bug: 2 warning / issues reported in the Google Chrome DevTools console. The first one is connected to a navigator.userAgent issue and the second to usage of a deprecated feature. I have done some digging and it seems that these issues have been reported within different forums on the web. I have checked other browsers (i.e. Firefox, Min and Edge) and the issue does not show up there.
+
+<details><summary><b>Warnings from Google Chrome DevTools</b></summary>
+
+![HTML Validation](readme/assets/images/google_chrome_warning.png)
+</details><br />
+
+[Back to top](<#table-of-content>)
+
+# Deployment
+
+## Deployment To Heroku
+
+The project was deployed to [Heroku](https://www.heroku.com). To deploy, please follow the process below:
+
+1. To begin with we need to create a GitHub repository from the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) by following the link and then click 'Use this template'.
+
+<details><summary><b>Heroku Deployment - Step 1</b></summary>
+
+![Heroku Deployment Step 1](readme/assets/images/heroku_01.png)
+</details><br />
+
+2. Fill in the needed details as stated in the screenshot below and then click 'Create Repository From Template'.
+
+<details><summary><b>Heroku Deployment - Step 2</b></summary>
+
+![Heroku Deployment Step 2](readme/assets/images/heroku_02.png)
+</details><br />
+
+3. When the repository creation is done click 'Gitpod' as stated in the screenshot below.
+
+<details><summary><b>Heroku Deployment - Step 3</b></summary>
+
+![Heroku Deployment Step 3](readme/assets/images/heroku_03.png)
+</details><br />
+
+4. Now it's time to install Django and the supporting libraries that are needed. Type the commands below to do this.
+
+* ```pip3 install 'django<4' gunicorn```
+* ```pip3 install 'dj_database_url psycopg2```
+* ```pip3 install 'dj3-cloudinary-storage```
+
+<details><summary><b>Heroku Deployment - Step 4</b></summary>
+
+![Heroku Deployment Step 4](readme/assets/images/heroku_04.png)
+</details><br />
+
+5. When Django and the libraries are installed we need to create a requirements file.
+
+* ```pip3 freeze --local > requirements.txt``` - This will create and add required libraries to requirements.txt
+
+<details><summary><b>Heroku Deployment - Step 5</b></summary>
+
+![Heroku Deployment Step 5](readme/assets/images/heroku_05.png)
+</details><br />
+
+6. Now it's time to create the project.
+
+* ```django-admin startproject YOUR_PROJECT_NAME .``` - This will create your project
+
+<details><summary><b>Heroku Deployment - Step 6</b></summary>
+
+![Heroku Deployment Step 6](readme/assets/images/heroku_06.png)
+</details><br />
+
+7. When the project is created we can now create the application.
+
+* ```python3 manage.py startapp APP_NAME``` - This will create your application
+
+<details><summary><b>Heroku Deployment - Step 7</b></summary>
+
+![Heroku Deployment Step 7](readme/assets/images/heroku_07.png)
+</details><br />
+
+8. We now need to add the application to settings.py
+
+<details><summary><b>Heroku Deployment - Step 8</b></summary>
+
+![Heroku Deployment Step 8](readme/assets/images/heroku_08.png)
+</details><br />
+
+8. Now it is time to do our first migration and run the server to test that everything works as expected. This is done by writing the commands below.
+
+* ```python3 manage.py migrate``` - This will migrate the changes
+* ```python3 manage.py runserver``` - This runs the server. To test it, click the open browser button that will be visible after the command is run.
+
+9. Now it is time to create our application on Heroku, attach a database, prepare our environment and settings.py file and setup the Cloudinary storage for our static and media files.
+
+* Head on to [Heroku](https://www.heroku.com/) and sign in (or create an account if needed).
+
+* In the top right corner there is a button that is labeled 'New'. Click that and then select 'Create new app'.
+
+<details><summary><b>Heroku Step 09</b></summary>
+
+![Heroku Step 9](readme/assets/images/heroku_09.png)
+</details><br />
+
+10. Now it's time to enter an application name that needs to be unique. When you have chosen the name, choose your region and click 'Create app".
+
+<details><summary><b>Heroku Step 10</b></summary>
+
+![Heroku Step 10](readme/assets/images/heroku_10.png)
+</details><br />
+
+11. To add a database to the app you need to go to the resources tab ->> add-ons, search for 'Heroku Postgres' and add it.
+
+<details><summary><b>Heroku Step 11</b></summary>
+
+![Heroku Step 11](readme/assets/images/heroku_11_1.png)
+![Heroku Step 11](readme/assets/images/heroku_11_2.png)
+</details><br />
+
+12. Go to the settings tab and click on the reveal Config Vars button. Copy the text from DATABASE_URL (because we are going to need it in the next step).
+
+<details><summary><b>Heroku Step 12</b></summary>
+
+![Heroku Step 12](readme/assets/images/heroku_12.png)
+</details><br />
+
+13. Go back to GitPod and create a new env.py in the top level directory. Then add these rows.
+
+* ```import os``` - This imports the os library
+* ```os.environ["DATABASE_URL_FROM HEROKU"]``` - This sets the environment variables.
+* ```os.environ["SECRET_KEY"]``` - Here you can choose whatever secret key you want.
+
+<details><summary><b>Heroku Step 13</b></summary>
+
+![Heroku Step 13](readme/assets/images/heroku_13.png)
+</details><br />
+
+14. Now we are going to head back to Heroku to add our secret key to config vars. See screenshot below.
+
+<details><summary><b>Heroku Step 14</b></summary>
+
+![Heroku Step 14](readme/assets/images/heroku_14.png)
+</details><br />
+
+15. Now we have some preparations to do connected to our environment and settings.py file. In the settings.py, add the following code:
+
+```import os```
+
+```import dj_database_url```
+
+```if os.path.isfile("env.py"):```
+
+```import env```
+
+<details><summary><b>Heroku Step 15</b></summary>
+
+![Heroku Step 15](readme/assets/images/heroku_15.png)
+</details><br />
+
+16. In the settings file, remove the insecure secret key and replace it with:
+```SECRET_KEY = os.environ.get('SECRET_KEY')```
+
+<details><summary><b>Heroku Step 16</b></summary>
+
+![Heroku Step 16](readme/assets/images/heroku_16.png)
+</details><br />
+
+17. Now we need to comment out the old database setting in the settings.py file (this is because we are going to use the postgres database instead of the sqlite3 database).
+
+<details><summary><b>Heroku Step 17 1/2</b></summary>
+
+![Heroku Step 17](readme/assets/images/heroku_17_1.png)
+</details><br />
+
+Now, add the link to the DATABASE_URL that we added to the environment file earlier.
+
+<details><summary><b>Heroku Step 17 2/2</b></summary>
+
+![Heroku Step 17](readme/assets/images/heroku_17_2.png)
+</details><br />
+
+18. Save all your fields and migrate the changes.
+
+```python3 manage.py migrate```
+
+19. Now we are going to get our connection to Cloudinary connection working (this is were we will store our static files). First you need to create a Cloudinary account and from the Cloudinary dashboard copy the API Environment Variable.
+
+20. Go back to the env.py file in Gitpod and add the Cloudinary url (it's very important that the url is correct):
+
+```os.environ["CLOUDINARY_URL"] = "cloudinary://************************"```
+
+21. Let's head back to Heroku and add the Cloudinary url in Config Vars. We also need to add a disable collectstatic variable to get our first deployment to Heroku to work.
+
+<details><summary><b>Heroku Step 21</b></summary>
+
+![Heroku Step 21](readme/assets/images/heroku_21.png)
+</details><br />
+
+22. Let's head back to our settings.py file on Gitpod. We now need to add our Cloudinary Libraries we installed earlier to the installed apps. Here it is important to get the order correct.
+
+<details><summary><b>Heroku Step 22</b></summary>
+
+![Heroku Step 22](readme/assets/images/heroku_22.png)
+</details><br />
+
+23. For Django to be able to understand how to use and where to store static files we need to add some extra rows to the settings.py file.
+
+<details><summary><b>Heroku Step 23</b></summary>
+
+![Heroku Step 23](readme/assets/images/heroku_23.png)
+</details><br />
+
+24. Hang in there, we have just a couple of steps left. Now it's time to link the file to the Heroku templates directory.
+
+<details><summary><b>Heroku Step 24</b></summary>
+
+![Heroku Step 24](readme/assets/images/heroku_24.png)
+</details><br />
+
+25. Let's change the templates directory to TEMPLATES_DIR in the teamplates array.
+
+<details><summary><b>Heroku Step 25</b></summary>
+
+![Heroku Step 25](readme/assets/images/heroku_25.png)
+</details><br />
+
+26. To be able to get the application to work through Heroku we also need to add our Heroku app and localhost to which hosts that are allowed.
+
+<details><summary><b>Heroku Step 26</b></summary>
+
+![Heroku Step 26](readme/assets/images/heroku_26.png)
+</details><br />
+
+27. Now we just need to add some files to Gitpod.
+
+* Create 3 folders in the top level directory: **media**, **static**, **templates**
+* Create a file called **Procfile* and add the line ```web: gunicorn PROJ_NAME.wsgi?``` to it.d
+
+28. Now you can save all the files and prepare for the first commit and push to Github by writing the lines below.
+
+* ```git add .```
+* ```git commit -m "Deployment Commit```
+* ```git push```
+
+29. Before moving on to the Heroku deployment we just need to add one more thing in the config vars. We need to add "PORT" in the KEY input field and "8000" in the VALUE field. If we don't add this there might be problems with the deployment.
+
+30. Now it's time for deployment. Scroll to the top of the settings page in Heroku and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
+
+31. Scroll down to the manual deployment section and click 'Deploy Branch'. Hopefully the deployment is successful!
+
+<details><summary><b>Heroku Step 31</b></summary>
+
+![Heroku Step 31](readme/assets/images/heroku_31.png)
+</details><br />
+
+The live link to the 'Review | Alliance' site on Heroku an be found [here](https://project-portfolio-4.herokuapp.com/). And the Github repository can be found [here](https://github.com/worldofmarcus/project-portfolio-4).
+
+[Back to top](<#table-of-content>)
+
+## How To Fork The Repository On GitHub
+
+It is possible to do a independent copy of a GitHub Repository by forking the GitHub account. The copy can then be viewed and it is also possible to do changes in the copy without affecting the original repository. To fork the repository, take these steps:
+
+1. After logging in to GitHub, locate the repository. On the top right side of the page there is a 'Fork' button. Click on the button to create a copy of the original repository.
+
+<details><summary><b>Github Fork</b></summary>
+
+![Fork](readme/assets/images/github_fork.png)
+</details><br />
+
+[Back to top](<#table-of-content>)
+
+## Cloning And Setting Up This Project
+
+To clone and set up this project you need to follow the steps below.
+
+1. When you are in the repository, find the code tab and click it.
+2. To the left of the green GitPod button, press the 'code' menu. There you will find a link to the repository. Click on the clipboard icon to copy the URL.
+3. Use an IDE and open Git Bash. Change directory to the location where you want the cloned directory to be made.
+4. Type 'git clone', and then paste the URL that you copied from GitHub. Press enter and a local clone will be created.
+
+<details><summary><b>Github Create Local Clone</b></summary>
+
+![Clone](readme/assets/images/github_clone_01.png)
+</details><br />
+
+5. To be able to get the project to work you need to install the requirements. This can be done by using the command below:
+
+* ```pip3 install -r requirements.txt``` - This command downloads and install all required dependencies that is stated in the requirements file.
+
+6. The next step is to set up the environment file so that the project knows what variables that needs to be used for it to work. Environment variables are usually hidden due to sensitive information. It's very important that you don't push the env.py file to Github (this can be secured by adding env.py to the .gitignore-file). The variables that are declared in the env.py file needs to be added to the Heroku config vars. Don't forget to do necessary migrations before trying to run the server.
+
+* ```python3 manage.py migrate``` - This will do the necessary migrations.
+* ```python3 manage.py runserver``` - If everything i setup correctly the project is now live locally.
+
+<details><summary><b>Setup env.py</b></summary>
+
+![Clone](readme/assets/images/github_clone_02.png)
+</details><br />
+
+[Back to top](<#table-of-content>)
+
+# Credits
+
+## Content
+
+* All text content written by Marcus Eriksson.
+
+* Test concert images on review cards taken from [Shutterstock](https://www.shutterstock.com/sv)
+
+* Test album images on review cards taken from [Kollektiv Fem](https://www.kollektivfem.se) which is owned by Marcus Eriksson.
+
+* Featured default review image taken from [FAVPNG](https://favpng.com/png_view/download-clip-art-png/hHNmGh4R)
+
+* Template for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
+
+## Technical
+
+* Inspiration regarding UpdateView taken from [Learn Django Class Based Views](https://www.youtube.com/watch?v=EUUjJdw3EBM)
+
+* Formatting date format [Formatting Date, Time, and Numbers in Django Templating](https://collinshillary1.medium.com/formatting-date-time-and-numbers-in-django-templating-f53fea027a06)
+
+* Inspiration regarding CSS code to add circle around text [How to Add a Circle Around a Number in CSS](https://www.w3docs.com/snippets/css/how-to-add-a-circle-around-a-number-in-css.html)
+
+* Inspiration regarding adding extra forms in Django Allauth form [How to add more custom fields on signup form?](https://stackoverflow.com/questions/68591755/django-allauth-how-to-add-more-custom-fields-on-signup-form)
+
+# Acknowledgements
+This fictional site was created for Portfolio Project #4 (Full-Stack Tolkin) - Diploma in Full Stack Software Development Diploma at the [Code Institute](https://www.codeinstitute.net). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
+
+*Marcus Eriksson, 2022-10-18*
+
+[Back to top](<#table-of-content>)-->
