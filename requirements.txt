@@ -1,6 +1,6 @@
 asarPy==1.0.1
 asgiref==3.7.2
-bleach==6.1.0
+bleach==6.1.0 
 blinker==1.7.0
 certifi==2024.2.2
 cffi==1.16.0
@@ -8,7 +8,6 @@ charset-normalizer==3.3.2
 click==8.1.7
 cloudinary==1.36.0
 crispy-bootstrap4==2024.1
-crispy-bootstrap5==0.7
 cryptography==42.0.3
 Cython==0.29.37
 defusedxml==0.7.1
@@ -22,8 +21,6 @@ django-fontawesome==1.0
 django-jazzmin==2.6.1
 django-summernote==0.8.20.0
 django-vote==2.4.0
-Flask==3.0.1
-Flask-SQLAlchemy==2.5.1
 greenlet==3.0.3
 gunicorn==20.1.0
 idna==3.6
