@@ -12,40 +12,52 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelButton = document.getElementById('cancel-button');
     const deleteProfileButton = document.getElementById('delete-button');
 
-
+    // Change Title Color
     function changeTitleColor() {
-
-        // Iterate over every single Post to change heading colors
         for (let i = 0; i < postDetailTitles.length; i++) {
             postDetailTitles[i].style.color = 'white';
         }
     }
 
+    // Profile Delete Button Hide
+    function hideDeleteButton() {
+        const deleteButton = document.getElementById('delete-button');
+        if (deleteButton) {
+            deleteButton.style.display = 'none';
+        }
+    }
+
+    // Event Listeners
     window.addEventListener('load', changeTitleColor);
-
-
-    // PROFILE //
-    // Profile Delete Button hide when Profile form is opened:
     if (editButton) {
-        editButton.addEventListener('click', function() {
-            const deleteButton = document.getElementById('delete-button');
-            if (deleteButton) {
-                deleteButton.style.display = 'none';
-            }
-        });
+        editButton.addEventListener('click', hideDeleteButton);
     }
 
-
-    // Create New Post
     if (newPostBtn && formContainer && newPostContainer) {
-        newPostBtn.addEventListener('click', function() {
-            formContainer.style.display = 'block';
-            newPostContainer.style.display = 'none';
-            changeLabelColor('white', 'bold');
-        });
+        newPostBtn.addEventListener('click', showNewPostForm);
     }
 
-    // Change the color of label titles
+    if (titleInput && slugInput) {
+        titleInput.addEventListener('input', handleSlugField);
+    }
+
+    if (editButton && editFormContainer && cancelButton) {
+        editButton.addEventListener('click', showEditForm);
+        cancelButton.addEventListener('click', cancelEdit);
+    }
+
+    document.getElementById('delete-post-button').addEventListener('click', showModal);
+    document.querySelector('#deletePostModal .modal-footer .btn-secondary').addEventListener('click', hideModal);
+    document.querySelectorAll('.btn-edit-comment').forEach(addEditCommentListener);
+    document.querySelectorAll('.btn-delete-comment').forEach(addDeleteCommentListener);
+
+    // Functions
+    function showNewPostForm() {
+        formContainer.style.display = 'block';
+        newPostContainer.style.display = 'none';
+        changeLabelColor('white', 'bold');
+    }
+
     function changeLabelColor(color, fontWeight) {
         labels.forEach(label => {
             const inputId = label.getAttribute('for');
@@ -57,44 +69,32 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Handle Slug Field in CreateNewPostForm
-    if (titleInput && slugInput) {
-        titleInput.addEventListener('input', function() {
-            const title = titleInput.value;
-            const slug = title.toLowerCase().replace(/\s+/g, '-').slice(0, 50);
-            slugInput.value = slug;
-        });
+    function handleSlugField() {
+        const title = titleInput.value;
+        const slug = title.toLowerCase().replace(/\s+/g, '-').slice(0, 50);
+        slugInput.value = slug;
     }
 
-
-    // Update Blog Post
-    if (editButton && editFormContainer && cancelButton) {
-        editButton.addEventListener('click', function() {
-            editFormContainer.style.display = 'block';
-            editButton.style.display = 'none';
-        });
-
-        cancelButton.addEventListener('click', function() {
-            editFormContainer.style.display = 'none';
-            editButton.style.display = 'block';
-        
-            window.location.href = "/post_detail/<post_id>";  
-        });
+    function showEditForm() {
+        editFormContainer.style.display = 'block';
+        editButton.style.display = 'none';
     }
 
-    // Trigger Deletion button of Post Modal
-    // Show modal when delete button is clicked
-    document.getElementById('delete-post-button').addEventListener('click', function() {
+    function cancelEdit() {
+        editFormContainer.style.display = 'none';
+        editButton.style.display = 'block';
+        window.location.href = "/post_detail/<post_id>";  
+    }
+
+    function showModal() {
         document.getElementById('deletePostModal').style.display = 'block';
-    });
+    }
 
-    // Hide modal when cancel button is clicked
-    document.querySelector('#deletePostModal .modal-footer .btn-secondary').addEventListener('click', function() {
+    function hideModal() {
         document.getElementById('deletePostModal').style.display = 'none';
-    });
+    }
 
-    // Edit Comment
-    document.querySelectorAll('.btn-edit-comment').forEach(button => {
+    function addEditCommentListener(button) {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
             const commentBody = document.querySelector(`#comment${commentId} p`).textContent;
@@ -102,48 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelector('#comment-id').value = commentId;
             document.querySelector('#edit-comment-form').style.display = 'block';
         });
-    });
-    
-    document.querySelectorAll('.btn-delete-comment').forEach(button => {
+    }
+
+    function addDeleteCommentListener(button) {
         button.addEventListener('click', function() {
             const commentId = this.getAttribute('data-comment-id');
             document.querySelector('#comment-id').value = commentId;
             document.querySelector('#delete-comment-form').style.display = 'block';
         });
-    });
-
-    // Up and Downvote for Posts with AJAX
-    // Based on: https://www.youtube.com/watch?v=onZ69P9wS2o
-    /*$(document).ready(function () {
-      $(document).on('click', '.thumbaction', function (e) {
-          e.preventDefault();
-          console.log("Thumb button clicked");
-          var postid = $(this).closest('.thumb-container').find('#thumbs').data('value'); 
-          var button = $(this).attr("value");
-          $.ajax({
-              type: 'POST',
-              url: thumbsUrl, 
-              data: {
-                  postid: postid,
-                  csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-                  action: 'thumbs',
-                  button: button,
-              },
-              success: function (json) {
-                  if (json.length < 1 || json == undefined) {
-                  }
-                  $("#up").text(json['up']); 
-                  $("#down").text(json['down']);
-                  $("svg").removeClass("thumb-active");
-                  if (json['remove'] == 'none') {
-                      $("#" + button).removeClass("thumb-active");
-                  } else {
-                      $("#" + button).addClass("thumb-active");
-                  }
-              },
-              error: function (xhr, errmsg, err) {
-              }
-          });
-      });
-  });*/
- });
+    }
+});
