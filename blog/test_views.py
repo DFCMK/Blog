@@ -287,6 +287,7 @@ class create_new_post(TestCase):
             'slug': 'test-post',
             'content': 'Test Content',
             'excerpt': 'Test Excerpt',
+            'status': 0
         }
 
         response = self.client.post(reverse('new_post'), post_data)
@@ -329,6 +330,7 @@ class create_new_post(TestCase):
             'slug': 'test-post',
             'content': 'Test Content',
             'excerpt': 'Test Excerpt',
+            'status': 0
         }
 
         response = self.client.post(reverse('new_post'), post_data)
@@ -394,6 +396,7 @@ class update_post(TestCase):
             'slug': 'updated-title',
             'content': 'Updated Content',
             'excerpt': 'Updated Excerpt',
+            'status': 0
         }
         
         # Submit the update form
