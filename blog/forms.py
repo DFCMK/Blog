@@ -1,12 +1,18 @@
 from django import forms
 from .models import Post, Comment
-#from django.utils.text import sanitize_title
 
 
 class CreateNewPostForm(forms.ModelForm):
-    class Meta: 
+    class Meta:
         model = Post
-        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image', 'status']
+        fields = [
+            'title',
+            'slug',
+            'content',
+            'excerpt',
+            'featured_image',
+            'status'
+            ]
 
     def save(self, commit=True):
         instance = super(CreateNewPostForm, self).save(commit=False)
@@ -21,7 +27,14 @@ class CreateNewPostForm(forms.ModelForm):
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'slug', 'content', 'excerpt', 'featured_image', 'status']
+        fields = [
+            'title',
+            'slug',
+            'content',
+            'excerpt',
+            'featured_image',
+            'status'
+            ]
 
     def save(self, commit=True):
         instance = super().save(commit=False)
@@ -31,7 +44,8 @@ class PostUpdateForm(forms.ModelForm):
         return instance
 
 
-# Based on Djangocentral: https://djangocentral.com/creating-comments-system-with-django/
+# Based on Djangocentral:
+# https://djangocentral.com/creating-comments-system-with-django/
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment

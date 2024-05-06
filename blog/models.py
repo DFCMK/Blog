@@ -5,26 +5,32 @@ from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 
 
-#from django.core.validators import RegexValidator
-
-
-#validate_title = RegexValidator(
-#    regex=r'^[a-zA-Z0-9 _-]*$',  # Include symbols you want to allow in the regex pattern
-#    message='Title can only contain letters, numbers, spaces, underscores, dashes, and symbols.',
+# validate_title = RegexValidator(
+#    regex=r'^[a-zA-Z0-9 _-]*$',
+#    message='Title can only contain letters,
+# numbers, spaces, underscores, dashes, and symbols.',
 #    code='invalid_title'
-#)
+# )
 
 
-STATUS = ((0, "Draft"), (1, "Published"))
 # likes Based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
-# Down and Up vote (thumbs up/ thumbs down) based on: https://www.youtube.com/watch?v=onZ69P9wS2o
+# Down and Up vote (thumbs up/ thumbs down) based on:
+# https://www.youtube.com/watch?v=onZ69P9wS2o
 # Based on CI walk threw
+STATUS = ((0, "Draft"), (1, "Published"))
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
-    featured_image = CloudinaryField('post_image', default='placeholder', transformation=[
-  {'width': 200, 'height': 150, 'crop': "fill", 'effect': "sharpen:200"},
-  ])
+    featured_image = CloudinaryField(
+        'post_image', default='placeholder', transformation=[{
+            'width': 200,
+            'height': 150,
+            'crop': "fill",
+            'effect': "sharpen:200"
+            },
+        ])
     content = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -33,13 +39,16 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, related_name='blog_post')
     thumbsup = models.IntegerField(default=0)
     thumbsdown = models.IntegerField(default=0)
-    thumbs = models.ManyToManyField(User, related_name='thumbs', default=None, blank=True)
-    #votes = models.PositiveIntegerField(default=0)
-    #upvotes = models.PositiveIntegerField(default=0)
-    #downvotes = models.PositiveIntegerField(default=0)
-    #total_votes = models.IntegerField(default=0)
+    thumbs = models.ManyToManyField(
+        User, related_name='thumbs', default=None, blank=True
+        )
+    # approved = models.BooleanField(default=False)
+    # votes = models.PositiveIntegerField(default=0)
+    # upvotes = models.PositiveIntegerField(default=0)
+    # downvotes = models.PositiveIntegerField(default=0)
+    # total_votes = models.IntegerField(default=0)
 
-    #def __str__(self):
+    # def __str__(self):
     #    return self.title
 
     def save(self, *args, **kwargs):
@@ -67,17 +76,17 @@ class Post(models.Model):
         return self.likes.count()
 
 
-#def vote(request, post_id):
+# def vote(request, post_id):
 #    post = Post.objects.get(id=post_id)
 #    post.vote_up_or_down(True)
 #    return JsonResponse({'success': True})
 
-#def vote_down(request, post_id):
+# def vote_down(request, post_id):
 #    post = Post.objects.get(id=post_id)
 #    post.vote_up_or_down(False)
 #    return JsonResponse({'success': True})
 
-#def total_votes(request, post_id):
+# def total_votes(request, post_id):
 #    post = Post.objects.get(id=post_id)
 #    votes_total = post.total_votes()
 #    return JsonResponse({'total_votes': votes_total})
@@ -85,25 +94,42 @@ class Post(models.Model):
 
 # Based on: https://www.youtube.com/watch?v=onZ69P9wS2o
 class Vote(models.Model):
-    post = models.ForeignKey(Post, related_name='postid', on_delete=models.CASCADE, default=None, blank=True) 
-    user = models.ForeignKey(User, related_name='userid', on_delete=models.CASCADE, default=None, blank=True)
+    post = models.ForeignKey(
+        Post, related_name='postid',
+        on_delete=models.CASCADE,
+        default=None, blank=True
+        )
+    user = models.ForeignKey(
+        User, related_name='userid',
+        on_delete=models.CASCADE,
+        default=None,
+        blank=True
+        )
     vote = models.BooleanField(default=True)
 
 
 # Based on Post model
 class Comment(models.Model):
-    post = models.ForeignKey('Post', related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='commenter')
+    post = models.ForeignKey(
+        'Post',
+        related_name='comments',
+        on_delete=models.CASCADE
+        )
+    author = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='commenter'
+        )
     body = models.TextField()
     date_posted = models.DateTimeField(default=timezone.now)
     approved = models.BooleanField(default=False)
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    #def approve(self):
+    # def approve(self):
     #    self.approved = True
     #    self.save()
 
-    #def __str__(self):
+    # def __str__(self):
     #    return self.body
 
     def __str__(self):
@@ -113,16 +139,27 @@ class Comment(models.Model):
         ordering = ["-date_posted"]
 
 
-# Based on Tutorial: https://www.youtube.com/watch?v=fNMTKxO8HsI&list=PLOLrQ9Pn6cazhaxNDhcOIPYXt2zZhAXKO&index=6
-#class BlogAdminPage(models.Model):
+# Based on Tutorial:
+# https://www.youtube.com/watch?v=fNMTKxO8HsI&list=PLOLrQ9Pn6cazhaxNDhcOIPYXt2zZhAXKO&index=6
+# class BlogAdminPage(models.Model):
 #        user = models.OneToOneField(User, on_delete=models.CASCADE)
-#        profile_image = CloudinaryField('image', default='placeholder', transformation=[
-#        {'gravity': "face", 'height': 200, 'width': 200, 'crop': "thumb"},
+#        profile_image = CloudinaryField(
+#    'image', default='placeholder', transformation=[
+#        {
+#    'gravity': "face",
+#    'height': 200,
+#    'width': 200,
+#    'crop': "thumb"
+#    },
 #        {'radius': "max"},
 #        {'fetch_format': "auto"}
 #    ])
-#        user_comments = models.ManyToManyField(Comment, related_name='commented_by_users')
-#        user_posts = models.ManyToManyField(Post, related_name='posted_by')
+#        user_comments = models.ManyToManyField(
+#    Comment, related_name='commented_by_users'
+#    )
+#        user_posts = models.ManyToManyField(
+#    Post, related_name='posted_by'
+#    )
 #
 #        def __str__(self):
 #            return f'{self.user.username} Profile'
