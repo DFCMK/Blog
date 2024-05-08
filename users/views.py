@@ -18,13 +18,15 @@ def register(request):
             username = form.cleaned_data.get("username")
             messages.success(
                 request,
-                f"Your account as {username} has been created! You are now able to log in.",
+                f"Your account as {username} has been created!" +
+                " You are now able to log in.",
             )
             return redirect("login")
         else:
             messages.error(
                 request,
-                "There was an error in the registration form. Please correct it.",
+                "There was an error in the registration form." +
+                " Please correct it.",
             )
     else:
         form = UserRegisterForm()
@@ -32,8 +34,10 @@ def register(request):
 
 
 # tutorial based
-# Displaying user_posts based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
-# Pagination based on: https://docs.djangoproject.com/en/5.0/ref/paginator/#django.core.paginator.Paginator
+# Displaying user_posts based on:
+# https://www.youtube.com/watch?v=PXqRPqDjDgc
+# Pagination based on:
+# https://docs.djangoproject.com/en/5.0/ref/paginator/
 @login_required
 def profile(request):
     try:
@@ -86,8 +90,11 @@ def profile(request):
             user_form.save()
             profile_form.save()
             username = request.user.username
-            messages.success(request, f"Your profile {username} has been updated!")
+            messages.success(
+                request, f"Your profile {username} has been updated!"
+                )
             return redirect("profile")
+        else:
             # Handle form validation errors
             for field, errors in user_form.errors.items():
                 for error in errors:
@@ -95,6 +102,7 @@ def profile(request):
             for field, errors in profile_form.errors.items():
                 for error in errors:
                     messages.error(request, f"Error in {field}: {error}")
+            return redirect("profile")
     else:
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=profile)
@@ -110,7 +118,8 @@ def profile(request):
     return render(request, "users/profile.html", context)
 
 
-# Based on Stack Overflow: https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
+# Based on Stack Overflow:
+# https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django
 @login_required
 def delete_profile(request):
     try:
