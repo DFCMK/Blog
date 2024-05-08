@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponseForbidden, HttpResponseBadRequest
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 #from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.urls import reverse
 from django.views.generic import ListView
@@ -100,6 +100,24 @@ def create_new_post(request):
             post.save()
             messages.success(request, 'Your post was successfully submitted!')
             return redirect('blog-home')
+        else:
+            messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+    else:
+        post_form = CreateNewPostForm()
+    
+    context = {'post_form': post_form}
+    return render(request, 'blog/create.html', context)
+
+@login_required
+def create_new_post(request):
+    if request.method == 'POST':
+        post_form = CreateNewPostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+            post.author = request.user
+            post.save()
+            messages.success(request, 'Your post was successfully submitted!')
+            return redirect('blog-home')  # Redirect to the home page after successful post creation
         else:
             messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
     else:
@@ -216,6 +234,7 @@ def edit_comment(request, comment_id, slug):
 
 
 # Based on CI walk threw
+@login_required
 def delete_comment(request, slug, comment_id):
     if request.method == 'POST':
         post = get_object_or_404(Post, slug=slug)
@@ -249,6 +268,7 @@ def likes(request, pk):
     return redirect('blog-home')
 
 # Based on tutorial: https://www.youtube.com/watch?v=onZ69P9wS2o
+@login_required
 def thumbs(request, pk):
     print("Received request:", request.POST)
     if request.method == 'POST' and request.POST.get('action') == 'thumbs':
