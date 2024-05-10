@@ -270,7 +270,6 @@ def likes(request, pk):
 # Based on tutorial: https://www.youtube.com/watch?v=onZ69P9wS2o
 @login_required
 def thumbs(request, pk):
-    print("Received request:", request.POST)
     if request.method == 'POST' and request.POST.get('action') == 'thumbs':
         id = pk
         button = request.POST.get('button')
