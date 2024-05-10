@@ -323,7 +323,7 @@ body {
 .post-detail {
   max-height: 100%;
   overflow-y: auto;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .alert-error {
