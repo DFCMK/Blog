@@ -1,4 +1,4 @@
-# **Review | Alliance**
+# **Restaurant-Review-Blog**
 Review | Restaurant-Review-Blog is designed with a singular purpose: to enable users to share their unique dining adventures and insights with a global audience. Here, users can meticulously document their restaurant visits, capturing the essence of every dining experience, from the exquisite flavors to the ambiance that makes each visit memorable.
 
 Users can leave comments, share their reviews, and express their opinions through simple thumbs-up or thumbs-down gestures. This interactive environment encourages a rich exchange of ideas and perspectives, making every visit to Restaurant-Review-Blog a unique culinary adventure.
@@ -390,15 +390,11 @@ The sites incorporates flash messages and confirmation messages when an action h
 
 ### Features Left to Implement
 
-<!--* Add more automated testing
+* Add more automated testing
 * Add 'current page is active' in navbar
-* Search reviews functionality from the navbar
-* Information in the about section how many reviews each reviewer has made
-* Add / remove genre and category in admin section
-* Add image resize functionality
-* Remove admin approval of comments
+* Search bar to enabel user to search for specific reviews
 
-[Back to top](<#table-of-content>)-->
+[Back to top](<#table-of-content>)
 
 # Technologies Used
 
@@ -482,6 +478,10 @@ The libraries used in this project are located in the requirements.txt file and 
 * [webencodings==0.5.1](https://pypi.org/project/webencodings/) - Is a Python package that provides utilities for working with web-related text encodings, such as converting between character encodings commonly used on the web, like HTML entities, to Unicode and vice versa.
 * [Werkzeug](https://pypi.org/project/Werkzeug/) - Werkzeug is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.
 * [whitenoise==5.3.0](https://pypi.org/project/whitenoise/) - With a couple of lines of config WhiteNoise allows your web app to serve its own static files, making it a self-contained unit that can be deployed anywhere without relying on nginx, Amazon S3 or any other external service. (Especially useful on Heroku, OpenShift and other PaaS providers.)
+* [flake8](https://pypi.org/project/flake8/) - Flake8 is a Python tool that combines linting, static analysis, and style checking to help enforce coding standards and identify potential errors in Python code.
+* [mccabe](https://pypi.org/project/mccabe/) - This module provides a plugin for flake8, the Python code checker.
+* [pycodestyle](https://pypi.org/project/pycodestyle/) - pycodestyle is a tool to check your Python code against some of the style conventions in PEP 8.
+* [pyflakes](https://pypi.org/project/pyflakes/) - A simple program which checks Python source files for errors.
 
 
 # Testing
@@ -571,16 +571,16 @@ The libraries used in this project are located in the requirements.txt file and 
 
 * As a Site Admin | I want to use Jazzmin instead of Django's default Admin page to have a more user-friendly and visually appealing interface
 
-<!--
+
 ## Code Validation
-The code on the 'Review | Alliance' site has been tested through W3C Markup Validation Service, W3C CSS Validation Service and JSHint. Errors were at first found on the site in the W3C Markup Validation Service but could quite easily be fixed (see bugs section). One error appeared as well in the W3C CSS Validation but that was connected to Font Awesome and not to the site code itself (see bugs section).
+The code on the 'Review | Alliance' site has been tested through W3C Markup Validation Service, W3C CSS Validation Service and JSHint. Errors were at first found on the site in the W3C Markup Validation Service but could quite easily be fixed. <!--One error appeared as well in the W3C CSS Validation but that was connected to Font Awesome and not to the site code itself (see bugs section).-->
 
 ### Markup Validation
 After fixing the inital errors that W3C Markup Validation Service reported, no errors were returned.
 
 <details><summary><b>HTML Validation Result</b></summary>
 
-![HTML Result Home Page](readme/assets/images/html_validation_no_error.png)
+![HTML Result Home Page](readme/assets/images/W3C-validator-results.png)
 </details><br/>
 
 [Back to top](<#table-of-content>)
@@ -590,31 +590,61 @@ When validating my own code the W3C CSS Validator reports no errors.
 
 <details><summary><b>CSS Validation Result</b></summary>
 
-![CSS Result](readme/assets/images/css_validation_no_error.png)
+![CSS Result](readme/assets/images/W3C-css-results.png)
 </details><br/>
 
 [Back to top](<#table-of-content>)
 
 ### PEP Validation
-At the time of this project the website [pep8online](http://pep8online.com/) is currently offline. Usually I'm using that site to validate my Python code. Due to the site being offline I have followed Code Institutes workaround to add the PEP8 validator 'pycodestyle' to the Gitpod Workspace. I have tested the following Python files:
+
+At the time of this project, the website [pep8online](http://pep8online.com/) is currently offline. Usually, I use that site to validate my Python code. Due to the site being offline, I have installed the flake8 package to be able to test my files against the PEP8 standard.<br>
+[Black](https://black.vercel.app/?version=stable&state=_Td6WFoAAATm1rRGAgAhARYAAAB0L-Wj4ABlADtdAD2IimZxl1N_W1ktIvcnCRyzdeeGA586U8RMKbisQDagJu_q8FSQURAOpy53zRFNWR_PKEHUHHiuqlQAAADL_WK1qHJ_wwABV2bVuq1xH7bzfQEAAAAABFla) was used to automate the code adjustment.<br>
+All lines of code that were still not aligned with the PEP8 standard after getting the adjusted files from Black were modified manually.
+
+I have tested the following Python files:
+
+#### blog app:
 
 * admin.py - No errors or warnings reported
 * forms.py - No errors or warnings reported
 * models.py - No errors or warnings reported
-* test_forms.py - No errors or warnings reported
-* urls.py - No errors or warnings reported
+* test_views.py - No errors or warnings reported
 * views.py - No errors or warnings reported
+* urls.py - In my urls.py file, I encountered import errors indicating that certain modules or functions were 'imported but unused'. Despite these errors, the functionality of my application remained unaffected. Upon reviewing the setup of my URL patterns and comparing it to my views.py and other files, I couldn't identify any issues that could have caused this error. Resolving this issue could be a task for future improvements to the application.
+
+<details><summary><b>Imported but unused errors</b></summary>
+
+![CSS Result](readme/assets/images/import-error.png)
+</details><br/>
 
 [Back to top](<#table-of-content>)
 
+#### users app:
+
+* admin.py - No errors or warnings reported
+* forms.py - No errors or warnings reported
+* models.py - No errors or warnings reported
+* test_views.py - No errors or warnings reported
+* views.py - No errors or warnings reported
+* urls.py - No errors or warnings reported 
+
 ### JavaScript Validation
-The JSHint validator results can be seen below:
+The JSHint validator results are as follows:
 
-No errors were returned when passing through JSHint (script.js) but the test reported one undefined variable connected to Bootstrap which is no problem.
+No errors were returned when passing through JSHint for the <b>main.js, ajax.js</b>, and <b>comments.js</b> files. However, when testing the <b>ajax.js</b> file, it threw an error regarding an undefined variable: <b>thumbsUrl</b>. This is not an issue because <u>*thumbsUrl*</u> was defined within a script tag in the post_detail template, which is why it couldn't find the variable within the ajax.js file.
 
-<details><summary><b>JSHint Validation Result</b></summary>
+Similarly, the <b>comments.js</b> file was throwing an error regarding an undefined variable: <b>postSlug</b>. This variable is also defined within a separate script tag in the post_detail template.
 
-![JSHint Validation](readme/assets/images/js_hint_validation.png)
+The screenshots below showcase the undefined variable error for <b>ajax.js</b> and <b>comments.js</b>:
+
+<details><summary><b>JSHint Validation Result for ajax.js</b></summary>
+
+![JSHint Validation](readme/assets/images/ajax-jshint-results.png)
+</details><br/>
+
+<details><summary><b>JSHint Validation Result for comments.js</b></summary>
+
+![JSHint Validation](readme/assets/images/comments-jshint-results.png)
 </details><br/>
 
 [Back to top](<#table-of-content>)
@@ -628,47 +658,40 @@ In addition to tests stated above I have performed a series of manual tests. Bel
 | Status | **Main Website - User Logged Out**
 |:-------:|:--------|
 | &check; | Typing in a incorrect URL on the page loads the 404 error page
-| &check; | Pasting page that needs authentication loads a forbidden page
-| &check; | Clicking the nav logo loads the home page
-| &check; | Clicking the Home button on the nav bar loads the home page and lists all reviews
-| &check; | Clicking the All button on the nav bar lists all reviews
-| &check; | Clicking the Albums button on the nav bar lists all album reviews
-| &check; | Clicking the Concert button on the nav bar lists all concert reviews
-| &check; | Clicking the Log In / Sign Up loads the sign up page
-| &check; | 6 Reviews are rendered for the user on all / albums / concert page before pagination kicks in
-| &check; | Clicking the Read More button on the a review card loads the review detail page
-| &check; | In the details view the user cannot create a comment
-| &check; | Clicking the Instagram link in the footer area opens Instagram in a new window
-| &check; | Clicking the YouTube link in the footer area opens YouTube in a new window
-| &check; | Clicking the LinkedInlink in the footer area opens LinkedIN in a new window
-| &check; | Clicking the Twitter link in the footer area opens Twitter in a new window
+| &check; | Clicking on the nav logo loads the home page
+| &check; | Clicking on the Home button on the nav bar loads the home page and lists all reviews
+| &check; | Clicking on Login loads the Login page.
+| &check; | Clicking on Register loads the Login page.
+| &check; | 6 Reviews are rendered for the user on the Homepage before pagination kicks in
+| &check; | Clicking a specific Post on the Homepage will render the hole post in detail.
+| &check; | In the details view the user cannot create a comment, but read other users comments below the post.
+| &check; | Clicking the Instagram link in the footer area opens Instagram in a new window.
+| &check; | Clicking the YouTube link in the footer area opens YouTube in a new window.
+| &check; | Clicking the LinkedInlink in the footer area opens Facebook in a new window.
+| &check; | Clicking the Twitter link in the footer area opens Twitter in a new window.
 
 | Status | **Main Website - User Logged In**
 |:-------:|:--------|
 | &check; | Typing in a incorrect URL on the page loads the 404 error page
-| &check; | Pasting page that needs authentication loads a forbidden page
 | &check; | Clicking the nav logo loads the home page
 | &check; | Clicking the Home button on the nav bar loads the home page and lists all reviews
-| &check; | Clicking the All button on the nav bar lists all reviews
-| &check; | Clicking the Albums button on the nav bar lists all album reviews
-| &check; | Clicking the Concert button on the nav bar lists all concert reviews
-| &check; | 6 Reviews are rendered for the user on all / albums / concert page before pagination kicks in
-| &check; | Clicking the Read More button on the a review card loads the review detail page
-| &check; | In the detail view the logged in user can comment a review
-| &check; | When user submits a comment a message with approval information is being showed on the page
-| &check; | In the detail view the logged in user can update/delete the comments written by themselves
-| &check; | Clicking the update button loads the update comment page
-| &check; | Clicking the delete button loads the delete comment page
-| &check; | In the detail view the logged in user can like/unlike reviews
-| &check; | In the detail view the logged in user can update/delete the reviews written by themselves
-| &check; | Clicking the update button in the detail view loads the update review page
-| &check; | Clicking the delete button in the detail view loads the delete review page
-| &check; | Clicking the My Reviews button in the logged in user menu lists the logged in users reviews
-| &check; | Clicking the update button in the My Reviews view loads the update review page
-| &check; | Clicking the delete button in the My Reviews view loads the delete review page
-| &check; | In the My Reviews view the information about the review status is correct
+| &check; | Six reviews are rendered for the user on the Home/Profile (Published Posts/Favorite Posts) before pagination kicks in.
+| &check; | Clicking a specific post on the Homepage will render the hole post in detail.
+| &check; | In the detail view the logged-in user can leave a comment below the review
+| &check; | When a user submits a comment, a message will inform the user that the comment is awaiting approval.
+| &check; | In the detail view the logged-in user can edit and delete the comments written by themselves.
+| &check; | Clicking the edit button will transfer the comment's content into the create-comment container on the right side.
+| &check; | Clicking the delete button will open a Modal where the user have to confirm a second time the deletion.
+| &check; | In the detail view the logged in user can like/unlike with a thumb up and down below the review
+| &check; | In the detail view the logged in user can update/delete reviews written by themselves
+| &check; | Clicking the edit button below the review within the detail view, will only appear on reviews written by the logged in user, will open the update_post form and repopulate it with its content.
+| &check; | Clicking the delete button below the review within the detail view, will open up a modal, where the user have to confirm the deletion a second time.
+| &check; | Clicking the Profile button in the navbar, lists the logged in users reviews as *Your Published Posts* and the reviews marked as favorites as *Your Favourite Posts*..
+| &check; | Clicking the update button in the Profile view, will open the UserUpdateForm and allow the user to change his Profile name, email and upload a new Profile image.
+| &check; | Clicking the delete button in the Profile view, will open up a modal where the user have to confirm the deletion of the profile.
+| &check; | Clicking the about in the navbar will render the about page with brief information, and motivation about the site and below that contact detail to contact the *Restauran-Review-Blog*
 | &check; | In the logged in user menu the Admin Area is not visible
-| &check; | Clicking the Show Profile Page button in the logged in user menu loads the My Profile page
+| &check; | Clicking the Show Profile Page button in the logged in user menu loads the Profile page of the user and shows his user details with his profile image and below that his own published posts, and posts marked as favorites
 | &check; | Clicking the Instagram link in the footer area opens Instagram in a new window
 | &check; | Clicking the YouTube link in the footer area opens YouTube in a new window
 | &check; | Clicking the LinkedInlink in the footer area opens LinkedIN in a new window
@@ -677,71 +700,52 @@ In addition to tests stated above I have performed a series of manual tests. Bel
 | Status | **Main Website - Admin Logged In**
 |:-------:|:--------|
 | &check; | Clicking the Admin Area button in the logged in user menu loads the Admin Area Page
-| &check; | In the review section. Clicking the approve / unapprove / publish / unpublish toggles the approve and status signs
-| &check; | The view button is only visible if a review is published
-| &check; | In the comment section. Clicking the approve / unapprove toggles the approve and status signs
-| &cross; | When clicking delete / add genre the appropiate page loads and shows success page after submit
-| &check; | Total Users shows correct number of total users
-| &check; | Total Reviews shows the correct number of total reviews
-| &check; | Total Comments shows the correct number of total comments
-| &check; | Reviews that need approval shows the correct numer of reviews that need approval
-| &check; | Comments that need approval shows the correct numer of comments that need approval
+| &check; | In the posts section. Clicking the approve / unapprove / publish / unpublish toggles the approve and status signs
+| &check; | In the comment section. Ticking the approve / unapprove box, allow content management
+| &check; | Users button in the head of the Admin page, lists all registered users.
+| &check; | Posts all Posts Drafts and Published
+| &check; | Comments list all comments approved / unapproved.
+| &check; | *Back To Website* link in the head of the Admin page, brings admin back to Homepage
 
- Status | **Create A Review - User Logged In**
+ Status | **Create A Review (Post) - User Logged In**
 |:-------:|:--------|
-| &check; | Title field is required
-| &check; | Title field does not accept empty field
-| &check; | Title field does not accept just spaces
-| &check; | Artist field is required
-| &check; | Artist field does not accept empty field
-| &check; | Artist field does not accept just spaces
-| &check; | Featured Image is not required
-| &check; | Fragment field is required
-| &check; | Fragment field does not accept empty field
-| &check; | Body field is required
-| &check; | Body field does not accept empty field
-| &check; | Category field defaults to Uncategorized
-| &check; | Fragment field is required
-| &check; | Fragment field does not accept empty field
-| &check; | Record Label is not required
-| &check; | Venue is not required
-| &check; | Genre field defaults to Uncategorized
-| &check; | Rating field defaults to 3
+| &check; | Title field is required!
+| &check; | Title field does not accept an empty field.
+| &check; | Title field does not accept just spaces.
+| &check; | Title is not accepting special charakters such as: *?=()/&%$§"!°*'><*.
+| &check; | Slug field is generated automatically, based on the title.
+| &check; | Content field does not accept empty field.
+| &check; | Content field does not accept just spaces.
+| &check; | Content field is required!
+| &check; | Featured Image is not required, and assigned with a *placeholder image* if user doesn't upload an image for the review.
+| &check; | Excerpt field is required!
+| &check; | Excerpt field does not accept empty field!
 | &check; | Status field defaults to Draft
-| &check; | Posting as shows name of logged in user
-| &check; | Review Success Page is displayed when the user submits the review and the form validation is ok.
 
-Status | **Create A New User - User Logged Out**
+Status | **Register a new User - User Logged Out**
 |:-------:|:--------|
-| &check; | Username field is required
-| &check; | Username field does not accept empty field
-| &check; | Email field does not accept just spaces
-| &check; | Email field is optional
-| &check; | Password field does not accept empty field
+| &check; | Username field is required!
+| &check; | Username field does not accept empty field.
+| &check; | Email field does not accept just spaces.
+| &check; | Email field is required!
+| &check; | Password field does not accept empty field.
+| &check; | Password can’t be entirely numeric.
 | &check; | Success flash message is displayed when the user submits the create a new user form
-| &check; | Default biography is visible in about page (with i.e default featured image)
-
-Status | **Create A Profile Page - User Logged In**
-|:-------:|:--------|
-| &check; | Default featured image is visible the first time a user opens the 'my profile' page
-| &check; | First Name field is required
-| &check; | First Name field does not accept empty field
-| &check; | First Name field does not accept just spaces
-| &check; | Last Name field is required
-| &check; | Last Name field does not accept empty field
-| &check; | Last Name field does not accept just spaces
-| &check; | Update profile success Page is displayed when the user submits the profile form
+| &check; | A Profile will be generated automatically for a newly registered user with a default *placeholder profile image*.
 
 ### Automated Testing
-Some automated testing has been done during this project. Due to prioritization of other tasks I only could provide 34% coverage. See screenshot below. Automated tests can be run by typing the command - *python3 manage.py test*
+Some automated testing has been conducted during this project.
+Tests where written for the <u>*views.py*</u> files in both the <b>blog</b> and <b>users</b> applications.
+Please refer to the screenshot below for a brief visualization of the test results. 
+You can run automated tests by typing the command: <u>*python3 manage.py test*</u>
 
 <details><summary><b>Automated Testing</b></summary>
 
-![Automated Testing](readme/assets/images/test_coverage_report.png)
+![Automated Testing](readme/assets/images/automated-test-results.png)
 </details><br/>
 
 ### Responsiveness Test
-The responsive design tests were carried out manually with [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/) and [Responsive Design Checker](https://www.responsivedesignchecker.com/).
+The responsive design tests were carried out manually with [Google Chrome DevTools](https://developer.chrome.com/docs/devtools/).
 
 | Desktop    | Display <1280px       | Display >1280px    |
 |------------|-----------------------|--------------------|
@@ -764,60 +768,97 @@ The responsive design tests were carried out manually with [Google Chrome DevToo
 [Back to top](<#table-of-content>)
 
 ### Browser Compatibility
-* Google Chrome Version (106.0.5249.119)
-* Mozilla Firefox (version 105.0.3)
-* Min (version 1.26.0)
-* Apple Safari (version 16.0)
-* Microsoft Edge (version 106.0.1370.47)
-
+* Google Chrome
+* Mozilla Firefox
+* Ecosia
+* Apple Safari
+* Microsoft Edge
+* Mullvad
+* Brave
 [Back to top](<#table-of-content>)
 
 ### Lighthouse
 Google Lighthouse in Chrome Developer Tools was used to test the application within the areas of *Performance*, *Accessibility*, *Best Practices* and *SEO*. I tested the *index page*, *review details page*, *the admin area* and *the about page*. The testing showed the following:
 
-* Index Page - Performance: 75, Accessibility: 100, Best Practises: 100, SEO: 92
-* Review Details Page - Performance: 81, Accessibility: 98, Best Practises: 100, SEO: 92
-* Admin Area - Performance: 85, Accessibility: 97, Best Practises: 100, SEO: 100
-* About page - Performance: 73, Accessibility: 98, Best Practises: 100, SEO: 100
+#### Desktop:
 
-In general this is OK results. The performance is affected in a negative way by external scripts (connected to i.e. Bootstrap) and the lower result on SEO on the Index page and Admin Area Page is i.e. connected to the 'read more' links that is not a 100% optimal description from a SEO point of view. The lower accessibility result on the review details page is connected to the heading elements not being in sequentially-descending order, but this is an active design choice and not a big issue (but I thought it would be proper to highlight it here so that it's clear I'm aware of it).
+* Home Page - Performance: 99, Accessibility: 88, Best Practises: 74, SEO: 90
+* About Page - Performance: 100, Accessibility: 93, Best Practises: 96, SEO: 89
+* Admin Area - Performance: 77, Accessibility: 74, Best Practises: 100, SEO: 80
+* Profile Page - Performance: 99, Accessibility: 88, Best Practises: 74, SEO: 90
+* New Post Page - Performance: 100, Accessibility: 91, Best Practises: 96, SEO: 89
 
-<details><summary><b>Lighthouse Index Result</b></summary>
+#### Mobile:
 
-![Lighthouse Index Result](readme/assets/images/lighthouse_index.png)
+* Home Page - Performance: 93, Accessibility: 82, Best Practises: 93, SEO: 87
+* About Page - Performance: 95, Accessibility: 100, Best Practises: 96, SEO: 91
+* Admin Area - Performance: 55, Accessibility: 74, Best Practises: 100, SEO: 83
+* Profile Page - Performance: 93, Accessibility: 83, Best Practises: 70, SEO: 92
+* New Post Page - Performance: 95, Accessibility: 91, Best Practises: 96, SEO: 91
+
+#### Desktop Screenshots:
+
+<details><summary><b>Lighthouse Homepage Result</b></summary>
+
+![Lighthouse Index Result](readme/assets/images/desktop-home.png)
 </details><br/>
 
-<details><summary><b>Lighthouse Review Details Page Result</b></summary>
+<details><summary><b>Lighthouse About Page Result</b></summary>
 
-![Lighthouse Review Details Page](readme/assets/images/lighthouse_review_details_page.png)
+![Lighthouse About Page Result](readme/assets/images/desktop-about.png)
 </details><br/>
 
 <details><summary><b>Lighthouse Admin Area Result</b></summary>
 
 
-![Lighthouse Admin Area Result](readme/assets/images/lighthouse_admin_area.png)
+![Lighthouse Admin Area Result](readme/assets/images/desktop-admin.png)
+</details><br/>
+
+<details><summary><b>Lighthouse Profile Page Result</b></summary>
+
+![Lighthouse Review Details Page](readme/assets/images/desktop-profile.png)
+</details><br/>
+
+<details><summary><b>Lighthouse New Post Page Result</b></summary>
+
+![Lighthouse Review Details Page](readme/assets/images/desktop-new-post.png)
+</details><br/>
+
+#### Mobile Screenshots:
+
+<details><summary><b>Lighthouse Homepage Result</b></summary>
+
+![Lighthouse Index Result](readme/assets/images/mobile-home.png)
 </details><br/>
 
 <details><summary><b>Lighthouse About Page Result</b></summary>
 
-![Lighthouse About Page Result](readme/assets/images/lighthouse_about.png)
+![Lighthouse About Page Result](readme/assets/images/mobile-about.png)
 </details><br/>
 
+<details><summary><b>Lighthouse Admin Area Result</b></summary>
 
-### WAVE
-[WAVE](https://wave.webaim.org/) was used to check accessibility. 0 errors were found.
 
-<details><summary><b>WAVE Result</b></summary>
-
-![WAVE Result](readme/assets/images/wave_result.png)
+![Lighthouse Admin Area Result](readme/assets/images/mobile-admin.png)
 </details><br/>
+
+<details><summary><b>Lighthouse Profile Page Result</b></summary>
+
+![Lighthouse Review Details Page](readme/assets/images/mobile-profile.png)
+</details><br/>
+
+<details><summary><b>Lighthouse New Post Page Result</b></summary>
+
+![Lighthouse Review Details Page](readme/assets/images/mobile-new-post.png)
+</details><br/>
+
 
 ### a11y Color Contrast Accessibility Validator
 [a11y](https://color.a11y.com/Contrast/) was used to check the color contrast accessibility. 0 errors were found.
 
 <details><summary><b>a11y Result</b></summary>
 
-![a11y Result](readme/assets/images/a11y_contrast_test.png)
+![a11y Result](readme/assets/images/ally-contrast-test.png)
 </details><br/>
 
 [Back to top](<#table-of-content>)
@@ -829,42 +870,20 @@ Additional testing of the application was conducted by people outside of the sof
 No known bugs besides those in the fixed / unfixed bugs section.
 
 ### Fixed Bugs
-**2022-10-10**
-* Bug: When updating a review or comment the approved variable did not get updated to 'False'. This is is now handled and fixed.
+**2024-5-8**
+* Bug: Footer was covering next button on the homepage, favorite posts on the profile page, and the update and submit button on mobile devices in the new post and update post form.
 
-**2022-10-11**
+<!--**2022-10-11**
 * Bug: When updating a review the slug did not change. I chose to fix this bug so that the slug updates when a review is updated but one 'school' within this area says that a slug never should be changed (due to problems with urls / linking in the future). This functionality is an easy fix to remove if necessary but I chose to keep it for now.
 
 **2022-10-14**
 * Bug: When the Markup Validation was done there was initially quite a lot of errors. The debugging process was very straight forward and the errors could easily be fixed.
 
-<details><summary><b>HTML Validation</b></summary>
-
-![HTML Validation](readme/assets/images/html_validation_error.png)
-</details><br />
-
 **2022-10-17**
-* Bug: The CSS Validation reported an error that is connected to Font Awesome. When I validate my own CSS code there are no errors at all. So this might be a Font Awesome bug that is out of my control. But I thought it would be proper to highlight the error here in the bugs section.
-
-<details><summary><b>CSS Validation</b></summary>
-
-![CSS Validation](readme/assets/images/css_validaton_error.png)
-</details><br />
+* Bug: The CSS Validation reported an error that is connected to Font Awesome. When I validate my own CSS code there are no errors at all. So this might be a Font Awesome bug that is out of my control. But I thought it would be proper to highlight the error here in the bugs section.-->
 
 ### Unfixed Bugs
-
-**2022-10-14**
-* Bug: Summernote is not working 100% properly. I have debugged and sweeped the Internet for solutions. The issue is that when a user creates a review it's not possible to overide the choices the user makes when writing the review (i.e. font-size and font). I tried to handle this by setting rules of what tools to show in the Summernote editor without success. One workaround could of course be to remove the Summernote functionality but I did not want to do that in this project at least. This bug is still unfixed and I haven't found a solution to it yet.
-
-**2022-10-15**
-* Bug: 2 warning / issues reported in the Google Chrome DevTools console. The first one is connected to a navigator.userAgent issue and the second to usage of a deprecated feature. I have done some digging and it seems that these issues have been reported within different forums on the web. I have checked other browsers (i.e. Firefox, Min and Edge) and the issue does not show up there.
-
-<details><summary><b>Warnings from Google Chrome DevTools</b></summary>
-
-![HTML Validation](readme/assets/images/google_chrome_warning.png)
-</details><br />
-
-[Back to top](<#table-of-content>)
+There are no unfixed bugs, i am aware of.
 
 # Deployment
 
@@ -872,129 +891,132 @@ No known bugs besides those in the fixed / unfixed bugs section.
 
 The project was deployed to [Heroku](https://www.heroku.com). To deploy, please follow the process below:
 
-1. To begin with we need to create a GitHub repository from the [Code Institute template](https://github.com/Code-Institute-Org/gitpod-full-template) by following the link and then click 'Use this template'.
+1. To begin with we need to create a GitHub repository from the [Code Institute template](https://github.com/Code-Institute-Org/ci-full-template) by following the link and then click 'Use this template'.
 
 <details><summary><b>Heroku Deployment - Step 1</b></summary>
 
-![Heroku Deployment Step 1](readme/assets/images/heroku_01.png)
+![Heroku Deployment Step 1](readme/assets/images/heroku01.png)
 </details><br />
 
 2. Fill in the needed details as stated in the screenshot below and then click 'Create Repository From Template'.
 
 <details><summary><b>Heroku Deployment - Step 2</b></summary>
 
-![Heroku Deployment Step 2](readme/assets/images/heroku_02.png)
+![Heroku Deployment Step 2](readme/assets/images/heroku02.png)
 </details><br />
 
-3. When the repository creation is done click 'Gitpod' as stated in the screenshot below.
+3. When the repository creation is done click '<> Code' as stated in the screenshot below.
 
 <details><summary><b>Heroku Deployment - Step 3</b></summary>
 
-![Heroku Deployment Step 3](readme/assets/images/heroku_03.png)
+![Heroku Deployment Step 3](readme/assets/images/heroku03.png)
 </details><br />
 
-4. Now it's time to install Django and the supporting libraries that are needed. Type the commands below to do this.
+4. Under the "Clone with HTTPS" section, click on the clipboard icon to copy the URL.
+
+5. Open a terminal on your local machine, or use an IDE of your choice such as VS Code
+
+6. Navigate to the directory where you want to clone the repository.
+
+7. Run the command git clone YOUR_COPIED_URL FOLDER_NAME (you want to save your copied repository to).
+
+8. Now it's time to install Django and the supporting libraries that are needed. Type the commands below to do this.
 
 * ```pip3 install 'django<4' gunicorn```
 * ```pip3 install 'dj_database_url psycopg2```
 * ```pip3 install 'dj3-cloudinary-storage```
 
-<details><summary><b>Heroku Deployment - Step 4</b></summary>
-
-![Heroku Deployment Step 4](readme/assets/images/heroku_04.png)
-</details><br />
-
-5. When Django and the libraries are installed we need to create a requirements file.
+9. When Django and the libraries are installed we need to create a requirements file.
 
 * ```pip3 freeze --local > requirements.txt``` - This will create and add required libraries to requirements.txt
 
-<details><summary><b>Heroku Deployment - Step 5</b></summary>
+<details><summary><b>Heroku Deployment - Step 9</b></summary>
 
-![Heroku Deployment Step 5](readme/assets/images/heroku_05.png)
+![Heroku Deployment Step 5](readme/assets/images/heroku09.png)
 </details><br />
 
-6. Now it's time to create the project.
+10. Now it's time to create the project.
 
 * ```django-admin startproject YOUR_PROJECT_NAME .``` - This will create your project
 
-<details><summary><b>Heroku Deployment - Step 6</b></summary>
+<details><summary><b>Heroku Deployment - Step 10</b></summary>
 
-![Heroku Deployment Step 6](readme/assets/images/heroku_06.png)
+![Heroku Deployment Step 6](readme/assets/images/heroku10.png)
 </details><br />
 
-7. When the project is created we can now create the application.
+11. When the project is created we can now create the application.
 
 * ```python3 manage.py startapp APP_NAME``` - This will create your application
 
-<details><summary><b>Heroku Deployment - Step 7</b></summary>
+<details><summary><b>Heroku Deployment - Step 11</b></summary>
 
-![Heroku Deployment Step 7](readme/assets/images/heroku_07.png)
+![Heroku Deployment Step 7](readme/assets/images/heroku11.png)
 </details><br />
 
-8. We now need to add the application to settings.py
+12. We now need to add the application to settings.py
 
-<details><summary><b>Heroku Deployment - Step 8</b></summary>
+<details><summary><b>Heroku Deployment - Step 12</b></summary>
 
-![Heroku Deployment Step 8](readme/assets/images/heroku_08.png)
+![Heroku Deployment Step 8](readme/assets/images/heroku12.png)
 </details><br />
 
-8. Now it is time to do our first migration and run the server to test that everything works as expected. This is done by writing the commands below.
+13. Now it is time to do our first migration and run the server to test that everything works as expected. This is done by writing the commands below.
 
 * ```python3 manage.py migrate``` - This will migrate the changes
 * ```python3 manage.py runserver``` - This runs the server. To test it, click the open browser button that will be visible after the command is run.
 
-9. Now it is time to create our application on Heroku, attach a database, prepare our environment and settings.py file and setup the Cloudinary storage for our static and media files.
+14. Now it is time to create our application on Heroku, attach a database, prepare our environment and settings.py file and setup the Cloudinary storage for our static and media files.
 
 * Head on to [Heroku](https://www.heroku.com/) and sign in (or create an account if needed).
 
 * In the top right corner there is a button that is labeled 'New'. Click that and then select 'Create new app'.
 
-<details><summary><b>Heroku Step 09</b></summary>
-
-![Heroku Step 9](readme/assets/images/heroku_09.png)
-</details><br />
-
-10. Now it's time to enter an application name that needs to be unique. When you have chosen the name, choose your region and click 'Create app".
-
-<details><summary><b>Heroku Step 10</b></summary>
-
-![Heroku Step 10](readme/assets/images/heroku_10.png)
-</details><br />
-
-11. To add a database to the app you need to go to the resources tab ->> add-ons, search for 'Heroku Postgres' and add it.
-
-<details><summary><b>Heroku Step 11</b></summary>
-
-![Heroku Step 11](readme/assets/images/heroku_11_1.png)
-![Heroku Step 11](readme/assets/images/heroku_11_2.png)
-</details><br />
-
-12. Go to the settings tab and click on the reveal Config Vars button. Copy the text from DATABASE_URL (because we are going to need it in the next step).
-
-<details><summary><b>Heroku Step 12</b></summary>
-
-![Heroku Step 12](readme/assets/images/heroku_12.png)
-</details><br />
-
-13. Go back to GitPod and create a new env.py in the top level directory. Then add these rows.
-
-* ```import os``` - This imports the os library
-* ```os.environ["DATABASE_URL_FROM HEROKU"]``` - This sets the environment variables.
-* ```os.environ["SECRET_KEY"]``` - Here you can choose whatever secret key you want.
-
-<details><summary><b>Heroku Step 13</b></summary>
-
-![Heroku Step 13](readme/assets/images/heroku_13.png)
-</details><br />
-
-14. Now we are going to head back to Heroku to add our secret key to config vars. See screenshot below.
-
 <details><summary><b>Heroku Step 14</b></summary>
 
-![Heroku Step 14](readme/assets/images/heroku_14.png)
+![Heroku Step 9](readme/assets/images/heroku14.png)
 </details><br />
 
-15. Now we have some preparations to do connected to our environment and settings.py file. In the settings.py, add the following code:
+15. Now it's time to enter an application name that needs to be unique. When you have chosen the name, choose your region and click 'Create app".
+
+<details><summary><b>Heroku Step 15</b></summary>
+
+![Heroku Step 10](readme/assets/images/heroku15.png)
+</details><br />
+
+16. To add a database to the app you need to go to the resources tab ->> add-ons, search for 'Heroku Postgres' and add it.
+
+<details><summary><b>Heroku Step 16</b></summary>
+
+![Heroku Step 11](readme/assets/images/heroku_16-1.png)
+![Heroku Step 11](readme/assets/images/heroku_16_2.png)
+</details><br />
+
+17. Go to the settings tab and click on the reveal Config Vars button. Copy the text from DATABASE_URL (because we are going to need it in the next step).
+
+<details><summary><b>Heroku Step 17</b></summary>
+
+![Heroku Step 12](readme/assets/images/heroku17.png)
+</details><br />
+
+18. Go back to GitPod and create a new env.py in the top level directory. Then add these rows.
+
+* ```import os``` - This imports the os library
+* ```os.environ.setdefault("DATABASE_URL", "DATABASE_URL_FROM HEROKU")``` - This sets the environment variables.
+* ```os.environ.setdefault("SECRET_KEY", "create your own: SeCReTKeY"``` - Here you can choose whatever secret key you want.
+
+<details><summary><b>Heroku Step 18</b></summary>
+
+![Heroku Step 13](readme/assets/images/heroku18.png)
+</details><br />
+
+19. Now we are going to head back to Heroku to add our secret key to config vars. See screenshot below.
+
+<details><summary><b>Heroku Step 19</b></summary>
+
+![Heroku Step 14](readme/assets/images/heroku19.png)
+</details><br />
+
+20. Now we have some preparations to do connected to our environment and settings.py file. In the settings.py, add the following code:
 
 ```import os```
 
@@ -1004,111 +1026,111 @@ The project was deployed to [Heroku](https://www.heroku.com). To deploy, please 
 
 ```import env```
 
-<details><summary><b>Heroku Step 15</b></summary>
+<details><summary><b>Heroku Step 20</b></summary>
 
-![Heroku Step 15](readme/assets/images/heroku_15.png)
+![Heroku Step 15](readme/assets/images/heroku20.png)
 </details><br />
 
-16. In the settings file, remove the insecure secret key and replace it with:
+21. In the settings file, remove the insecure secret key and replace it with:
 ```SECRET_KEY = os.environ.get('SECRET_KEY')```
 
-<details><summary><b>Heroku Step 16</b></summary>
+<details><summary><b>Heroku Step 21</b></summary>
 
-![Heroku Step 16](readme/assets/images/heroku_16.png)
+![Heroku Step 16](readme/assets/images/heroku21.png)
 </details><br />
 
-17. Now we need to comment out the old database setting in the settings.py file (this is because we are going to use the postgres database instead of the sqlite3 database).
+22. Now we need to comment out the old database setting in the settings.py file (this is because we are going to use the postgres database instead of the sqlite3 database).
 
-<details><summary><b>Heroku Step 17 1/2</b></summary>
+<details><summary><b>Heroku Step 22 1/2</b></summary>
 
-![Heroku Step 17](readme/assets/images/heroku_17_1.png)
+![Heroku Step 17](readme/assets/images/heroku22-1.png)
 </details><br />
 
 Now, add the link to the DATABASE_URL that we added to the environment file earlier.
 
-<details><summary><b>Heroku Step 17 2/2</b></summary>
+<details><summary><b>Heroku Step 22 2/2</b></summary>
 
-![Heroku Step 17](readme/assets/images/heroku_17_2.png)
+![Heroku Step 17](readme/assets/images/heroku_22-2.png)
 </details><br />
 
-18. Save all your fields and migrate the changes.
+23. Save all your fields and migrate the changes.
 
 ```python3 manage.py migrate```
 
-19. Now we are going to get our connection to Cloudinary connection working (this is were we will store our static files). First you need to create a Cloudinary account and from the Cloudinary dashboard copy the API Environment Variable.
+24. Now we are going to get our connection to Cloudinary connection working (this is were we will store our static files). First you need to create a Cloudinary account and from the Cloudinary dashboard copy the API Environment Variable.
 
-20. Go back to the env.py file in Gitpod and add the Cloudinary url (it's very important that the url is correct):
+25. Go back to the env.py file in Gitpod and add the Cloudinary url (it's very important that the url is correct):
 
 ```os.environ["CLOUDINARY_URL"] = "cloudinary://************************"```
 
-21. Let's head back to Heroku and add the Cloudinary url in Config Vars. We also need to add a disable collectstatic variable to get our first deployment to Heroku to work.
-
-<details><summary><b>Heroku Step 21</b></summary>
-
-![Heroku Step 21](readme/assets/images/heroku_21.png)
-</details><br />
-
-22. Let's head back to our settings.py file on Gitpod. We now need to add our Cloudinary Libraries we installed earlier to the installed apps. Here it is important to get the order correct.
-
-<details><summary><b>Heroku Step 22</b></summary>
-
-![Heroku Step 22](readme/assets/images/heroku_22.png)
-</details><br />
-
-23. For Django to be able to understand how to use and where to store static files we need to add some extra rows to the settings.py file.
-
-<details><summary><b>Heroku Step 23</b></summary>
-
-![Heroku Step 23](readme/assets/images/heroku_23.png)
-</details><br />
-
-24. Hang in there, we have just a couple of steps left. Now it's time to link the file to the Heroku templates directory.
-
-<details><summary><b>Heroku Step 24</b></summary>
-
-![Heroku Step 24](readme/assets/images/heroku_24.png)
-</details><br />
-
-25. Let's change the templates directory to TEMPLATES_DIR in the teamplates array.
-
-<details><summary><b>Heroku Step 25</b></summary>
-
-![Heroku Step 25](readme/assets/images/heroku_25.png)
-</details><br />
-
-26. To be able to get the application to work through Heroku we also need to add our Heroku app and localhost to which hosts that are allowed.
+26. Let's head back to Heroku and add the Cloudinary url in Config Vars. We also need to add a disable collectstatic variable to get our first deployment to Heroku to work.
 
 <details><summary><b>Heroku Step 26</b></summary>
 
-![Heroku Step 26](readme/assets/images/heroku_26.png)
+![Heroku Step 21](readme/assets/images/heroku26.png)
 </details><br />
 
-27. Now we just need to add some files to Gitpod.
+27. Let's head back to our settings.py file on Gitpod. We now need to add our Cloudinary Libraries we installed earlier to the installed apps. Here it is important to get the order correct.
+
+<details><summary><b>Heroku Step 27</b></summary>
+
+![Heroku Step 22](readme/assets/images/heroku27.png)
+</details><br />
+
+28. For Django to be able to understand how to use and where to store static files we need to use an if else statement to determine where to dtore them during development and deployment.
+
+<details><summary><b>Heroku Step 28</b></summary>
+
+![Heroku Step 23](readme/assets/images/heroku28.png)
+</details><br />
+
+29. Hang in there, we have just a couple of steps left. Now it's time to link the file to the Heroku templates directory.
+
+<details><summary><b>Heroku Step 29</b></summary>
+
+![Heroku Step 24](readme/assets/images/heroku29.png)
+</details><br />
+
+30. Let's change the templates directory to TEMPLATES_DIR in the teamplates array.
+
+<details><summary><b>Heroku Step 30</b></summary>
+
+![Heroku Step 25](readme/assets/images/heroku30.png)
+</details><br />
+
+31. To be able to get the application to work through Heroku we also need to add our Heroku app and localhost to which hosts that are allowed.
+
+<details><summary><b>Heroku Step 31</b></summary>
+
+![Heroku Step 26](readme/assets/images/heroku31.png)
+</details><br />
+
+32. Now we just need to add some files to Gitpod.
 
 * Create 3 folders in the top level directory: **media**, **static**, **templates**
 * Create a file called **Procfile* and add the line ```web: gunicorn PROJ_NAME.wsgi?``` to it.d
 
-28. Now you can save all the files and prepare for the first commit and push to Github by writing the lines below.
+33. Now you can save all the files and prepare for the first commit and push to Github by writing the lines below.
 
 * ```git add .```
 * ```git commit -m "Deployment Commit```
 * ```git push```
 
-29. Before moving on to the Heroku deployment we just need to add one more thing in the config vars. We need to add "PORT" in the KEY input field and "8000" in the VALUE field. If we don't add this there might be problems with the deployment.
+34. Before moving on to the Heroku deployment we just need to add one more thing in the config vars. We need to add "PORT" in the KEY input field and "8000" in the VALUE field. If we don't add this there might be problems with the deployment.
 
-30. Now it's time for deployment. Scroll to the top of the settings page in Heroku and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
+35. Now it's time for deployment. Scroll to the top of the settings page in Heroku and click the 'Deploy' tab. For deployment method, select 'Github'. Search for the repository name you want to deploy and then click connect.
 
-31. Scroll down to the manual deployment section and click 'Deploy Branch'. Hopefully the deployment is successful!
+36. Scroll down to the manual deployment section and click 'Deploy Branch'. Hopefully the deployment is successful!
 
-<details><summary><b>Heroku Step 31</b></summary>
+<details><summary><b>Heroku Step 36</b></summary>
 
-![Heroku Step 31](readme/assets/images/heroku_31.png)
+![Heroku Step 31](readme/assets/images/heroku36.png)
 </details><br />
 
-The live link to the 'Review | Alliance' site on Heroku an be found [here](https://project-portfolio-4.herokuapp.com/). And the Github repository can be found [here](https://github.com/worldofmarcus/project-portfolio-4).
+The live link to the *Restaurant-Review-Blog* site on Heroku can be found [here](https://django-restaurant-blog-d6ddec41b70e.herokuapp.com/). And the Github repository can be found [here](https://github.com/DFCMK/Restaurant-blog).
 
 [Back to top](<#table-of-content>)
-
+<!--
 ## How To Fork The Repository On GitHub
 
 It is possible to do a independent copy of a GitHub Repository by forking the GitHub account. The copy can then be viewed and it is also possible to do changes in the copy without affecting the original repository. To fork the repository, take these steps:
