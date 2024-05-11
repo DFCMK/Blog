@@ -1,5 +1,5 @@
 # **Restaurant-Review-Blog**
-Review | Restaurant-Review-Blog is designed with a singular purpose: to enable users to share their unique dining adventures and insights with a global audience. Here, users can meticulously document their restaurant visits, capturing the essence of every dining experience, from the exquisite flavors to the ambiance that makes each visit memorable.
+Restaurant-Review-Blog is designed with a singular purpose: to enable users to share their unique dining adventures and insights with a global audience. Here, users can meticulously document their restaurant visits, capturing the essence of every dining experience, from the exquisite flavors to the ambiance that makes each visit memorable.
 
 Users can leave comments, share their reviews, and express their opinions through simple thumbs-up or thumbs-down gestures. This interactive environment encourages a rich exchange of ideas and perspectives, making every visit to Restaurant-Review-Blog a unique culinary adventure.
 
@@ -1130,20 +1130,20 @@ Now, add the link to the DATABASE_URL that we added to the environment file earl
 The live link to the *Restaurant-Review-Blog* site on Heroku can be found [here](https://django-restaurant-blog-d6ddec41b70e.herokuapp.com/). And the Github repository can be found [here](https://github.com/DFCMK/Restaurant-blog).
 
 [Back to top](<#table-of-content>)
-<!--
-## How To Fork The Repository On GitHub
 
-It is possible to do a independent copy of a GitHub Repository by forking the GitHub account. The copy can then be viewed and it is also possible to do changes in the copy without affecting the original repository. To fork the repository, take these steps:
+## Fork the respository on Github:
 
-1. After logging in to GitHub, locate the repository. On the top right side of the page there is a 'Fork' button. Click on the button to create a copy of the original repository.
+A GitHub Repository can be forked to create a copy that can be viewed and modified without impacting the original repository.
+Follow these steps to fork the repository:
 
-<details><summary><b>Github Fork</b></summary>
+1. Log in to your GitHub account and navigate to the repository you want to fork.
+2. On the repository page, locate the "Fork" button located towards the top right of the page and click on it. This will initiate the process of forking the repository.
 
-![Fork](readme/assets/images/github_fork.png)
+<details><summary><b>Fork Github Repository</b></summary>
+
+![Fork Github Repository](readme/assets/images/fork-github-repo-pp4.png)
 </details><br />
-
-[Back to top](<#table-of-content>)
-
+<!--
 ## Cloning And Setting Up This Project
 
 To clone and set up this project you need to follow the steps below.
