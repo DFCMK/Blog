@@ -1195,15 +1195,15 @@ To clone and set up this project you need to follow the steps below.
 
 * The create_new_post view was inspired by following sources:
   - [Create / Update / Delete Posts](https://www.youtube.com/watch?v=-s7e_Fy6NRU&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=10) by <u>*Corey Schafer*</u>
-  - [Displaying User Posts](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codemy.com*</u>
+  - [Displaying User Posts](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codemy.com*</u>.
   - [Pagination](https://docs.djangoproject.com/en/5.0/ref/paginator/)
 
 * The edit and delete_comment views was inspired by [Codeinstitutes django walk threw project](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FSD101_WTS+2/courseware/16383559f48c4ae4a69e9e9149914729/d5d0251c90ab4dc5b7fc81bb7ac368d2/)
 
-* Inspiration regarding the likes view was taken from [Create Blog Like Button](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codeamy.com*</u>
+* Inspiration regarding the likes view was taken from [Create Blog Like Button](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codeamy.com*</u>.
 
 * Inspiration regarding the thumbs view was taken from [Learn Django - Thumbs up and down voting system example with AJAX](https://www.youtube.com/watch?v=onZ69P9wS2o) by <u>*
-Very Academy*</u>
+Very Academy*</u>.
 
 * Sources used to set up models.py, forms.py, admin.py, and apps.py are based on the same references mentioned above for the views.py file in the blog application. Most of these sources are linked above the functions in the respective files.
 
