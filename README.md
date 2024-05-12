@@ -1145,7 +1145,7 @@ Follow these steps to fork the repository:
 
 ![Fork Github Repository](readme/assets/images/fork-github-repo-pp4.png)
 </details><br />
-<!--
+
 ## Cloning And Setting Up This Project
 
 To clone and set up this project you need to follow the steps below.
