@@ -392,7 +392,9 @@ The sites incorporates flash messages and confirmation messages when an action h
 
 * Add more automated testing
 * Add 'current page is active' in navbar
-* Search bar to enabel user to search for specific reviews
+* Advanced Search: Implement advanced search functionality to allow users to search for restaurants based on various criteria such as cuisine, location, price range, etc.
+* Rating system, which allow users to rate Published Reviews 1 to 5 Stars
+* Recommendation System: Develop a recommendation system that suggests restaurants to users based on their past preferences and review
 
 [Back to top](<#table-of-content>)
 
@@ -1148,59 +1150,96 @@ Follow these steps to fork the repository:
 
 To clone and set up this project you need to follow the steps below.
 
-1. When you are in the repository, find the code tab and click it.
-2. To the left of the green GitPod button, press the 'code' menu. There you will find a link to the repository. Click on the clipboard icon to copy the URL.
-3. Use an IDE and open Git Bash. Change directory to the location where you want the cloned directory to be made.
-4. Type 'git clone', and then paste the URL that you copied from GitHub. Press enter and a local clone will be created.
+1. Click on the "Code" button, which is typically found near the top right of the repository page.
+2. Under the "Clone with HTTPS" section, click on the clipboard icon to copy the URL.
 
-<details><summary><b>Github Create Local Clone</b></summary>
+<details><summary><b>Clone Github Repository</b></summary>
 
-![Clone](readme/assets/images/github_clone_01.png)
+![Fork Github Repository](readme/assets/images/clone-repo-pp4.png)
 </details><br />
 
-5. To be able to get the project to work you need to install the requirements. This can be done by using the command below:
+3. Open a terminal on your local machine, or use an IDE of your choice such as VS Code
+
+4. Navigate to the directory where you want to clone the repository.
+
+5. Run the command git clone YOUR_COPIED_URL FOLDER_NAME (you want to save your copied repository to).
+
+6. To be able to get the project to work you need to install the requirements. This can be done by using the command below:
 
 * ```pip3 install -r requirements.txt``` - This command downloads and install all required dependencies that is stated in the requirements file.
 
-6. The next step is to set up the environment file so that the project knows what variables that needs to be used for it to work. Environment variables are usually hidden due to sensitive information. It's very important that you don't push the env.py file to Github (this can be secured by adding env.py to the .gitignore-file). The variables that are declared in the env.py file needs to be added to the Heroku config vars. Don't forget to do necessary migrations before trying to run the server.
+7. The next step is to set up the environment file so that the project knows what variables that needs to be used for it to work. Environment variables are usually hidden due to sensitive information. It's very important that you don't push the env.py file to Github (this can be secured by adding env.py to the .gitignore-file). The variables that are declared in the env.py file needs to be added to the Heroku config vars. Don't forget to do necessary migrations before trying to run the server.
 
 * ```python3 manage.py migrate``` - This will do the necessary migrations.
 * ```python3 manage.py runserver``` - If everything i setup correctly the project is now live locally.
 
 <details><summary><b>Setup env.py</b></summary>
 
-![Clone](readme/assets/images/github_clone_02.png)
+![Clone](readme/assets/images/setup-env-pp4.png)
 </details><br />
 
 [Back to top](<#table-of-content>)
 
-# Credits
-
-## Content
-
-* All text content written by Marcus Eriksson.
-
-* Test concert images on review cards taken from [Shutterstock](https://www.shutterstock.com/sv)
-
-* Test album images on review cards taken from [Kollektiv Fem](https://www.kollektivfem.se) which is owned by Marcus Eriksson.
-
-* Featured default review image taken from [FAVPNG](https://favpng.com/png_view/download-clip-art-png/hHNmGh4R)
-
-* Template for read.me provided by Code Institute (*with some additional changes that my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/))* suggested.
+## Credits
 
 ## Technical
 
-* Inspiration regarding UpdateView taken from [Learn Django Class Based Views](https://www.youtube.com/watch?v=EUUjJdw3EBM)
+#### blog app:
 
-* Formatting date format [Formatting Date, Time, and Numbers in Django Templating](https://collinshillary1.medium.com/formatting-date-time-and-numbers-in-django-templating-f53fea027a06)
+* Inspiration regarding PostListView was taken from [Python Django Tutorial Series](https://www.youtube.com/watch?v=-s7e_Fy6NRU&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=10) by <u>*Corey Schafer*</u>
 
-* Inspiration regarding CSS code to add circle around text [How to Add a Circle Around a Number in CSS](https://www.w3docs.com/snippets/css/how-to-add-a-circle-around-a-number-in-css.html)
+* The post_detail view was inspired by following sources: 
+  - [Generating slugs automatically](https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/)
+  - [Implementing comments](https://djangocentral.com/creating-comments-system-with-django/)
+  - [Total Likes](https://www.youtube.com/watch?v=PXqRPqDjDgc)
 
-* Inspiration regarding adding extra forms in Django Allauth form [How to add more custom fields on signup form?](https://stackoverflow.com/questions/68591755/django-allauth-how-to-add-more-custom-fields-on-signup-form)
+* The create_new_post view was inspired by following sources:
+  - [Create / Update / Delete Posts](https://www.youtube.com/watch?v=-s7e_Fy6NRU&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=10) by <u>*Corey Schafer*</u>
+  - [Displaying User Posts](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codemy.com*</u>
+  - [Pagination](https://docs.djangoproject.com/en/5.0/ref/paginator/)
+
+* The edit and delete_comment views was inspired by [Codeinstitutes django walk threw project](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FSD101_WTS+2/courseware/16383559f48c4ae4a69e9e9149914729/d5d0251c90ab4dc5b7fc81bb7ac368d2/)
+
+* Inspiration regarding the likes view was taken from [Create Blog Like Button](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codeamy.com*</u>
+
+* Inspiration regarding the thumbs view was taken from [Learn Django - Thumbs up and down voting system example with AJAX](https://www.youtube.com/watch?v=onZ69P9wS2o) by <u>*
+Very Academy*</u>
+
+* Sources used to set up models.py, forms.py, admin.py, and apps.py are based on the same references mentioned above for the views.py file in the blog application. Most of these sources are linked above the functions in the respective files.
+
+#### users app: 
+
+* Inspiration regarding register view was taken from [Python Django Tutorial Series](https://www.youtube.com/watch?v=q4jPR-M0TAQ&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=6) by <u>*Corey Schafer*</u>
+
+* The profile view was inspired by following sources: 
+  - [User Profile and Profile Image](https://www.youtube.com/watch?v=FdVuKt_iuSI&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=8) by <u>*Corey Schafer*</u>
+  - [Displaying User Posts](https://www.youtube.com/watch?v=PXqRPqDjDgc) by <u>*Codeamy.com*</u>
+  - [Pagination](https://docs.djangoproject.com/en/5.0/ref/paginator/)
+
+* Inspiration regarding the delete_profile view was taken from [How to delete user in django](https://stackoverflow.com/questions/33715879/how-to-delete-user-in-django) on <u>*Stackoverflow*</u>
+
+* Sources used to set up models.py, forms.py, admin.py, and apps.py are based on the same references mentioned above for the views.py file in the users application. Most of these sources are linked above the functions in the respective files.
+
+#### Static Files: 
+* JS files where inspired by the following sources:
+  - [ajax.js](https://www.youtube.com/watch?v=onZ69P9wS2o) by <u>*Very Academy*</u>
+  - [comments.js](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FSD101_WTS+2/courseware/56a2da0940b4411d8a38c2b093a22c60/24613de4bafc4032882cc1b8799bd4f0/?child=first) by <u>*Codeinstitute*</u>
+
+* CSS style rules where inspired by the following sources:
+  - [main.css](https://www.youtube.com/watch?v=qDwdMDQ8oX4&list=PL-osiE80TeTtoQCKZ03TU5fNfx2UY6U4p&index=3) by <u>*Corey Schafer*</u> *line 4 - 120*
+  - [main.css](https://github.com/Code-Institute-Solutions/blog/blob/main/15_testing/static/css/style.css) by <u>*Codeinstitute*</u> *line 122 - 306*
+
+#### Jazzmin Admin Page: 
+
+* Inspiration regarding the Jazzmin configuration was taken from [Jazzmin Documentation](https://django-jazzmin.readthedocs.io/)
+
+#### Restaurant Reviews:
+
+* Restaurant Reviews where written with the Large Language Model [Phind](https://www.phind.com)
 
 # Acknowledgements
 This fictional site was created for Portfolio Project #4 (Full-Stack Tolkin) - Diploma in Full Stack Software Development Diploma at the [Code Institute](https://www.codeinstitute.net). I would like to thank my mentor [Precious Ijege](https://www.linkedin.com/in/precious-ijege-908a00168/) for relevant feedback during the project.
 
-*Marcus Eriksson, 2022-10-18*
+*Denes Kalnoky, 2024-05-13*
 
-[Back to top](<#table-of-content>)-->
+[Back to top](<#table-of-content>)
