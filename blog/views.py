@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseForbidden
-#from django.http import HttpResponseForbidden, HttpResponseBadRequest
+
+# from django.http import HttpResponseForbidden, HttpResponseBadRequest
 from django.urls import reverse
 from django.views.generic import ListView
 from .forms import CreateNewPostForm, PostUpdateForm, CommentForm
@@ -11,36 +12,40 @@ from .models import Post, Comment, Vote
 from django.http import JsonResponse
 from django.db.models import F
 
-#Tutorial based
+
+# Tutorial based
 def home(request):
-    context = { 'posts': Post.objects.all() }
-    return render(request, 'blog/home.html', context)
+    context = {"posts": Post.objects.all()}
+    return render(request, "blog/home.html", context)
+
 
 # Tutorial video 10 - 9:00min.
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/home.html'
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+    template_name = "blog/home.html"
+    context_object_name = "posts"
+    ordering = ["-date_posted"]
     paginate_by = 6
 
 
-
-# Create Slugs based on simple.rocks: https://simpleit.rocks/python/django/generating-slugs-automatically-in-django-easy-solid-approaches/
-# Implementing comments based on djangocentral: https://djangocentral.com/creating-comments-system-with-django/ for implementing comments
+# Create Slugs based on simple.rocks:
+# https://simpleit.rocks/python/django/
+# generating-slugs-automatically-in-django-easy-solid-approaches/
+# Implementing comments based on djangocentral:
+# https://djangocentral.com/creating-comments-system-with-django/
 # Total Likes based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
 # Based on CI Django Walkthrew post_detail view:
 def post_detail(request, slug):
     """
     Display an individual :model:`blog.Post`.
-        
+
     **Context**
-        
+
     ``post``
     An instance of :model:`blog.Post`.
-        
+
     **Template:**
-        
+
     :template:`blog/post_detail.html`
     """
 
@@ -57,8 +62,9 @@ def post_detail(request, slug):
             comment.post = post
             comment.save()
             messages.add_message(
-                request, messages.SUCCESS,
-                'Comment submitted and awaiting approval'
+                request,
+                messages.SUCCESS,
+                "Comment submitted and awaiting approval",
             )
         else:
             return render(
@@ -69,11 +75,12 @@ def post_detail(request, slug):
                     "comments": comments,
                     "comment_count": comment_count,
                     "total_likes_count": total_likes_count,
-                    "comment_form": comment_form
+                    "comment_form": comment_form,
                 },
             )
 
-    # If it's not a POST request or the form is valid, create a new unbound form
+    # If it's not a POST request or the form is valid,
+    # create a new unbound form
     comment_form = CommentForm()
 
     return render(
@@ -84,7 +91,7 @@ def post_detail(request, slug):
             "comments": comments,
             "comment_count": comment_count,
             "total_likes_count": total_likes_count,
-            "comment_form": comment_form
+            "comment_form": comment_form,
         },
     )
 
@@ -92,44 +99,55 @@ def post_detail(request, slug):
 # Based users/views.py profile
 @login_required
 def create_new_post(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         post_form = CreateNewPostForm(request.POST, request.FILES)
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.author = request.user
             post.save()
-            messages.success(request, 'Your post was successfully submitted!')
-            return redirect('blog-home')
+            messages.success(request, "Your post was successfully submitted!")
+            return redirect("blog-home")
         else:
-            messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
+            messages.error(
+                request,
+                "There was an error submitting your post." +
+                " Please check the form and try again.",
+            )
     else:
         post_form = CreateNewPostForm()
-    
-    context = {'post_form': post_form}
-    return render(request, 'blog/create.html', context)
 
-@login_required
-def create_new_post(request):
-    if request.method == 'POST':
-        post_form = CreateNewPostForm(request.POST, request.FILES)
-        if post_form.is_valid():
-            post = post_form.save(commit=False)
-            post.author = request.user
-            post.save()
-            messages.success(request, 'Your post was successfully submitted!')
-            return redirect('blog-home')  # Redirect to the home page after successful post creation
-        else:
-            messages.error(request, 'There was an error submitting your post. Please check the form and try again.')
-    else:
-        post_form = CreateNewPostForm()
-    
-    context = {'post_form': post_form}
-    return render(request, 'blog/create.html', context)
+    context = {"post_form": post_form}
+    return render(request, "blog/create.html", context)
+
+
+# @login_required
+# def create_new_post(request):
+#    if request.method == "POST":
+#        post_form = CreateNewPostForm(request.POST, request.FILES)
+#        if post_form.is_valid():
+#            post = post_form.save(commit=False)
+#            post.author = request.user
+#            post.save()
+#            messages.success(request, "Your post was successfully submitted!")
+#            return redirect(
+#                "blog-home"
+#            )
+#        else:
+#            messages.error(
+#                request,
+#                "There was an error submitting your post.
+#                    Please check the form and try again.",
+#            )
+#    else:
+#        post_form = CreateNewPostForm()
+#
+#    context = {"post_form": post_form}
+#    return render(request, "blog/create.html", context)
 
 
 # Based on create_new_post view
-#@login_required
-#def update_post(request, slug):
+# @login_required
+# def update_post(request, slug):
 #    post = get_object_or_404(Post, slug=slug)
 
 #    if request.user != post.author:
@@ -137,44 +155,53 @@ def create_new_post(request):
 #        return redirect('post-detail', slug=slug)
 #
 #    if request.method == 'POST':
-#        post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
+#        post_form = PostUpdateForm(
+#    request.POST, request.FILES, instance=post
+#     )
 #        if post_form.is_valid():
 #            post = post_form.save()
-#            post.update_slug()  
+#            post.update_slug()
 #            post_form.save()
 #            messages.success(request, 'Post updated successfully.')
-#            return redirect('post_detail', slug=post.slug) 
+#            return redirect('post_detail', slug=post.slug)
 #        else:
-#            messages.error(request, 'There was an error updating your post. Please check the form and try again.')
+#            messages.error(
+#    request, 'There was an error updating your post.
+# Please check the form and try again.')
 #    else:
 #        post_form = PostUpdateForm(instance=post)
-#    
+#
 #    context = {'post_form': post_form, 'slug':slug}
 #    return render(request, 'blog/update_post.html', context)
+
 
 @login_required
 def update_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
     if request.user != post.author:
-        messages.error(request, 'You are not authorized to edit this post.')
-        return redirect('post-detail', slug=slug)
+        messages.error(request, "You are not authorized to edit this post.")
+        return redirect("post-detail", slug=slug)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         post_form = PostUpdateForm(request.POST, request.FILES, instance=post)
         if post_form.is_valid():
             post = post_form.save(commit=False)
             post.update_slug()
             post.save()
-            messages.success(request, 'Post updated successfully.')
-            return redirect('post_detail', slug=post.slug)
+            messages.success(request, "Post updated successfully.")
+            return redirect("post_detail", slug=post.slug)
         else:
-            messages.error(request, 'There was an error updating your post. Please check the form and try again.')
+            messages.error(
+                request,
+                "There was an error updating your post." +
+                " Please check the form and try again.",
+            )
     else:
         post_form = PostUpdateForm(instance=post)
-    
-    context = {'post_form': post_form, 'slug': slug}
-    return render(request, 'blog/update_post.html', context)
+
+    context = {"post_form": post_form, "slug": slug}
+    return render(request, "blog/update_post.html", context)
 
 
 # Based on update_post view
@@ -183,16 +210,17 @@ def delete_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
 
     if request.user != post.author:
-        messages.error(request, 'You are not authorized to delete this post!')
+        messages.error(request, "You are not authorized to delete this post!")
     else:
         post.delete()
-        messages.success(request, 'Post deleted successfully!')
+        messages.success(request, "Post deleted successfully!")
 
-    return redirect('blog-home')
+    return redirect("blog-home")
+
 
 # Based on CI walk threw
-#@login_required
-#def edit_comment(request, comment_id, slug):
+# @login_required
+# def edit_comment(request, comment_id, slug):
 #    post = get_object_or_404(Post, slug=slug)
 #    #comment_form = CommentForm(data=request.POST, instance=comment)
 #    comments = get_object_or_404(Comment, pk=comment_id)
@@ -208,9 +236,11 @@ def delete_post(request, slug):
 #                request, messages.SUCCESS,
 #                'Comment Updated!')
 #    else:
-#        messages.add_message(request, messages.ERROR, 'Error updating comment')
+#        messages.add_message(
+#    request, messages.ERROR, 'Error updating comment')
 #
 #    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+
 
 @login_required
 def edit_comment(request, comment_id, slug):
@@ -219,36 +249,50 @@ def edit_comment(request, comment_id, slug):
     if request.method == "POST":
         comment_form = CommentForm(data=request.POST, instance=comments)
         if not comment_form.is_valid():
-            context = {'comment_form': comment_form, 'post': post, 'comments': [comments]}
-            return render(request, 'blog/post_detail.html', context)  # Render with errors
+            context = {
+                "comment_form": comment_form,
+                "post": post,
+                "comments": [comments],
+            }
+            return render(
+                request, "blog/post_detail.html", context
+            )  # Render with errors
         else:
-            if comments.author != request.user:  # Check author before saving
-                return HttpResponseForbidden('You are not authorized to edit this comment.')
+            if comments.author != request.user:
+                return HttpResponseForbidden(
+                    "You are not authorized to edit this comment."
+                )
             comment = comment_form.save(commit=False)
             comment.author = request.user
             comment.post = post
             comment.approved = False
             comment.save()
-            messages.add_message(request, messages.SUCCESS, 'Comment Updated!')
-            return HttpResponseRedirect(reverse('post_detail', args=[slug]))  # Redirect on success
+            messages.add_message(request, messages.SUCCESS, "Comment Updated!")
+            return HttpResponseRedirect(
+                reverse("post_detail", args=[slug])
+            )  # Redirect on success
 
 
 # Based on CI walk threw
 @login_required
 def delete_comment(request, slug, comment_id):
-    if request.method == 'POST':
+    if request.method == "POST":
         post = get_object_or_404(Post, slug=slug)
         comment = get_object_or_404(Comment, pk=comment_id)
         if request.user == comment.author:
             comment.delete()
-            messages.success(request, 'Comment deleted successfully!')
+            messages.success(request, "Comment deleted successfully!")
         else:
-            messages.error(request, 'You can only delete your own comments!')
-            return HttpResponseRedirect(reverse('login') + '?next=' + reverse('delete_comment', args=[post.slug, comment.id]))
-    else: 
-        messages.error(request, 'Invalid request method!')
+            messages.error(request, "You can only delete your own comments!")
+            return HttpResponseRedirect(
+                reverse("login")
+                + "?next="
+                + reverse("delete_comment", args=[post.slug, comment.id])
+            )
+    else:
+        messages.error(request, "Invalid request method!")
 
-    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
+    return HttpResponseRedirect(reverse("post_detail", args=[slug]))
 
 
 # Based on tutorial: https://www.youtube.com/watch?v=PXqRPqDjDgc
@@ -256,67 +300,74 @@ def delete_comment(request, slug, comment_id):
 def likes(request, pk):
     post = get_object_or_404(Post, pk=pk)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         if request.user.is_authenticated:
             if request.user in post.likes.all():
                 post.likes.remove(request.user)
             else:
                 post.likes.add(request.user)
         else:
-            messages.error(request, 'You need to log in to like posts.')
-    
-    return redirect('blog-home')
+            messages.error(request, "You need to log in to like posts.")
+
+    return redirect("blog-home")
+
 
 # Based on tutorial: https://www.youtube.com/watch?v=onZ69P9wS2o
 @login_required
 def thumbs(request, pk):
-    if request.method == 'POST' and request.POST.get('action') == 'thumbs':
+    if request.method == "POST" and request.POST.get("action") == "thumbs":
         id = pk
-        button = request.POST.get('button')
+        button = request.POST.get("button")
         update = get_object_or_404(Post, pk=id)
 
         # Check if user already voted
-        user_vote = Vote.objects.filter(post_id=id, user_id=request.user.id).first()
+        user_vote = Vote.objects.filter(
+            post_id=id, user_id=request.user.id
+        ).first()
 
-        if not user_vote:  
+        if not user_vote:
             # User hasn't voted before
-            if button == 'thumbsup':
-                update.thumbsup = F('thumbsup') + 1
-                new_vote = Vote(post_id=id, user_id=request.user.id, vote=True)
+            if button == "thumbsup":
+                update.thumbsup = F("thumbsup") + 1
+                new_vote = Vote(
+                    post_id=id, user_id=request.user.id, vote=True
+                    )
                 new_vote.save()
             else:
-                update.thumbsdown = F('thumbsdown') + 1
-                new_vote = Vote(post_id=id, user_id=request.user.id, vote=False)
+                update.thumbsdown = F("thumbsdown") + 1
+                new_vote = Vote(
+                    post_id=id, user_id=request.user.id, vote=False
+                )
                 new_vote.save()
         else:  # User has already voted
-            if button == 'thumbsup' and user_vote.vote:
+            if button == "thumbsup" and user_vote.vote:
                 # Upvoted and clicks upvote again --> remove vote
-                update.thumbsup = F('thumbsup') - 1
+                update.thumbsup = F("thumbsup") - 1
                 user_vote.delete()
-            elif button == 'thumbsdown' and not user_vote.vote:
+            elif button == "thumbsdown" and not user_vote.vote:
                 # Downvoted and clicks downvote again --> remove vote
-                update.thumbsdown = F('thumbsdown') - 1
+                update.thumbsdown = F("thumbsdown") - 1
                 user_vote.delete()
             else:
                 # User voted with a different value before --> change vote
                 user_vote.vote = not user_vote.vote  # Flip the vote value
-                user_vote.save(update_fields=['vote'])
+                user_vote.save(update_fields=["vote"])
                 if user_vote.vote:
-                    update.thumbsup = F('thumbsup') + 1
-                    update.thumbsdown = F('thumbsdown') - 1
+                    update.thumbsup = F("thumbsup") + 1
+                    update.thumbsdown = F("thumbsdown") - 1
                 else:
-                    update.thumbsup = F('thumbsup') - 1
-                    update.thumbsdown = F('thumbsdown') + 1
+                    update.thumbsup = F("thumbsup") - 1
+                    update.thumbsdown = F("thumbsdown") + 1
 
         update.save()
         update.refresh_from_db()
         up = update.thumbsup
         down = update.thumbsdown
-        return JsonResponse({'up': up, 'down': down})
+        return JsonResponse({"up": up, "down": down})
 
-    #return JsonResponse({'error': 'Invalid request'})
-    return redirect('login')
+    # return JsonResponse({'error': 'Invalid request'})
+    return redirect("login")
 
 
 def about(request):
-        return render(request, 'blog/about.html', {'title': 'About'})
+    return render(request, "blog/about.html", {"title": "About"})
