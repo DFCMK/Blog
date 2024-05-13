@@ -211,7 +211,7 @@ The Home Page contains a list of all published posts and displays 3 posts per ro
 
 <details><summary><b>Home Page</b></summary>
 
-![Home Page](readme/assets/images/home-page.png)
+![Home Page](readme/assets/images/home-without-thumbs.png)
 </details><br/>
 
 ### **Profile**
@@ -220,22 +220,22 @@ The User's Profile Page has a Profile container with the username, profile image
 
 <details><summary><b>Profile Container</b></summary>
 
-![Profile Container](readme/assets/images/profile-container.png)
+![Profile Container](readme/assets/images/new-profile-container.png)
 </details><br/>
 
 <details><summary><b>Profile Form</b></summary>
 
-![Profile Form](readme/assets/images/profile-form.png)
+![Profile Form](readme/assets/images/new-profile-form.png)
 </details><br/>
 
 <details><summary><b>Deletion Modal</b></summary>
 
-![Review Detail View - User Logged In](readme/assets/images/delete-profile.png)
+![Review Detail View - User Logged In](readme/assets/images/new-delete-profile.png)
 </details><br/>
 
 <details><summary><b>Users Own Posts</b></summary>
 
-![Profile Form](readme/assets/images/users-posts.png)
+![Profile Form](readme/assets/images/new-user-posts.png)
 </details><br/>
 
 <details><summary><b>Users Favorite Posts</b></summary>
@@ -266,25 +266,23 @@ Post and comment sections are wrapped in a scrollable container to enable scroll
 
 * *Post* - Title with an image at the top of the page, followed by content below.
 * *Icons Thumbs (Up/Down), Heart* - Icons allow user to like/dislike and mark post as favorite
-<!--IMPLEMENTATION OF DRAFT AND APPROVAL FOR POSTS WOULD BE NECESSERY!!!!!-->
 
 <details><summary><b>Post</b></summary>
 
-![Member Reviews](readme/assets/images/post.png)
+![Member Reviews](readme/assets/images/new-post.png)
 </details><br/>
 
 ### **Update Post / Delete Post**
 Below the user's own published posts, there are two buttons: Edit and Delete. When a user clicks on the Edit button, the post form will open up and repopulate the input fields with the existing post content and title. Additionally, there is an upload field below the post form that allows the user to upload a new image to the post. After making any necessary changes, the user can click the Update button below the form to submit the new data. If the user wishes to delete the post, they can click the Delete button.
-<!--ADD APPROVE FUNCTIONALITY SO SUBMITED POSTS GET SAVED AS DRAFT AS DEFAULT!!!!!!-->
 
-<details><summary><b>Post with Update option</b></summary>
+<details><summary><b>Edit button below the Post</b></summary>
 
-![Member Reviews](readme/assets/images/post-with-update-btn.png)
+![Member Reviews](readme/assets/images/edit-btn-below-post.png)
 </details><br/>
 
 <details><summary><b>Post Update Form</b></summary>
 
-![Create Review](readme/assets/images/post-updateform.png)
+![Create Review](readme/assets/images/new-post-updateform.png)
 </details><br/>
 
 ### Thumbs / Favorites
@@ -395,6 +393,8 @@ The sites incorporates flash messages and confirmation messages when an action h
 * Advanced Search: Implement advanced search functionality to allow users to search for restaurants based on various criteria such as cuisine, location, price range, etc.
 * Rating system, which allow users to rate Published Reviews 1 to 5 Stars
 * Recommendation System: Develop a recommendation system that suggests restaurants to users based on their past preferences and review
+* Ensure that Reviews which where saved as Draft wont get displayed with published Posts.
+* A second Page within the Profile page would come handy to display the users own reviews and the favorites on seperated pages.
 
 [Back to top](<#table-of-content>)
 
