@@ -104,7 +104,7 @@ body {
     float: right;
   }
 
-  #bg {
+  /*#bg {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -117,7 +117,7 @@ body {
     margin-bottom: -30px;
     overflow: hidden;
     width: 100vw;
-}
+}*/
 
   /*CSS rules from walk threw related to post_detail.html*/
 
@@ -310,6 +310,18 @@ body {
 
 /* End of walk threw css rules */
 
+#div_id_username,
+#div_id_email,
+#div_id_profile_image,
+#div_id_title,
+#div_id_slug,
+#div_id_content,
+#div_id_excerpt,
+#div_id_featured_image,
+#div_id_status {
+    color: #ffffff;
+}
+
 .create-post {
   color: white;
 }
@@ -317,7 +329,8 @@ body {
 .about {
   color: #fff;
 }
-
+#form-container,
+#edit-form-container,
 .profile-post-container,
 .container-fluid,
 .post-detail {
@@ -350,11 +363,13 @@ body {
 }
 
 @media (min-width: 712px) and (max-width: 991px) {
+  .profile-post-container,
   .container-fluid,
   .container-new-post {
     max-height: 85vh;
     overflow-y: auto;
   }
+
   .custom-tablet-col {
     flex: 0 0 100%;
     max-width: 100%;
@@ -362,6 +377,7 @@ body {
 }
 
 @media screen and (width: 1024px) {
+  .profile-post-container,
   .container-fluid,
   .container-new-post {
     max-height: 85vh;
@@ -375,6 +391,7 @@ body {
 }
 
 @media screen and (width: 1280px) {
+  .profile-post-container,
   .container-fluid,
   .container-new-post {
     max-height: 80vh;
