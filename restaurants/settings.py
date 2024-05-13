@@ -60,6 +60,26 @@ INSTALLED_APPS = [
     #'vote',
 ]
 
+SUMMERNOTE_CONFIG = {
+    'summernote': {
+        'width': '100%',
+        'height': '500px',
+        'toolbar': [
+            ['style', ['style', 'bold', 'italic', 'underline', 'clear']],
+            ['font', ['fontsize', 'strikethrough', 'superscript', 'subscript']],
+            ['color', ['forecolor', 'backcolor']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['table', ['table']],
+            ['link', ['linkDialogShow', 'unlink']],
+            ['view', ['fullscreen', 'codeview']],
+            ['insert', ['picture', 'video']],
+            ['undo', ['undo', 'redo']],
+            ['editth', ['showblocks', 'help']],
+        ],
+        'spellChecker': False,
+    }
+}
+
 CLOUDINARY_STORAGE = {
     'CLOUDINARY_CLOUD_NAME': os.environ.get('CLOUDINARY_NAME'),
     'CLOUDINARY_API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
