@@ -1,5 +1,7 @@
 from django import forms
 from .models import Post, Comment
+from django_summernote.widgets import SummernoteWidget
+
 
 
 class CreateNewPostForm(forms.ModelForm):
@@ -12,7 +14,10 @@ class CreateNewPostForm(forms.ModelForm):
             'excerpt',
             'featured_image',
             'status'
-            ]
+        ]
+        widgets = {
+            'content': SummernoteWidget(),
+            }
 
     def save(self, commit=True):
         instance = super(CreateNewPostForm, self).save(commit=False)
@@ -34,7 +39,10 @@ class PostUpdateForm(forms.ModelForm):
             'excerpt',
             'featured_image',
             'status'
-            ]
+        ]
+        widgets = {
+            'content': SummernoteWidget(),
+            }
 
     def save(self, commit=True):
         instance = super().save(commit=False)
