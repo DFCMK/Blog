@@ -36,7 +36,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.IntegerField(choices=STATUS, default=0)
     excerpt = models.TextField(blank=True)
-    likes = models.ManyToManyField(User, related_name='blog_post')
+    likes = models.ManyToManyField(User, related_name='blog_post', blank=True)
     thumbsup = models.IntegerField(default=0)
     thumbsdown = models.IntegerField(default=0)
     thumbs = models.ManyToManyField(
