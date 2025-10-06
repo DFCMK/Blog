@@ -15,7 +15,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-#from blog.admin import blog_admin_site
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from users import views as user_views
@@ -24,14 +23,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path('admin/', admin.site.urls),
-    #path('blogadmin/', blog_admin_site.urls),
     path('summernote/', include('django_summernote.urls')),
     path('profile/', user_views.profile, name='profile'),
     path('delete/', user_views.delete_profile, name='delete'),
     path('register/', user_views.register, name='register'),
     path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-#    path('thumbs/', user_views.thumbs, name='thumbs'), # I might have to add this to blog or pull likes from blog into this, for consistensy!!!!
-    #path('admin_login/', auth_views.LoginView.as_view(template_name='admin/admin_login.html'), name='admin_login'),
     path('', include('blog.urls'))
 ]
