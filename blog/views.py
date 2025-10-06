@@ -118,61 +118,6 @@ def create_new_post(request):
     return render(request, "blog/create.html", context)
 
 
-# @login_required
-# def create_new_post(request):
-#    if request.method == "POST":
-#        post_form = CreateNewPostForm(request.POST, request.FILES)
-#        if post_form.is_valid():
-#            post = post_form.save(commit=False)
-#            post.author = request.user
-#            post.save()
-#            messages.success(request, "Your post was successfully submitted!")
-#            return redirect(
-#                "blog-home"
-#            )
-#        else:
-#            messages.error(
-#                request,
-#                "There was an error submitting your post.
-#                    Please check the form and try again.",
-#            )
-#    else:
-#        post_form = CreateNewPostForm()
-#
-#    context = {"post_form": post_form}
-#    return render(request, "blog/create.html", context)
-
-
-# Based on create_new_post view
-# @login_required
-# def update_post(request, slug):
-#    post = get_object_or_404(Post, slug=slug)
-
-#    if request.user != post.author:
-#        messages.error(request, 'You are not authorized to edit this post.')
-#        return redirect('post-detail', slug=slug)
-#
-#    if request.method == 'POST':
-#        post_form = PostUpdateForm(
-#    request.POST, request.FILES, instance=post
-#     )
-#        if post_form.is_valid():
-#            post = post_form.save()
-#            post.update_slug()
-#            post_form.save()
-#            messages.success(request, 'Post updated successfully.')
-#            return redirect('post_detail', slug=post.slug)
-#        else:
-#            messages.error(
-#    request, 'There was an error updating your post.
-# Please check the form and try again.')
-#    else:
-#        post_form = PostUpdateForm(instance=post)
-#
-#    context = {'post_form': post_form, 'slug':slug}
-#    return render(request, 'blog/update_post.html', context)
-
-
 @login_required
 def update_post(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -214,30 +159,6 @@ def delete_post(request, slug):
         messages.success(request, "Post deleted successfully!")
 
     return redirect("blog-home")
-
-
-# Based on CI walk threw
-# @login_required
-# def edit_comment(request, comment_id, slug):
-#    post = get_object_or_404(Post, slug=slug)
-#    #comment_form = CommentForm(data=request.POST, instance=comment)
-#    comments = get_object_or_404(Comment, pk=comment_id)
-#    if request.method == "POST":
-#        comment_form = CommentForm(data=request.POST)
-#        if comment_form.is_valid():
-#            comment = comment_form.save(commit=False)
-#            comment.author = request.user
-#            comment.post = post
-#            comment.approved = False
-#            comment.save()
-#            messages.add_message(
-#                request, messages.SUCCESS,
-#                'Comment Updated!')
-#    else:
-#        messages.add_message(
-#    request, messages.ERROR, 'Error updating comment')
-#
-#    return HttpResponseRedirect(reverse('post_detail', args=[slug]))
 
 
 @login_required
@@ -363,7 +284,6 @@ def thumbs(request, pk):
         down = update.thumbsdown
         return JsonResponse({"up": up, "down": down})
 
-    # return JsonResponse({'error': 'Invalid request'})
     return redirect("login")
 
 
