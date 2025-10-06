@@ -1,16 +1,12 @@
-# from django.contrib.auth import logout
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 from django.urls import reverse
 from .forms import UserUpdateForm
 from django.utils import timezone
 from datetime import timedelta
-# from django.core.paginator import Paginator, EmptyPage
 from .models import Profile
 from blog.models import Post
 from django.contrib.messages import get_messages
-# from django.contrib import messages
-
 
 class RegisterTestCase(TestCase):
     def setUp(self):

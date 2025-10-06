@@ -18,15 +18,4 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'post', 'body', 'date_posted', 'approved')
     list_filter = ('approved',)
 
-
-# Based on Tutorial: Custom Login Page Template / Part 6
-# class BlogAdminArea(admin.AdminSite):
-#    site_header = 'Blog Admin Area'
-#    admin_login_template = 'admin/admin_login.html'
-#
-# blog_admin_site = BlogAdminArea(name="BlogAdmin")
-
-
-# admin.site.register(Post)
 admin.site.register(Comment, CommentAdmin)
-# blog_admin_site.register(Comment, CommentAdmin)

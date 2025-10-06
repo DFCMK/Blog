@@ -5,14 +5,6 @@ from django.utils.text import slugify
 from cloudinary.models import CloudinaryField
 
 
-# validate_title = RegexValidator(
-#    regex=r'^[a-zA-Z0-9 _-]*$',
-#    message='Title can only contain letters,
-# numbers, spaces, underscores, dashes, and symbols.',
-#    code='invalid_title'
-# )
-
-
 # likes Based on: https://www.youtube.com/watch?v=PXqRPqDjDgc
 # Down and Up vote (thumbs up/ thumbs down) based on:
 # https://www.youtube.com/watch?v=onZ69P9wS2o
@@ -42,14 +34,6 @@ class Post(models.Model):
     thumbs = models.ManyToManyField(
         User, related_name='thumbs', default=None, blank=True
         )
-    # approved = models.BooleanField(default=False)
-    # votes = models.PositiveIntegerField(default=0)
-    # upvotes = models.PositiveIntegerField(default=0)
-    # downvotes = models.PositiveIntegerField(default=0)
-    # total_votes = models.IntegerField(default=0)
-
-    # def __str__(self):
-    #    return self.title
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title_changed():
@@ -74,23 +58,6 @@ class Post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
-
-
-# def vote(request, post_id):
-#    post = Post.objects.get(id=post_id)
-#    post.vote_up_or_down(True)
-#    return JsonResponse({'success': True})
-
-# def vote_down(request, post_id):
-#    post = Post.objects.get(id=post_id)
-#    post.vote_up_or_down(False)
-#    return JsonResponse({'success': True})
-
-# def total_votes(request, post_id):
-#    post = Post.objects.get(id=post_id)
-#    votes_total = post.total_votes()
-#    return JsonResponse({'total_votes': votes_total})
-
 
 # Based on: https://www.youtube.com/watch?v=onZ69P9wS2o
 class Vote(models.Model):
@@ -125,41 +92,8 @@ class Comment(models.Model):
     approved = models.BooleanField(default=False)
     date_posted = models.DateTimeField(auto_now_add=True)
 
-    # def approve(self):
-    #    self.approved = True
-    #    self.save()
-
-    # def __str__(self):
-    #    return self.body
-
     def __str__(self):
         return f"Comment {self.body} by {self.author}"
 
     class Meta:
         ordering = ["-date_posted"]
-
-
-# Based on Tutorial:
-# https://www.youtube.com/watch?v=fNMTKxO8HsI&list=PLOLrQ9Pn6cazhaxNDhcOIPYXt2zZhAXKO&index=6
-# class BlogAdminPage(models.Model):
-#        user = models.OneToOneField(User, on_delete=models.CASCADE)
-#        profile_image = CloudinaryField(
-#    'image', default='placeholder', transformation=[
-#        {
-#    'gravity': "face",
-#    'height': 200,
-#    'width': 200,
-#    'crop': "thumb"
-#    },
-#        {'radius': "max"},
-#        {'fetch_format': "auto"}
-#    ])
-#        user_comments = models.ManyToManyField(
-#    Comment, related_name='commented_by_users'
-#    )
-#        user_posts = models.ManyToManyField(
-#    Post, related_name='posted_by'
-#    )
-#
-#        def __str__(self):
-#            return f'{self.user.username} Profile'
