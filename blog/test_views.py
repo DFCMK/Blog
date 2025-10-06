@@ -50,8 +50,6 @@ class PostListViewTest(TestCase):
             )
 
         for i in range(1, 13):
-            # days_ago = i
-            # timestamp = timezone.now() - timedelta(days=days_ago)
             Post.objects.create(
                 author=self.user,
                 title=f"Test Post {i}",
@@ -933,10 +931,12 @@ class LikesView(TestCase):
                 'like_post', kwargs={'pk': self.post.pk}
                  ))
         self.assertEqual(
-            response.status_code, 302)  # Redirects to home page after liking
+            # Redirects to home page after liking
+            response.status_code, 302)
         self.assertIn(
             self.user,
-            self.post.likes.all())  # User is in the post's likes
+            # User is in the post's likes
+            self.post.likes.all())
 
     def test_logged_in_user_can_unlike_post(self):
         '''
@@ -951,7 +951,8 @@ class LikesView(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertNotIn(
             self.user,
-            self.post.likes.all())  # User is not in the post's likes
+            # User is not in the post's likes
+            self.post.likes.all())
 
     def test_logged_out_user_cannot_like_post(self):
         '''
@@ -1014,10 +1015,12 @@ class thumbs(TestCase):
             })
         self.assertEqual(response.status_code, 200)
         response_json = response.json()
-        self.assertIn('up', response_json)  # Check if 'up' key exists
+        # Check if 'up' key exists
+        self.assertIn('up', response_json)
         self.assertNotIn(
+            # Ensure 'error' key does not exist
             'error', response_json
-            )  # Ensure 'error' key does not exist
+            )
 
     def test_successful_downvote_unvoted_user(self):
         """
