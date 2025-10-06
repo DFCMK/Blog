@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log("load static");
     const formContainer = document.getElementById('form-container');
     const postDetailTitles = document.getElementsByClassName('post-title');
     const newPostBtn = document.getElementById('new-post-btn');
