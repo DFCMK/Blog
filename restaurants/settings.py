@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'django_summernote',
     'cloudinary',
-    #'vote',
 ]
 
 SUMMERNOTE_CONFIG = {
@@ -85,20 +84,6 @@ CLOUDINARY_STORAGE = {
     'CLOUDINARY_API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
     'CLOUDINARY_API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
-
-# Based on Jazzmin Documentation: https://django-jazzmin.readthedocs.io/configuration/
-#JAZZMIN_SETTINGS = {
-#    "topmenu_links": [
-#        {"name": "Back To Website",  "url": "/", "permissions": ["auth.view_user"], "visible_on":["all"]},
-#        ],
-#    }
-#else:
-#    JAZZMIN_SETTINGS = {
-#        "topmenu_links": [
-#        {"name": "Back To Website",  "url": "https://django-restaurant-blog-d6ddec41b70e.herokuapp.com", "permissions": ["auth.view_user"], "visible_on":["all"]},
-#    ],
-#    }
-
 
 JAZZMIN_SETTINGS = {
     "site_title": "Restaurant Reviews",
@@ -245,22 +230,7 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-
-# Set a fallback database configuration if DATABASE_URL is not set
-#if not 'DATABASE_URL' in os.environ:
-#    DATABASES['default'] = {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#else:
-#    DATABASES = {
-#        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-#        }
-
 # Adjusted DB config
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
