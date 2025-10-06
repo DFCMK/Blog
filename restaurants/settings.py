@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
@@ -247,15 +247,37 @@ WSGI_APPLICATION = 'restaurants.wsgi.application'
 
 
 # Set a fallback database configuration if DATABASE_URL is not set
-if not 'DATABASE_URL' in os.environ:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-else:
+#if not 'DATABASE_URL' in os.environ:
+#    DATABASES['default'] = {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#else:
+#    DATABASES = {
+#        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+#        }
+
+# Adjusted DB config
+# Database
+# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
+if 'DATABASE_URL' in os.environ:
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+    
+    if 'neon' in os.environ.get("DATABASE_URL", ""):
+        DATABASES['default']['OPTIONS'] = {
+            'sslmode': 'require',
         }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+
 
 # Added for Testing
 if 'test' in sys.argv:
