@@ -163,7 +163,7 @@ body {
 
 .comment-display {
   max-height: 500px;
-  overflow-y: auto; /* Add vertical scroll if content exceeds max height */
+  overflow-y: auto;
 }
 
 .comment-container {
@@ -177,7 +177,7 @@ body {
 
 .card-body {
   background-color: #fff;
-  padding: 90px;
+  padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -373,6 +373,10 @@ body {
   .custom-tablet-col {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+
+  .card-body{
+    padding: 90px;
   }
 }
 
