@@ -177,7 +177,7 @@ body {
 
 .card-body {
   background-color: #fff;
-  padding: 20px;
+  padding: 60px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -352,6 +352,13 @@ body {
     overflow-y: auto;
     margin-bottom: 25px;
   }
+  .card-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 }
 
 @media screen and (max-width:711px) {
@@ -360,6 +367,13 @@ body {
     max-height: 60vh;
     overflow-y: auto;
   }
+  .card-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
 }
 
 @media (min-width: 712px) and (max-width: 991px) {
@@ -374,11 +388,14 @@ body {
     flex: 0 0 100%;
     max-width: 100%;
   }
-
-  .card-body{
-    padding: 90px;
-  }
+  .card-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+}
+
 
 @media screen and (width: 1024px) {
   .profile-post-container,
@@ -392,6 +409,12 @@ body {
     flex: 0 0 100%;
     max-width: 100%;
   }
+  .card-body {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 }
 
 @media screen and (width: 1280px) {
@@ -453,5 +476,4 @@ body {
   .row {
       display: flex;
       flex-wrap: wrap;
-  }
-}*/
+  }*/
