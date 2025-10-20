@@ -15,6 +15,14 @@ STATUS = ((0, "Draft"), (1, "Published"))
 class Post(models.Model):
     title = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True)
+
+    CATEGORY_CHOICES = [
+        ('stories', 'Short Sotires/Novellas'),
+        ('programming', 'Programming Guide'),
+        ('spirituality', 'Spirituality'),
+        ('general', 'General'),
+    ]
+
     featured_image = CloudinaryField(
         'post_image', default='placeholder', transformation=[{
             'width': 200,
@@ -34,6 +42,13 @@ class Post(models.Model):
     thumbs = models.ManyToManyField(
         User, related_name='thumbs', default=None, blank=True
         )
+
+    category = models.CharField(
+        max_length=20, 
+        choices=CATEGORY_CHOICES,
+        default='general'
+    )
+    
 
     def save(self, *args, **kwargs):
         if not self.slug or self.title_changed():

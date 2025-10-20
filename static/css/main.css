@@ -53,6 +53,69 @@ body {
     color: #f39c12 !important;
     font-weight: 600;
 }
+
+/*Added*/
+/* Category Header Styles */
+.category-header {
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.9) 100%);
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+/* Post Card Styles */
+.post-container {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.post-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.article-title {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.article-title:hover {
+    color: #3498db !important;
+    text-decoration: none;
+}
+
+/* Category Badges */
+.badge {
+    font-size: 0.7rem;
+    padding: 0.4em 0.8em;
+}
+
+/* Empty State */
+.empty-state {
+    padding: 3rem 1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .category-header {
+        margin-top: 1rem;
+        padding: 1.5rem !important;
+    }
+}
+
+/* Dark background adjustments */
+.dark-bg .card {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.dark-bg .text-muted {
+    color: #6c757d !important;
+} 
+/*Added End*/
   
   .content-section {
     background: #ffffff;

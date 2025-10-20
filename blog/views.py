@@ -18,12 +18,13 @@ def home(request):
 
 
 # Tutorial video 10 - 9:00min.
-class PostListView(ListView):
+class BasePostListView(ListView):
     model = Post
     template_name = "blog/home.html"
     context_object_name = "posts"
     ordering = ["-date_posted"]
     paginate_by = 6
+    category = None
 
 
 # Create Slugs based on simple.rocks:
@@ -289,3 +290,36 @@ def thumbs(request, pk):
 
 def about(request):
     return render(request, "blog/about.html", {"title": "About"})
+
+def get_queryset(self):
+    queryset = super().get_queryset()
+    if self.category:
+        queryset = queryset.filter(category=self.category)
+    return queryset
+
+def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    context['current_category'] = self.category
+    context['page_title'] = self.get_page_title()
+    return context
+    
+def get_page_title(self):
+    title_map = {
+        'stories': 'Short Stories & Novellas',
+        'programming': 'Programming Guides',
+        'spirituality': 'Spirituality',
+        None: 'All Posts'
+        }
+    return title_map.get(self.category, 'All Posts')
+
+class StoriesListView(BasePostListView):
+    category = 'stories'
+
+class ProgrammingListView(BasePostListView):
+    category = 'programming'
+
+class SpiritualityListView(BasePostListView):
+    category = 'spirituality'
+
+class AllPostsListView(BasePostListView):
+    category = None

@@ -9,6 +9,7 @@ class CreateNewPostForm(forms.ModelForm):
         model = Post
         fields = [
             'title',
+            'category',
             'slug',
             'content',
             'excerpt',
@@ -16,6 +17,9 @@ class CreateNewPostForm(forms.ModelForm):
             'status'
         ]
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'content': SummernoteWidget(),
             }
 
