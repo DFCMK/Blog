@@ -18,6 +18,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    // Navbar scroll effect
+    $(document).ready(function() {
+        $(window).scroll(function() {
+            if ($(window).scrollTop() > 50) {
+                $('.navbar').addClass('navbar-scrolled');
+            } else {
+                $('.navbar').removeClass('navbar-scrolled');
+            }
+        });
+        
+        // Add active class to current page
+        const currentLocation = location.href;
+        const menuItems = document.querySelectorAll('.nav-link');
+        
+        menuItems.forEach(item => {
+            if (item.href === currentLocation) {
+                item.parentElement.classList.add('active');
+            }
+        });
+    });
+
     // Profile Delete Button Hide
     function hideDeleteButton() {
         const deleteButton = document.getElementById('delete-button');
