@@ -18,15 +18,15 @@
 <!--Background image based on: https://stackoverflow.com/questions/16014910/how-to-apply-background-image-for-an-templates-in-django-->
 <body class="dark-bg">
     <!--Tutorial video3 min. 33-->
-<header class="site-header">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-steel fixed-top">
-        <div class="container">
-            <a class="navbar-brand mr-4" href="{% url 'blog-home' %}">Restaurant Blog</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
-                aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <div class="container">
+                <a class="navbar-brand mr-4" href="/">Restaurant Blog</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle"
+                    aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggle">
                 <!-- Main Navigation -->
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link {% if request.resolver_match.url_name == 'blog-home' %}active{% endif %}" 
@@ -40,9 +40,23 @@
                     <a class="nav-item nav-link {% if request.resolver_match.url_name == 'blog-about' %}active{% endif %}" 
                        href="{% url 'blog-about' %}">About</a>
                 </div>
+                    <!-- Navbar Right Side -->
+                    <div class="navbar-nav">
+                        {% if user.is_authenticated %}
+                            <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                            <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                            <a class="nav-item nav-link" id="create-post-link" href="{% url 'new_post' %}"> New Post</a>
+                        {% else %}
+                            <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                            <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                        <a class="nav-item nav-link" href="{% url 'admin:index' %}">Admin Area</a>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
     </header>
     <!--Tutorial video3 min.34-->
     <main class="container-fluid"><!--Removed role="main"-->
