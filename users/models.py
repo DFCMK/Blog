@@ -14,6 +14,10 @@ class Profile(models.Model):
             {"fetch_format": "auto"},
         ],
     )
+    bio = models.TextField(max_length=500, blank=True) 
 
     def __str__(self):
         return f"{self.user.username} Profile"
+
+    def get_followers_count(self):
+        return 0
