@@ -10,7 +10,7 @@ class CreateNewPostForm(forms.ModelForm):
         fields = [
             'title',
             'category',
-            'slug',
+            #'slug',
             'content',
             'excerpt',
             'featured_image',
@@ -21,7 +21,13 @@ class CreateNewPostForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}),
             'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'content': SummernoteWidget(),
+            'status': forms.Select(attrs={'class': 'form-control'}),
             }
+
+    def __init__(self, *args, **kwargs):
+        super(CreateNewPostForm, self).__init__(*args, **kwargs)
+        if 'slug' in self.fields:
+            del self.fields['slug']
 
     def save(self, commit=True):
         instance = super(CreateNewPostForm, self).save(commit=False)
@@ -38,14 +44,19 @@ class PostUpdateForm(forms.ModelForm):
         model = Post
         fields = [
             'title',
-            'slug',
+            'category',
+            #'slug',
             'content',
             'excerpt',
             'featured_image',
             'status'
         ]
         widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+            'excerpt': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'content': SummernoteWidget(),
+            'status': forms.Select(attrs={'class': 'form-control'}),
             }
 
     def save(self, commit=True):
