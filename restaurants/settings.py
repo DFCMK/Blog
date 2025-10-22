@@ -73,10 +73,34 @@ SUMMERNOTE_CONFIG = {
             ['view', ['fullscreen', 'codeview']],
             ['insert', ['picture', 'video']],
             ['undo', ['undo', 'redo']],
-            ['editth', ['showblocks', 'help']],
         ],
         'spellChecker': False,
-    }
+        'fontSizes': ['8', '9', '10', '11', '12', '14', '16', '18', '24', '36'],
+        'fontNames': ['Arial', 'Helvetica', 'Georgia', 'Times New Roman', 'Courier New'],
+        'fontNamesIgnoreCheck': ['Arial', 'Helvetica', 'Georgia', 'Times New Roman'],
+        'lineHeights': ['0.5', '0.8', '1.0', '1.2', '1.5', '2.0'],
+        'styleTags': ['p', 'blockquote', 'pre', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        
+        'cleanPaste': True,
+        'cleanOnPaste': True,
+        'cleanStyleOnEnter': True,
+        'disableResizeEditor': True,
+        
+        'dialogsInBody': True,
+        'shortcuts': False,
+    },
+    'css': (
+        '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.0/codemirror.min.css',
+    ),
+    'css_for_inplace': (
+        '//cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.0/codemirror.min.css',
+    ),
+    'codemirror': {
+        'mode': 'htmlmixed',
+        'lineNumbers': True,
+        'theme': 'monokai',
+    },
+    'lazy': True,
 }
 
 CLOUDINARY_STORAGE = {
