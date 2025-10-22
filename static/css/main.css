@@ -148,6 +148,60 @@ body {
     font-size: 2.5rem;
   }
 
+  /*----Create Post-----------------------*/
+
+.create-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 3rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+}
+
+.category-btn {
+    padding: 2rem 1rem;
+    border: 2px solid;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.category-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.quick-start-options {
+    padding: 2rem;
+}
+
+.editor-info {
+    background: #f8f9fa;
+    padding: 0.75rem;
+    border-radius: 5px;
+    border-left: 4px solid #007bff;
+}
+
+.image-preview {
+    border: 2px dashed #dee2e6;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.custom-file-label::after {
+    content: "Browse";
+}
+
+.note-editor.note-frame {
+    border: 1px solid #dee2e6 !important;
+    border-radius: 5px !important;
+}
+
+.note-editor.note-frame .note-toolbar {
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+/*----End Create Post-----------------------*/
+
   /*Profile styles*/
   /*.profile-container {
     display: flex; 
