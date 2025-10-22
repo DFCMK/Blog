@@ -4,22 +4,157 @@
 
 {% block content %}
 
-<div class="container-new-post">
-  <h1 class="create-post">Create a new post</h1>
-  <div class="row">
-    <div class="col-md-12">
-      <div id="form-container" style="display: none;">
-        {% if user.is_authenticated %}
-        <form method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-          {{ post_form|crispy }}
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <!-- Header Section -->
+      <div class="create-header text-center mb-5">
+        <h1 class="display-4 text-white mb-3">Create New Post</h1>
+        <p class="lead text-light">Share your thoughts, stories, or guides with the community</p>
       </div>
-      {% endif %}
-      <div class="card-body" id="new-post-container">
-        <h5 class="card-title">Create a New Post</h5>
-        <button id="new-post-btn" class="btn btn-primary">New Post</button>
+
+      <!-- Form Container -->
+      <div class="card shadow-lg border-0">
+        <div class="card-body p-5">
+          {% if user.is_authenticated %}
+          <!-- Quick Start Options -->
+          <div class="quick-start-options text-center mb-4" id="quick-start">
+            <h4 class="mb-4">What would you like to write about?</h4>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <button class="btn btn-outline-primary btn-lg w-100 h-100 category-btn" data-category="stories">
+                  <i class="fas fa-book fa-2x mb-2"></i>
+                  <h5>Short Story</h5>
+                  <small class="text-muted">Share a creative story</small>
+                </button>
+              </div>
+              <div class="col-md-4 mb-3">
+                <button class="btn btn-outline-success btn-lg w-100 h-100 category-btn" data-category="programming">
+                  <i class="fas fa-code fa-2x mb-2"></i>
+                  <h5>Programming Guide</h5>
+                  <small class="text-muted">Teach something technical</small>
+                </button>
+              </div>
+              <div class="col-md-4 mb-3">
+                <button class="btn btn-outline-warning btn-lg w-100 h-100 category-btn" data-category="spirituality">
+                  <i class="fas fa-spa fa-2x mb-2"></i>
+                  <h5>Spiritual Insight</h5>
+                  <small class="text-muted">Share wisdom and reflections</small>
+                </button>
+              </div>
+            </div>
+            <div class="mt-4">
+              <button class="btn btn-secondary" id="skip-category-btn">
+                <i class="fas fa-arrow-right mr-2"></i>Skip to form
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Form -->
+          <div id="post-form-container" style="display: none;">
+            <div class="form-header d-flex justify-content-between align-items-center mb-4">
+              <h3 class="mb-0">Create Your Post</h3>
+              <button type="button" class="btn btn-outline-secondary" id="back-to-categories">
+                <i class="fas fa-arrow-left mr-2"></i>Change Category
+              </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="post-form">
+              {% csrf_token %}
+
+              <!-- Category Preview -->
+              <div class="category-preview alert alert-info mb-4" id="category-preview" style="display: none;">
+                <i class="fas fa-tag mr-2"></i>
+                <strong>Category:</strong> <span id="selected-category"></span>
+              </div>
+
+              <div class="row">
+                <div class="col-md-8">
+                  {{ post_form.title|as_crispy_field }}
+                </div>
+                <div class="col-md-4">
+                  {{ post_form.category|as_crispy_field }}
+                </div>
+              </div>
+
+              {{ post_form.excerpt|as_crispy_field }}
+
+              <!-- Featured Image Upload with Preview -->
+              <div class="form-group">
+                <label for="featured_image">Featured Image</label>
+                <div class="custom-file">
+                  {{ post_form.featured_image }}
+                  <label class="custom-file-label" for="featured_image">Choose image...</label>
+                </div>
+                <small class="form-text text-muted">
+                  Recommended size: 1200x600px. This will be the main image for your post.
+                </small>
+                <div class="image-preview mt-2" id="image-preview" style="display: none;">
+                  <img id="preview-img" class="img-fluid rounded" style="max-height: 200px;">
+                  <button type="button" class="btn btn-sm btn-outline-danger mt-2" id="remove-image">
+                    <i class="fas fa-times mr-1"></i>Remove Image
+                  </button>
+                </div>
+              </div>
+
+              <!-- Content Editor -->
+              <div class="form-group">
+                <label for="id_content">Content</label>
+                <div class="editor-info mb-2">
+                  <small class="text-muted">
+                    <i class="fas fa-info-circle mr-1"></i>
+                    Use the toolbar above for formatting. You can add images, links, and more.
+                  </small>
+                </div>
+                {{ post_form.content }}
+              </div>
+
+              <!-- Status and Actions -->
+              <div class="row">
+                <div class="col-md-6">
+                  {{ post_form.status|as_crispy_field }}
+                </div>
+                <div class="col-md-6 text-right">
+                  <div class="btn-group mt-4">
+                    <button type="button" class="btn btn-outline-secondary" id="preview-post">
+                      <i class="fas fa-eye mr-2"></i>Preview
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      <i class="fas fa-paper-plane mr-2"></i>Publish Post
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          {% else %}
+          <!-- Not Authenticated Message -->
+          <div class="text-center py-5">
+            <i class="fas fa-lock fa-3x text-muted mb-3"></i>
+            <h3>Authentication Required</h3>
+            <p class="text-muted">You need to be logged in to create a post.</p>
+            <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary mr-2">
+              <i class="fas fa-sign-in-alt mr-2"></i>Login
+            </a>
+            <a href="{% url 'register' %}" class="btn btn-outline-primary">
+              <i class="fas fa-user-plus mr-2"></i>Register
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Tips Section -->
+      <div class="card mt-4 border-0 bg-light">
+        <div class="card-body">
+          <h5><i class="fas fa-lightbulb text-warning mr-2"></i>Writing Tips</h5>
+          <ul class="list-unstyled mb-0">
+            <li><i class="fas fa-check text-success mr-2"></i> Write a compelling title that grabs attention</li>
+            <li><i class="fas fa-check text-success mr-2"></i> Use the excerpt to summarize your post</li>
+            <li><i class="fas fa-check text-success mr-2"></i> Add relevant images to make your post engaging</li>
+            <li><i class="fas fa-check text-success mr-2"></i> Use headings and formatting to improve readability</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
