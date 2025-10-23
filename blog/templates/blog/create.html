@@ -83,13 +83,14 @@
               <div class="form-group">
                 <label for="featured_image">Featured Image</label>
                 <div class="custom-file">
-                  {{ post_form.featured_image }}
+                  <input type="file" class="custom-file-input" id="featured_image" name="featured_image"
+                    accept="image/*">
                   <label class="custom-file-label" for="featured_image">Choose image...</label>
                 </div>
                 <small class="form-text text-muted">
                   Recommended size: 1200x600px. This will be the main image for your post.
                 </small>
-                <div class="image-preview mt-2" id="image-preview" style="display: none;">
+                                <div class="image-preview mt-2" id="image-preview" style="display: none;">
                   <img id="preview-img" class="img-fluid rounded" style="max-height: 200px;">
                   <button type="button" class="btn btn-sm btn-outline-danger mt-2" id="remove-image">
                     <i class="fas fa-times mr-1"></i>Remove Image
